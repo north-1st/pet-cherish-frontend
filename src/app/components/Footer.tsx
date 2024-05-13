@@ -1,4 +1,14 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
+
 const Footer = () => {
+  const pathname = usePathname();
+  const pathsWithoutHeaderAndFooter = ['/register', '/login'];
+  const shouldHideHeaderAndFooter = pathsWithoutHeaderAndFooter.includes(pathname);
+
+  if (shouldHideHeaderAndFooter) return null;
+
   return (
     <footer className='text-gray-600'>
       <div className='container flex h-20 flex-col items-center justify-center'>
