@@ -71,6 +71,9 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      minHeight: {
+        'screen-minus-144px': 'calc(100vh - 144px)', // 減去 Header 和 Footer 總高度 144px
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
