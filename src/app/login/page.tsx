@@ -39,7 +39,7 @@ const Login = () => {
               <Button className='w-full bg-[#26a69a]'>註冊</Button>
               <p className='mt-4 text-center text-sm'>
                 Don&#39;t have an account? &nbsp;
-                <Link className='text-blue-500 hover:text-blue-600' href='/register'>
+                <Link className='text-blue-500 hover:text-blue-600' href='/signup'>
                   Sign Up
                 </Link>
               </p>
