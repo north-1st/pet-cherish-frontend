@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 
 const Footer = () => {
   const pathname = usePathname();
-  const pathsWithoutHeaderAndFooter = ['/register', '/login'];
+  const pathsWithoutHeaderAndFooter = ['/signup', '/login'];
   const shouldHideHeaderAndFooter = pathsWithoutHeaderAndFooter.includes(pathname);
 
   if (shouldHideHeaderAndFooter) return null;

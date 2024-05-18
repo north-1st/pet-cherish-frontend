@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 
 const Header = () => {
   const pathname = usePathname();
-  const pathsWithoutHeaderAndFooter = ['/register', '/login'];
+  const pathsWithoutHeaderAndFooter = ['/signup', '/login'];
   const shouldHideHeaderAndFooter = pathsWithoutHeaderAndFooter.includes(pathname);
 
   if (shouldHideHeaderAndFooter) return null;
@@ -19,7 +19,7 @@ const Header = () => {
           Logo
         </Link>
         <div className='flex items-center gap-4'>
-          <Link className='text-lg font-bold text-gray-900' href='/register'>
+          <Link className='text-lg font-bold text-gray-900' href='/signup'>
             <Button variant='outline'>註冊</Button>
           </Link>
           <Link className='text-lg font-bold text-gray-900' href='/login'>
