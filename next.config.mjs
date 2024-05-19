@@ -3,6 +3,9 @@ const nextConfig = {
   images: {
     domains: ['pixabay.com'],
   },
+  experimental: {
+    serverActions: true,
+  },
 };
 
 export default nextConfig;

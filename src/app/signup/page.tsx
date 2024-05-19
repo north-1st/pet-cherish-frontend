@@ -1,10 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+
+import SignupForm from './components/SignupForm';
 
 const Signup = () => {
   return (
@@ -27,31 +26,13 @@ const Signup = () => {
         <Card className='w-[350px] rounded-none rounded-r-lg border-none shadow-none'>
           <CardContent className='p-10'>
             <h1 className='mb-4 text-center text-xl font-semibold'>Sign Up</h1>
-            <form className='space-y-4'>
-              <div>
-                <Label htmlFor='email'>Email*</Label>
-                <Input id='email' placeholder='您的電子郵件' type='email' />
-              </div>
-              <div>
-                <Label htmlFor='password'>密碼*</Label>
-                <Input id='password' placeholder='選擇一個密碼' type='password' />
-              </div>
-              <div>
-                <Label htmlFor='name'>姓名*</Label>
-                <Input id='name' placeholder='您的全名' type='text' />
-              </div>
-              <div>
-                <Label htmlFor='confirm-password'>確認密碼*</Label>
-                <Input id='confirm-password' placeholder='再次輸入密碼' type='password' />
-              </div>
-              <Button className='w-full bg-[#26a69a]'>註冊</Button>
-              <p className='mt-4 text-center text-sm'>
-                Already have an account?&nbsp;
-                <Link className='text-blue-500 hover:text-blue-600' href='/login'>
-                  Log in
-                </Link>
-              </p>
-            </form>
+            <SignupForm />
+            <p className='mt-4 text-center text-sm'>
+              Already have an account?&nbsp;
+              <Link className='text-blue-500 hover:text-blue-600' href='/login'>
+                Log in
+              </Link>
+            </p>
           </CardContent>
         </Card>
       </div>
