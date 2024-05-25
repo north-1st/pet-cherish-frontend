@@ -1,81 +1,65 @@
 'use server';
 
-// export const createUser = async (prevState: any, formData: FormData) => {
-//   'use server';
+import { isRedirectError } from 'next/dist/client/components/redirect';
+import { cookies } from 'next/headers';
+import { RedirectType, redirect } from 'next/navigation';
 
-//   const input = {
-//     real_name: formData.get('real_name') as string,
-//     email: formData.get('email') as string,
-//     password: formData.get('password') as string,
-//   };
+import { z } from 'zod';
 
-//   try {
-//     const response = await fetch('https://pet-cherish-backend.onrender.com/api/v1/users/signup', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(input),
-//     });
+const schema = z.object({
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z.string().min(6, 'Password must be at least 6 characters long'),
+});
 
-//     if (!response.ok) {
-//       const data = await response.json();
-//       return NextResponse.json({ message: data.message }, { status: response.status });
-//     }
+export const login = async (prevState: any, formData: FormData) => {
+  const validatedFields = schema.safeParse({
+    email: formData.get('email'),
+    password: formData.get('password'),
+  });
 
-//     const data = await response.json();
-
-//     return NextResponse.json(data, { status: 200 });
-//   } catch (error) {
-//     return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
-//   }
-// };
-
-export const signup = async (formData: FormData) => {
-  const input = {
-    real_name: formData.get('real_name') as string,
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
-  };
+  if (!validatedFields.success) {
+    return {
+      email: validatedFields.error.flatten().fieldErrors.email,
+      password: validatedFields.error.flatten().fieldErrors.password,
+    };
+  }
 
   try {
-    const response = await fetch('https://pet-cherish-backend.onrender.com/api/v1/users/signup', {
+    const response = await fetch('https://pet-cherish-backend.onrender.com/api/v1/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(input),
+      body: JSON.stringify(validatedFields.data),
     });
+    console.log(response.ok);
 
-    console.log(response);
-
-    // return { status: 'success' };
-
-    // 以下是修改後的語法
     const data = await response.json();
 
-    // 因為 throw new Error 只能接字串，所以我改用 throw 丟整包資料
     if (!response.ok) {
-      throw data;
+      return { message: data.message };
     }
 
-    return { data };
+    if (data.status != true) {
+      throw new Error(data.message);
+    } else {
+      cookies().set({
+        name: 'token',
+        value: data.data.accessToken,
+        path: '/',
+        maxAge: 120,
+        secure: true,
+        sameSite: 'strict',
+      });
+      redirect('/', RedirectType.replace);
+    }
   } catch (error) {
-    // return { status: 'error' };
+    if (isRedirectError(error)) {
+      throw error;
+    }
 
     return {
-      message: 'Please enter a valid email',
+      message: JSON.stringify(error),
     };
-
-    // console.error('API 請求錯誤:', error);
-
-    // 因為 new Error 只能接受 string 格式的資料，所以我先用 JSON.stringify 轉型
-    // 這個 throw 是丟到前端
-    // throw new Error(
-    //   JSON.stringify({
-    //     data: error,
-    //   })
-    // );
-    // return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
   }
 };
