@@ -3,9 +3,9 @@ import Link from 'next/link';
 
 import { Card, CardContent } from '@/components/ui/card';
 
-import RegisterForm from './components/RegisterForm';
+import SignUpForm from './components/SignUpForm';
 
-const Register = () => {
+const Signup = () => {
   return (
     <section className='flex min-h-screen items-center justify-center bg-[#F5F5F5]'>
       <div className='flex'>
@@ -25,8 +25,8 @@ const Register = () => {
         </Card>
         <Card className='w-[350px] rounded-none rounded-r-lg border-none shadow-none'>
           <CardContent className='p-10'>
-            <h1 className='mb-4 text-center text-xl font-semibold'>Register</h1>
-            <RegisterForm />
+            <h1 className='mb-4 text-center text-xl font-semibold'>Sign Up</h1>
+            <SignUpForm />
             <p className='mt-4 text-center text-sm'>
               Already have an account?&nbsp;
               <Link className='text-blue-500 hover:text-blue-600' href='/login'>
@@ -40,4 +40,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Signup;
