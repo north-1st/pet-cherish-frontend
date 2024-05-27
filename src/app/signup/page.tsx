@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { Card, CardContent } from '@/components/ui/card';
 
-import SignupForm from './components/SignupForm';
+import SignUpForm from './components/SignUpForm';
 
 const Signup = () => {
   return (
@@ -26,7 +26,7 @@ const Signup = () => {
         <Card className='w-[350px] rounded-none rounded-r-lg border-none shadow-none'>
           <CardContent className='p-10'>
             <h1 className='mb-4 text-center text-xl font-semibold'>Sign Up</h1>
-            <SignupForm />
+            <SignUpForm />
             <p className='mt-4 text-center text-sm'>
               Already have an account?&nbsp;
               <Link className='text-blue-500 hover:text-blue-600' href='/login'>
