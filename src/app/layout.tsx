@@ -3,6 +3,8 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { Noto_Sans_TC } from 'next/font/google';
 
+import { Toaster } from '@/components/ui/toaster';
+
 import Footer from './components/Footer';
 import Header from './components/Header';
 
@@ -21,6 +23,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       <body className={notoSansTC.className}>
         <Header />
         {children}
+        <Toaster />
         <Footer />
       </body>
     </html>
