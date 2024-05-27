@@ -1,122 +1,48 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { useFormState, useFormStatus } from 'react-dom';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
-const formSchema = z.object({
-  email: z.string().email({
-    message: '郵件格式不對 !',
-  }),
-  password: z.string().min(6, {
-    message: '密碼必須至少有6個字元 !',
-  }),
-  real_name: z.string().min(2, {
-    message: '姓名必填且最少 2 個字 !',
-  }),
-});
+import { userSignUp } from '../../actions/signUpAction';
 
-const SignupForm = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-      real_name: '',
-    },
-  });
-
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    try {
-      const response = await fetch('/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        // 註冊成功的處理邏輯
-        console.log(result.message);
-      } else {
-        // 註冊失敗的處理邏輯
-        console.error(result.message);
-      }
-    } catch (error) {
-      console.error('An error occurred:', error);
-    }
+const SignUpForm = () => {
+  const { pending } = useFormStatus();
+  const initialState = {
+    email: '',
+    password: '',
+    real_name: '',
   };
 
+  const [state, formAction] = useFormState(userSignUp, initialState);
+
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
-        <FormField
-          control={form.control}
-          name='email'
-          render={({ field }) => (
-            <FormItem className='space-y-0'>
-              <FormLabel>Email*</FormLabel>
-              <FormControl>
-                <Input placeholder='您的郵件' {...field} />
-              </FormControl>
-              <FormDescription className='text-xs'>請填寫常用郵件 !</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name='password'
-          render={({ field }) => (
-            <FormItem className='space-y-0'>
-              <FormLabel>Password*</FormLabel>
-              <FormControl>
-                <Input type='password' placeholder='輸入密碼' {...field} />
-              </FormControl>
-              <FormDescription className='text-xs'>密碼最少 6 個字元 !</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name='real_name'
-          render={({ field }) => (
-            <FormItem className='space-y-0'>
-              <FormLabel>姓名*</FormLabel>
-              <FormControl>
-                <Input placeholder='您的全名' {...field} />
-              </FormControl>
-              <FormDescription className='text-xs'>請填寫真實姓名 !</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button
-          className='w-full bg-[#26a69a] text-white hover:bg-[#26a69a] hover:text-white hover:opacity-80'
-          type='submit'
-          variant='outline'
-        >
-          Submit
-        </Button>
-      </form>
-    </Form>
+    <form className='space-y-4' action={formAction}>
+      <div>
+        <Label htmlFor='real_name'>真實姓名*</Label>
+        <Input id='real_name' name='real_name' placeholder='您的真實姓名' type='text' />
+      </div>
+      <p aria-live='polite'>{state.real_name}</p>
+      <div>
+        <Label htmlFor='email'>電子郵件*</Label>
+        <Input id='email' name='email' placeholder='您的電子郵件' type='email' />
+      </div>
+      <p aria-live='polite'>{state.email}</p>
+      <div>
+        <Label htmlFor='password'>密碼*</Label>
+        <Input id='password' name='password' placeholder='選擇一個密碼' type='password' />
+      </div>
+      <p aria-live='polite'>{state.password}</p>
+      <p aria-live='polite'>{state.message}</p>
+
+      <Button type='submit' className='w-full bg-[#26a69a]' disabled={pending}>
+        {pending ? 'Loading...' : '登入'}
+        Click
+      </Button>
+    </form>
   );
 };
 
-export default SignupForm;
+export default SignUpForm;

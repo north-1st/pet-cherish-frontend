@@ -57,8 +57,8 @@ const Login = () => {
               </Button>
               <p className='mt-4 text-center text-sm'>
                 Don&#39;t have an account? &nbsp;
-                <Link className='text-blue-500 hover:text-blue-600' href='/signup'>
-                  Sign Up
+                <Link className='text-blue-500 hover:text-blue-600' href='/register'>
+                  Register
                 </Link>
               </p>
             </form>
