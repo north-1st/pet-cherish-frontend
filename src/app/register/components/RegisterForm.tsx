@@ -2,10 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 
+import { registerActions } from '@/actions/registerActions';
+import { RegisterSchema, registerSchema } from '@/schemas/registerSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+
+import { RegisterResponse } from '@/types/types';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -20,27 +23,13 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 
-import { registerActions } from '../../actions/registerActions';
-
-const formSchema = z.object({
-  email: z.string().email({
-    message: '郵件格式不對 !',
-  }),
-  password: z.string().min(6, {
-    message: '密碼必須至少有6個字元 !',
-  }),
-  real_name: z.string().min(2, {
-    message: '姓名必填且最少 2 個字 !',
-  }),
-});
-
 const RegisterForm = () => {
   const { pending } = useFormStatus();
   const { toast } = useToast();
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -48,15 +37,14 @@ const RegisterForm = () => {
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+  const onSubmit = async (data: RegisterSchema) => {
     try {
       const formData = new FormData();
       formData.append('real_name', data.real_name);
       formData.append('email', data.email);
       formData.append('password', data.password);
 
-      // TODO data: {}
-      const result: { status: boolean; message: string } = await registerActions(formData);
+      const result: RegisterResponse = await registerActions(formData);
 
       if (result.status) {
         router.push('/');
@@ -68,7 +56,7 @@ const RegisterForm = () => {
         toast({
           variant: 'destructive',
           title: '註冊發生錯誤 !',
-          description: result.message,
+          description: <div dangerouslySetInnerHTML={{ __html: result.message }} />,
         });
       }
     } catch (error) {
