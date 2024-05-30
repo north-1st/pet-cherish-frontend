@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { Card, CardContent } from '@/components/ui/card';
 
-import SignUpForm from './components/SignUpForm';
+import SignUpForm from './components/SignupForm';
 
 const Signup = () => {
   return (
