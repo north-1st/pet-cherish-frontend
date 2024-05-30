@@ -11,13 +11,21 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
-      screens: {
-        '2xl': '1400px',
-      },
+      padding: '0.75rem',
+    },
+    screens: {
+      md: '768px',
+      xl: '1296px',
     },
     extend: {
       colors: {
+        brand01: '#FFC702',
+        brand02: '#FFF9E5',
+        gray01: '#1E1E1E',
+        gray02: '#3E3E3E',
+        gray03: '#CBCAC8',
+        gray04: '#F5F5F5',
+
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
