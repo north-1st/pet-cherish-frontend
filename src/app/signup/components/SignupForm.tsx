@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-import { userSignUp } from '../../actions/signUpAction';
+import { userSignUp } from '../../../actions/signUpAction';
 
 const SignUpForm = () => {
   const { pending } = useFormStatus();

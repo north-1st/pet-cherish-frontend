@@ -1,30 +1,26 @@
 'use server';
 
-import { isRedirectError } from 'next/dist/client/components/redirect';
 import { cookies } from 'next/headers';
 
-import { z } from 'zod';
+import { registerSchema } from '@/schemas/registerSchema';
 
-import { baseURL } from '../../const/const';
-
-const signUpSchema = z.object({
-  real_name: z.string().min(2, { message: '姓名最少 2 個字 !' }),
-  email: z.string().email({ message: '郵件格式不對 !' }),
-  password: z.string().min(6, '密碼必須至少有6個字元 !'),
-});
+import { baseURL } from '../const/const';
 
 export const registerActions = async (formData: FormData) => {
-  const validatedFields = signUpSchema.safeParse({
+  const validatedFields = registerSchema.safeParse({
     real_name: formData.get('real_name'),
     email: formData.get('email'),
     password: formData.get('password'),
   });
 
   if (!validatedFields.success) {
+    const errors = validatedFields.error.flatten().fieldErrors;
+    const errorMessages = Object.values(errors).flat().join('<br />');
+
     return {
-      real_name: validatedFields.error.flatten().fieldErrors.real_name,
-      email: validatedFields.error.flatten().fieldErrors.email,
-      password: validatedFields.error.flatten().fieldErrors.password,
+      success: false,
+      message: errorMessages,
+      data: {},
     };
   }
 
@@ -57,12 +53,9 @@ export const registerActions = async (formData: FormData) => {
 
       return result;
     } else {
-      return result;
+      return { ...result, data: {} };
     }
   } catch (error) {
-    if (isRedirectError(error)) {
-      throw error;
-    }
-    return { success: false, message: error || 'An error occurred' };
+    return { success: false, data: {}, message: error || 'An error occurred' };
   }
 };
