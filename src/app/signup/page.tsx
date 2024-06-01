@@ -7,7 +7,7 @@ import SignUpForm from './components/SignupForm';
 
 const Signup = () => {
   return (
-    <section className='flex min-h-screen items-center justify-center bg-[#F5F5F5]'>
+    <section className='flex items-center justify-center bg-[#F5F5F5]'>
       <div className='flex'>
         <Card className='w-[350px] rounded-none rounded-l-lg border-none bg-gradient-to-br from-[#89f7fe] to-[#66a6ff] shadow-none'>
           <CardContent className='flex h-[100%] flex-col items-center justify-center p-10'>

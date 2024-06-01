@@ -1,8 +1,15 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 
 const Header = () => {
+  const pathname = usePathname();
+  const showLayout = pathname !== '/login' && pathname !== '/register';
+
+  if (!showLayout) return null;
   return (
     <header className='bg-white'>
       <div className='container flex h-16 items-center justify-between'>
