@@ -17,7 +17,7 @@ import StarOutlineIcon from '@/components/common/Icon/StarOutlineIcon';
 
 const SearchSitter = () => {
   return (
-    <section className='min-h-screen-minus-144px py-10'>
+    <section className='py-10'>
       <div className='container'>
         <h2 className='mb-10 text-3xl font-medium'>找保姆</h2>
         <div className='flex flex-row gap-10'>
