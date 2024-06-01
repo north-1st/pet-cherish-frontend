@@ -6,7 +6,7 @@ import { registerSchema } from '@/schemas/registerSchema';
 
 import { baseURL } from '../const/const';
 
-export const registerActions = async (formData: FormData) => {
+export const registerAction = async (formData: FormData) => {
   const validatedFields = registerSchema.safeParse({
     real_name: formData.get('real_name'),
     email: formData.get('email'),

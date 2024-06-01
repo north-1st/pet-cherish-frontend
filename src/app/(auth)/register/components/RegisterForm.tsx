@@ -2,11 +2,12 @@
 
 import { useRouter } from 'next/navigation';
 
-import { registerActions } from '@/actions/registerActions';
+import { registerAction } from '@/actions/registerActions';
 import { RegisterSchema, registerSchema } from '@/schemas/registerSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
 import { RegisterResponse } from '@/types/types';
 
@@ -21,11 +22,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
 
 const RegisterForm = () => {
   const { pending } = useFormStatus();
-  const { toast } = useToast();
   const router = useRouter();
 
   const form = useForm<RegisterSchema>({
@@ -44,26 +43,31 @@ const RegisterForm = () => {
       formData.append('email', data.email);
       formData.append('password', data.password);
 
-      const result: RegisterResponse = await registerActions(formData);
+      const result: RegisterResponse = await registerAction(formData);
+
+      console.log(result);
 
       if (result.status) {
-        router.push('/');
-        toast({
-          description: '註冊成功 !',
-          duration: 2000,
+        Swal.fire({
+          icon: 'success',
+          title: '註冊成功 !',
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          router.push('/');
         });
       } else {
-        toast({
-          variant: 'destructive',
+        Swal.fire({
+          icon: 'error',
           title: '註冊發生錯誤 !',
-          description: <div dangerouslySetInnerHTML={{ __html: result.message }} />,
+          html: result.message,
         });
       }
     } catch (error) {
-      toast({
-        variant: 'destructive',
+      Swal.fire({
+        icon: 'error',
         title: 'Error !',
-        description: error instanceof Error ? error.message : '發生了意料之外的錯誤。',
+        text: error instanceof Error ? error.message : '發生了意料之外的錯誤。',
       });
     }
   };
