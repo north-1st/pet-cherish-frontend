@@ -3,11 +3,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Card, CardContent } from '@/components/ui/card';
+import { login } from '@/actions/actions';
+import { useFormState, useFormStatus } from 'react-dom';
 
-import LoginForm from './components/LoginForm';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 const Login = () => {
+  const { pending } = useFormStatus();
+  const initialState = {
+    message: '',
+  };
+
+  const [state, formAction] = useFormState(login, initialState);
+
   return (
     <section className='flex min-h-screen items-center justify-center bg-[#f5f5f4]'>
       <div className='flex'>
@@ -27,7 +38,8 @@ const Login = () => {
         </Card>
         <Card className='w-[350px] rounded-none rounded-r-lg border-none shadow-none'>
           <CardContent className='p-10'>
-            {/* <form className='space-y-4' action={formAction}>
+            <h1 className='mb-4 text-center text-xl font-semibold'>Log in</h1>
+            <form className='space-y-4' action={formAction}>
               <div>
                 <Label htmlFor='email'>Email*</Label>
                 <Input id='email' name='email' placeholder='您的電子郵件' type='text' />
@@ -48,15 +60,7 @@ const Login = () => {
                   Register
                 </Link>
               </p>
-            </form> */}
-            <h1 className='mb-4 text-center text-xl font-semibold'>Log in</h1>
-            <LoginForm />
-            <p className='mt-4 text-center text-sm'>
-              Don&#39;t have an account? &nbsp;
-              <Link className='text-blue-500 hover:text-blue-600' href='/register'>
-                Register
-              </Link>
-            </p>
+            </form>
           </CardContent>
         </Card>
       </div>
