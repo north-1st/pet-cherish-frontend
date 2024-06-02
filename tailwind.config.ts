@@ -14,6 +14,7 @@ const config = {
       padding: '0.75rem',
     },
     screens: {
+      sm: '640px',
       md: '768px',
       xl: '1296px',
     },
@@ -25,6 +26,7 @@ const config = {
         gray02: '#3E3E3E',
         gray03: '#CBCAC8',
         gray04: '#F5F5F5',
+        lightGreen: '#41C255',
 
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -32,7 +34,7 @@ const config = {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
+          DEFAULT: '#FFC702',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
