@@ -1,6 +1,6 @@
-import { baseURL } from '@/const/const';
-import { ApiResponse } from '@/schemas/apiResponse';
 import { FieldPath, FieldValues, UseFormReturn } from 'react-hook-form';
+
+import ClientApiManager from '@/lib/clientApiManager';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -10,18 +10,9 @@ const uploadImage = async (file: File) => {
   const formData = new FormData();
   formData.append('file', file);
   formData.append('type', 'PET');
-  const res = await fetch(baseURL + '/api/v1/upload/image', {
-    method: 'POST',
-    body: formData,
-  });
-  if (!res.ok) {
-    throw new Error('Failed to upload image');
-  }
-  const data: ApiResponse = await res.json();
-  if (data.status == true) {
-    return data.data;
-  } else {
-    throw new Error(data.message);
+  const res = await ClientApiManager.upload('/api/v1/upload/image', formData);
+  if (res.success) {
+    return res.data;
   }
 };
 
