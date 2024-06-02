@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { User } from '@/types/types';
 
@@ -11,12 +12,20 @@ interface UserStore {
   logout: () => void;
 }
 
-const useUserStore = create<UserStore>((set) => ({
-  user: null,
-  token: null,
-  setUser: (user) => set({ user }),
-  setToken: (token) => set({ token }),
-  logout: () => set({ user: null, token: null }),
-}));
+const useUserStore = create<UserStore>()(
+  persist(
+    (set) => ({
+      user: null,
+      token: null,
+      setUser: (user) => set({ user }),
+      setToken: (token) => set({ token }),
+      logout: () => set({ user: null, token: null }),
+    }),
+    {
+      name: 'user-storage',
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
 
 export default useUserStore;

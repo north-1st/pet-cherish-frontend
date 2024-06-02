@@ -1,6 +1,11 @@
 'use client';
 
+import { useCallback } from 'react';
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import { destroyCookie } from 'nookies';
 
 import { User } from '@/types/types';
 
@@ -17,7 +22,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-const DropdownMenuCheckboxes = ({ user }: { user: User | null }) => {
+const UserDropdownMenu = ({ user, logout }: { user: User | null; logout: () => void }) => {
+  const router = useRouter();
+  const handleLogout = useCallback(() => {
+    logout();
+    localStorage.removeItem('user-storage');
+    destroyCookie(null, 'token');
+    router.push('/');
+  }, [logout, router]);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -45,7 +58,9 @@ const DropdownMenuCheckboxes = ({ user }: { user: User | null }) => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <span>登出</span>
+          <span className='cursor-pointer' onClick={handleLogout}>
+            登出
+          </span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -53,7 +68,7 @@ const DropdownMenuCheckboxes = ({ user }: { user: User | null }) => {
 };
 
 const Header = () => {
-  const { user, token } = useUserStore();
+  const { user, token, logout } = useUserStore();
 
   return (
     <header className='bg-white'>
@@ -62,7 +77,7 @@ const Header = () => {
           Logo
         </Link>
         {token ? (
-          <DropdownMenuCheckboxes user={user} />
+          <UserDropdownMenu user={user} logout={logout} />
         ) : (
           <div className='flex items-center gap-4'>
             <Link className='text-lg font-bold text-gray-900' href='/register'>
