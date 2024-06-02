@@ -3,7 +3,7 @@
 import { useCallback } from 'react';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { destroyCookie } from 'nookies';
 
@@ -69,6 +69,11 @@ const UserDropdownMenu = ({ user, logout }: { user: User | null; logout: () => v
 
 const Header = () => {
   const { user, token, logout } = useUserStore();
+
+  const pathname = usePathname();
+  const showLayout = pathname !== '/login' && pathname !== '/register';
+
+  if (!showLayout) return null;
 
   return (
     <header className='bg-white'>

@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 import { registerSchema } from '@/schemas/registerSchema';
 
-import { baseURL } from '../const/const';
+import { API_BASE_URL } from '../const/const';
 
 export const registerAction = async (formData: FormData) => {
   const validatedFields = registerSchema.safeParse({
@@ -27,7 +27,7 @@ export const registerAction = async (formData: FormData) => {
   const rawFormData = Object.fromEntries(formData.entries());
 
   try {
-    const response = await fetch(`${baseURL}/api/v1/users/signup`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/users/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
