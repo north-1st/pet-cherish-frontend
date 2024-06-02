@@ -55,6 +55,10 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply flex min-h-screen flex-col bg-background text-foreground;
+  }
+
+  img {
+    @apply object-cover transition-all hover:scale-110;
   }
 }
