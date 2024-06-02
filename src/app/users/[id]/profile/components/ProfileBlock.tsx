@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { baseURL } from '@/const/const';
+import { API_BASE_URL } from '@/const/const';
 import { ApiResponse } from '@/schemas/apiResponse';
 import { genderSchema, userResponseSchema } from '@/schemas/userProfileSchema';
 
@@ -12,9 +12,9 @@ import FemaleIcon from '@/components/common/Icon/Female';
 import MaleIcon from '@/components/common/Icon/Male';
 
 const getData = async (id: string) => {
-  const res = await fetch(baseURL + `/api/v1/users/${id}/profile`, { cache: 'no-store' });
+  const res = await fetch(API_BASE_URL + `/api/v1/users/${id}/profile`, { cache: 'no-store' });
 
-  if (!res.ok) {
+  if (res.status == 404) {
     notFound();
   }
 
