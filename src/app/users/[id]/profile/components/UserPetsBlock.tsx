@@ -1,4 +1,4 @@
-import { baseURL } from '@/const/const';
+import { API_BASE_URL } from '@/const/const';
 import { ApiResponse } from '@/schemas/apiResponse';
 import { petListResponseSchema } from '@/schemas/petSchema';
 
@@ -18,7 +18,10 @@ import CheckIcon from '@/components/common/Icon/Check';
 import PetDialog from './PetDialog';
 
 const getData = async (id: string) => {
-  const res = await fetch(baseURL + `/api/v1/users/${id}/pets`, { cache: 'no-store' });
+  const res = await fetch(API_BASE_URL + `/api/v1/users/${id}/pets`, {
+    cache: 'no-store',
+    next: { tags: ['user-pets'] },
+  });
 
   if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -51,6 +54,7 @@ const UserPetsBlock = async ({ id }: { id: string }) => {
               <Card className='text-xs'>
                 <CardContent className='flex w-full gap-x-4 px-0 py-0'>
                   <PetDialog
+                    id={pet.id}
                     triggerChildren={
                       <Avatar className='h-[136px] w-[136px] rounded-l-lg rounded-r-none'>
                         <AvatarImage src={pet.avatar_list[0]} />
@@ -60,7 +64,7 @@ const UserPetsBlock = async ({ id }: { id: string }) => {
                   />
                   <div className='w-full p-3'>
                     <p className='mb-2 text-base font-bold'>{pet.name}</p>
-                    <div className='md:flex'>
+                    <div className='items-start md:flex'>
                       <div className='basis-1/2'>
                         <div className='grid gap-y-1'>
                           <div className='flex gap-x-4'>
