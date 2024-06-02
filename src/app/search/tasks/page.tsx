@@ -18,7 +18,7 @@ import LocationOnIcon from '@/components/common/Icon/LocationOnIcon';
 
 const SearchTask = () => {
   return (
-    <section className='min-h-screen-minus-144px bg-[#F5F5F5] py-10'>
+    <section className='bg-[#F5F5F5] py-10'>
       <div className='container'>
         <h2 className='mb-10 text-3xl font-medium'>找任務</h2>
         <div className='flex flex-row gap-10'>
