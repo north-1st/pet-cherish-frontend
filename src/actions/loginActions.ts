@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 import { loginSchema } from '@/schemas/loginSchema';
 
-import { baseURL } from '../const/const';
+import { API_BASE_URL, isProduction } from '../const/const';
 
 export const loginAction = async (formData: FormData) => {
   console.log(formData);
@@ -27,7 +27,7 @@ export const loginAction = async (formData: FormData) => {
   const rawFormData = Object.fromEntries(formData.entries());
 
   try {
-    const response = await fetch(`${baseURL}/api/v1/users/login`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export const loginAction = async (formData: FormData) => {
         name: 'token',
         value: result.data.accessToken,
         maxAge: 60 * 60 * 24, // 設定為 1 天
-        secure: true,
+        secure: isProduction, // 需要在 HTTPS 上啟用
       });
 
       return result;
