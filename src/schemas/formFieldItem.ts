@@ -5,4 +5,10 @@ const formFieldItemSchema = z.object({
   label: z.string(),
 });
 
+export const formFieldRadioSchema = z.object({
+  id: z.boolean(),
+  label: z.string(),
+});
+
 export type FormFieldItem = z.infer<typeof formFieldItemSchema>;
+export type FormFieldRadio = z.infer<typeof formFieldRadioSchema>;
