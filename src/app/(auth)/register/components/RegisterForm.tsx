@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 
 import { RegisterResponse } from '@/types/types';
 
+import useUserStore from '@/hooks/useUserStore';
+
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -26,6 +28,7 @@ import { Input } from '@/components/ui/input';
 const RegisterForm = () => {
   const { pending } = useFormStatus();
   const router = useRouter();
+  const { setUser, setToken } = useUserStore();
 
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
@@ -45,8 +48,6 @@ const RegisterForm = () => {
 
       const result: RegisterResponse = await registerAction(formData);
 
-      console.log(result);
-
       if (result.status) {
         Swal.fire({
           icon: 'success',
@@ -54,6 +55,8 @@ const RegisterForm = () => {
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
+          setUser(result.data);
+          setToken(result.data.accessToken);
           router.push('/');
         });
       } else {
@@ -98,7 +101,7 @@ const RegisterForm = () => {
               <FormControl>
                 <Input type='password' placeholder='輸入密碼' {...field} />
               </FormControl>
-              <FormDescription className='text-xs'>密碼最少 6 個字元 !</FormDescription>
+              <FormDescription className='text-xs'>密碼最少 8 個字元 !</FormDescription>
               <FormMessage />
             </FormItem>
           )}

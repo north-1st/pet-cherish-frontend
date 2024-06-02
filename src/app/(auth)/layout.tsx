@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import { Card, CardContent } from '@/components/ui/card';
 
-const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <section className='flex min-h-screen items-center justify-center bg-[#F5F5F5]'>
       <div className='flex'>
@@ -29,4 +29,4 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   );
 };
 
-export default AuthLayout;
+export default Layout;

@@ -97,7 +97,7 @@ const LoginForm = () => {
               <FormControl>
                 <Input type='password' placeholder='輸入密碼' {...field} />
               </FormControl>
-              <FormDescription className='text-xs'>密碼最少 6 個字元 !</FormDescription>
+              <FormDescription className='text-xs'>密碼最少 8 個字元 !</FormDescription>
               <FormMessage />
             </FormItem>
           )}
