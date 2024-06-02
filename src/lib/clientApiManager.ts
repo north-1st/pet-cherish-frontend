@@ -1,23 +1,20 @@
 import { RequestInit } from 'next/dist/server/web/spec-extension/request';
 
+import { API_BASE_URL } from '@/const/const';
+
 import { toast } from '@/components/ui/use-toast';
-
-const isProduction = true;
-
-const API_BASE_URL = isProduction
-  ? 'https://pet-cherish-backend.onrender.com'
-  : 'http://localhost:5000';
 
 class ClientApiManager {
   private static request = async (endpoint: string, options: RequestInit = {}) => {
     try {
       const url = new URL(endpoint, API_BASE_URL);
+      const token = localStorage.getItem('token');
 
       const res = await fetch(url.toString(), {
         ...options,
         headers: {
           ...options?.headers,
-          'Content-Type': 'application/json',
+          Authorization: token ? `Bearer ${token}` : '',
         },
       });
 
@@ -54,18 +51,33 @@ class ClientApiManager {
     this.request(endpoint, {
       method: 'POST',
       body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
   public static patch = async (endpoint: string, payload: Record<string, any>) =>
     this.request(endpoint, {
       method: 'PATCH',
       body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
   public static delete = async (endpoint: string, payload: Record<string, any>) =>
     this.request(endpoint, {
       method: 'DELETE',
       body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+  public static upload = async (endpoint: string, formData: FormData) =>
+    this.request(endpoint, {
+      method: 'POST',
+      body: formData,
     });
 }
 
