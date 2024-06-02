@@ -2,14 +2,14 @@
 
 import React, { useRef } from 'react';
 
-import { PetRequest, PetResponse, petCharacterSchema, petRequestSchema } from '@/schemas/petSchema';
+import { petAction } from '@/actions/petAction';
+import { PetRequest, petCharacterSchema, petRequestSchema } from '@/schemas/petSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import ClientApiManager from '@/lib/clientApiManager';
-
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
+import { toast } from '@/components/ui/use-toast';
 
 import TriggerDialog from '@/components/common/button/TriggerDialog';
 import FormImageInput from '@/components/common/form/FormImageInput';
@@ -69,32 +69,34 @@ const petSize = [
 
 const hasMicrochip = [
   {
-    id: 'true',
+    id: true,
     label: '有',
   },
   {
-    id: 'false',
+    id: false,
     label: '無',
   },
 ];
 
 const isNeutered = [
   {
-    id: 'true',
+    id: true,
     label: '是',
   },
   {
-    id: 'false',
+    id: false,
     label: '否',
   },
 ];
 
 export function PetDialog({
+  id,
   triggerChildren,
   defaultValues,
 }: {
+  id?: string;
   triggerChildren: React.ReactNode;
-  defaultValues?: Partial<PetResponse>;
+  defaultValues?: Partial<PetRequest>;
 }) {
   const closeDialogRef = useRef<HTMLButtonElement>(null);
   const form = useForm<PetRequest>({
@@ -103,10 +105,18 @@ export function PetDialog({
   });
 
   async function onSubmit(data: PetRequest) {
-    const res = await ClientApiManager.post(`/api/v1/pets`, data);
-
+    const res = await petAction(data, id);
     if (res.success) {
+      toast({
+        description: res.message,
+      });
       closeDialogRef.current?.click();
+    } else {
+      toast({
+        title: '寵物設定失敗',
+        description: res.message,
+        variant: 'destructive',
+      });
     }
   }
 
