@@ -1,12 +1,4 @@
-'use client';
-
-import { usePathname } from 'next/navigation';
-
 const Footer = () => {
-  const pathname = usePathname();
-  const showLayout = pathname !== '/login' && pathname !== '/register';
-
-  if (!showLayout) return null;
   return (
     <footer className='text-gray-600'>
       <div className='container flex h-20 flex-col items-center justify-center'>
