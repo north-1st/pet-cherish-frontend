@@ -20,10 +20,12 @@ const FormImageInput = <T extends FieldValues, K extends FieldPath<T>>({
   form,
   fieldName,
   placeholder,
+  isArray,
 }: {
   form: UseFormReturn<T>;
   fieldName: K;
   placeholder?: string;
+  isArray: boolean;
 }) => {
   return (
     <FormField
@@ -33,7 +35,7 @@ const FormImageInput = <T extends FieldValues, K extends FieldPath<T>>({
         <FormItem className='flex'>
           <FormLabel>
             <Avatar className='h-[120px] w-[120px] cursor-pointer'>
-              <AvatarImage src={typeof field.value === 'string' ? field.value : field.value?.[0]} />
+              <AvatarImage src={isArray ? field.value?.[0] : field.value} />
               <AvatarFallback></AvatarFallback>
             </Avatar>
           </FormLabel>
@@ -46,7 +48,7 @@ const FormImageInput = <T extends FieldValues, K extends FieldPath<T>>({
               onChange={(e) => {
                 if (!e.target.files) return;
                 uploadImage(e.target.files[0]).then((url) => {
-                  field.onChange(typeof field.value === 'string' ? url : [url]);
+                  field.onChange(isArray ? [url] : url);
                 });
               }}
             />
