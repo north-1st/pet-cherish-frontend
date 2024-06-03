@@ -1,6 +1,5 @@
-import { FormFieldItem, FormFieldRadio, formFieldRadioSchema } from '@/schemas/formFieldItem';
+import { FormFieldItem, FormFieldRadio } from '@/schemas/formFieldItem';
 import { FieldPath, FieldValues, UseFormReturn } from 'react-hook-form';
-import { z } from 'zod';
 
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -10,11 +9,13 @@ const FormRadioGroup = <T extends FieldValues, K extends FieldPath<T>>({
   fieldName,
   formLabel,
   options,
+  isBoolean,
 }: {
   form: UseFormReturn<T>;
   fieldName: K;
   formLabel: string;
   options: FormFieldItem[] | FormFieldRadio[];
+  isBoolean: boolean;
 }) => {
   return (
     <FormField
@@ -26,8 +27,7 @@ const FormRadioGroup = <T extends FieldValues, K extends FieldPath<T>>({
           <FormControl>
             <RadioGroup
               onValueChange={async (value) => {
-                const fields = z.array(formFieldRadioSchema).safeParse(options);
-                if (fields.success) {
+                if (isBoolean) {
                   field.onChange(value == 'true');
                   return;
                 }
