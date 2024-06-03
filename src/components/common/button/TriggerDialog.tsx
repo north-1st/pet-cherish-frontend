@@ -15,12 +15,16 @@ export function TriggerDialog({
   title,
   contentChildren,
   closeDialogRef,
+  disabled = false,
 }: {
   triggerChildren: React.ReactNode;
   title: string;
   contentChildren: React.ReactNode;
   closeDialogRef: React.RefObject<HTMLButtonElement>;
+  disabled?: boolean;
 }) {
+  if (disabled) return triggerChildren;
+
   return (
     <Dialog>
       <DialogTrigger className='cursor-pointer' asChild>

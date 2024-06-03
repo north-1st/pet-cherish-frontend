@@ -7,6 +7,8 @@ import { PetRequest, petCharacterSchema, petRequestSchema } from '@/schemas/petS
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
+import useUserStore from '@/hooks/useUserStore';
+
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { toast } from '@/components/ui/use-toast';
@@ -98,6 +100,7 @@ export function PetDialog({
   triggerChildren: React.ReactNode;
   defaultValues?: Partial<PetRequest>;
 }) {
+  const user = useUserStore((state) => state.user);
   const closeDialogRef = useRef<HTMLButtonElement>(null);
   const form = useForm<PetRequest>({
     resolver: zodResolver(petRequestSchema),
@@ -122,6 +125,7 @@ export function PetDialog({
 
   return (
     <TriggerDialog
+      disabled={user?.id != id}
       closeDialogRef={closeDialogRef}
       triggerChildren={triggerChildren}
       title={'寵物資料設定'}
