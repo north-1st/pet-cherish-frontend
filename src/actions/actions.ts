@@ -32,7 +32,6 @@ export const login = async (prevState: any, formData: FormData) => {
       },
       body: JSON.stringify(validatedFields.data),
     });
-    console.log(response.ok);
 
     const data = await response.json();
 
