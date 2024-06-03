@@ -29,3 +29,9 @@ export interface LoginResponse {
   message: string;
   data: User;
 }
+
+export interface ResetPasswordResponse {
+  status: boolean;
+  message: string;
+  data: User;
+}
