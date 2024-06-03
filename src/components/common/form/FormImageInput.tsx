@@ -30,10 +30,10 @@ const FormImageInput = <T extends FieldValues, K extends FieldPath<T>>({
       control={form.control}
       name={fieldName}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className='flex'>
           <FormLabel>
             <Avatar className='h-[120px] w-[120px] cursor-pointer'>
-              <AvatarImage src={field.value?.[0]} />
+              <AvatarImage src={typeof field.value === 'string' ? field.value : field.value?.[0]} />
               <AvatarFallback></AvatarFallback>
             </Avatar>
           </FormLabel>
@@ -46,7 +46,7 @@ const FormImageInput = <T extends FieldValues, K extends FieldPath<T>>({
               onChange={(e) => {
                 if (!e.target.files) return;
                 uploadImage(e.target.files[0]).then((url) => {
-                  field.onChange([url]);
+                  field.onChange(typeof field.value === 'string' ? url : [url]);
                 });
               }}
             />

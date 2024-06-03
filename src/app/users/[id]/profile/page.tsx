@@ -3,9 +3,13 @@ import UserPetsBlock from './components/UserPetsBlock';
 
 export default async function Page({ params }: { params: { id: string } }) {
   return (
-    <div className='container gap-x-10 xl:flex'>
+    <div className='container grid-cols-4 gap-10 bg-white xl:grid'>
       <ProfileBlock id={params.id} />
-      <UserPetsBlock id={params.id} />
+      <div className='col-span-3'>
+        <div className='flex flex-col gap-10'>
+          <UserPetsBlock id={params.id} />
+        </div>
+      </div>
     </div>
   );
 }
