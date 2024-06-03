@@ -29,7 +29,6 @@ const LoginForm = () => {
   const { pending } = useFormStatus();
   const { setUser, setToken } = useUserStore();
   const router = useRouter();
-  const { setToken, setUser } = useUserStore();
 
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
