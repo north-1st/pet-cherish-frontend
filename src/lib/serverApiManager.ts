@@ -22,25 +22,37 @@ class ServerApiManager {
       if (resData.status == true) {
         return {
           success: true,
+          status: res.status,
           data: resData.data,
           message: resData.message,
         };
       } else {
-        throw new Error(resData.message);
+        return {
+          success: false,
+          status: res.status,
+          message: resData.message,
+        };
       }
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
       return {
+        status: 500,
         success: false,
         message: error instanceof Error ? error.message : '發生錯誤',
       };
     }
   };
 
-  public static get = async (endpoint: string) => this.request(endpoint);
+  public static get = async (endpoint: string, options: RequestInit = {}) =>
+    this.request(endpoint, options);
 
-  public static post = async (endpoint: string, payload: Record<string, any>) =>
+  public static post = async (
+    endpoint: string,
+    payload: Record<string, any>,
+    options: RequestInit = {}
+  ) =>
     this.request(endpoint, {
+      ...options,
       method: 'POST',
       body: JSON.stringify(payload),
       headers: {
@@ -48,8 +60,13 @@ class ServerApiManager {
       },
     });
 
-  public static patch = async (endpoint: string, payload: Record<string, any>) =>
+  public static patch = async (
+    endpoint: string,
+    payload: Record<string, any>,
+    options: RequestInit = {}
+  ) =>
     this.request(endpoint, {
+      ...options,
       method: 'PATCH',
       body: JSON.stringify(payload),
       headers: {
@@ -57,8 +74,13 @@ class ServerApiManager {
       },
     });
 
-  public static delete = async (endpoint: string, payload: Record<string, any>) =>
+  public static delete = async (
+    endpoint: string,
+    payload: Record<string, any>,
+    options: RequestInit = {}
+  ) =>
     this.request(endpoint, {
+      ...options,
       method: 'DELETE',
       body: JSON.stringify(payload),
       headers: {

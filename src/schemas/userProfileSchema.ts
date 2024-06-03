@@ -2,6 +2,14 @@ import { z } from 'zod';
 
 export const genderSchema = z.enum(['MALE', 'FEMALE', 'OTHER']);
 
+export const userProfileRequestSchema = z.object({
+  avatar: z.string().url().nullable(),
+  nickname: z.string().nullable(),
+  birthdate: z.date().nullable(),
+  gender: genderSchema.nullable(),
+  self_introduction: z.string().nullable(),
+});
+
 export const userResponseSchema = z.object({
   id: z.string(),
   email: z.string().optional(),
@@ -11,7 +19,7 @@ export const userResponseSchema = z.object({
   birthdate: z
     .string()
     .datetime()
-    .transform((str) => new Date(str).toLocaleDateString('zh-TW'))
+    .transform((str) => new Date(str))
     .optional(),
   gender: genderSchema.nullable(),
   self_introduction: z.string().nullable(),
@@ -23,3 +31,6 @@ export const userResponseSchema = z.object({
 });
 
 export type Gender = z.infer<typeof genderSchema>;
+
+export type UserProfileRequest = z.infer<typeof userProfileRequestSchema>;
+export type UserResponse = z.infer<typeof userResponseSchema>;
