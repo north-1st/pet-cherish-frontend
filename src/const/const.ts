@@ -1,5 +1,8 @@
 export const isProduction = true;
 
-export const API_BASE_URL: string = isProduction
-  ? 'https://pet-cherish-backend.onrender.com'
-  : 'http://localhost:5000';
+class API {
+  static PROD = 'https://pet-cherish-backend.onrender.com';
+  static DEV = 'https://pet-cherish-backend.onrender.com';
+}
+
+export const API_BASE_URL: string = API.PROD;
