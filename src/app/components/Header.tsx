@@ -41,7 +41,7 @@ const UserDropdownMenu = ({ user, logout }: { user: User | null; logout: () => v
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <span>更改密碼</span>
+            <Link href='/reset-password'>更改密碼</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <span>使用者資料</span>
