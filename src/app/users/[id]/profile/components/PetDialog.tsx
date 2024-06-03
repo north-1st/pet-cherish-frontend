@@ -88,7 +88,7 @@ export function PetDialog({
       contentChildren={
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
-            <FormImageInput form={form} fieldName='avatar_list' />
+            <FormImageInput form={form} fieldName='avatar_list' isArray />
             <div className='grid grid-cols-2 gap-x-4 gap-y-6'>
               <FormTextInput
                 form={form}
