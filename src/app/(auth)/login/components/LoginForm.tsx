@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 
 import { LoginResponse } from '@/types/types';
 
+import useUserStore from '@/hooks/useUserStore';
+
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -26,6 +28,7 @@ import { Input } from '@/components/ui/input';
 const LoginForm = () => {
   const { pending } = useFormStatus();
   const router = useRouter();
+  const { setToken, setUser } = useUserStore();
 
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -53,6 +56,8 @@ const LoginForm = () => {
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
+          setUser(result.data);
+          setToken(result.data.accessToken);
           router.push('/');
         });
       } else {
