@@ -41,7 +41,7 @@ const UserPetsBlock = async ({ id }: { id: string }) => {
     <section className='rounded-xl bg-gray04 px-8 py-6 xl:basis-3/4'>
       <PetDialog
         triggerChildren={
-          <div className='mb-4 flex cursor-pointer items-center'>
+          <div className='flex cursor-pointer items-center'>
             <h3 className='mr-2 text-xl font-bold'>寵物資料</h3>
             <AddIcon width={28} height={28} className='fill-brand01' />
           </div>
