@@ -75,7 +75,7 @@ export function ProfileDialog({
       contentChildren={
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
-            <FormImageInput form={form} fieldName='avatar' />
+            <FormImageInput form={form} fieldName='avatar' isArray={false} />
             <div className='grid grid-cols-2 gap-x-4 gap-y-6'>
               <FormTextInput
                 form={form}
