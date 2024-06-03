@@ -1,15 +1,13 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
-import { loginAction } from '@/actions/loginActions';
-import { LoginSchema, loginSchema } from '@/schemas/loginSchema';
+import { resetPasswordAction } from '@/actions/resetPasswordActions';
+import { ResetPasswordSchema, resetPasswordSchema } from '@/schemas/resetPasswordSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 
-import { LoginResponse } from '@/types/types';
+import { ResetPasswordResponse } from '@/types/types';
 
 import useUserStore from '@/hooks/useUserStore';
 
@@ -25,44 +23,50 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
-const LoginForm = () => {
+const ResetPasswordForm = () => {
+  const { user } = useUserStore();
   const { pending } = useFormStatus();
-  const { setUser, setToken } = useUserStore();
-  const router = useRouter();
-  const { setToken, setUser } = useUserStore();
 
-  const form = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<ResetPasswordSchema>({
+    resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
-      email: '',
+      old_password: '',
       password: '',
+      password_confirm: '',
     },
   });
 
-  const onSubmit = async (data: LoginSchema) => {
+  const onSubmit = async (data: ResetPasswordSchema) => {
+    if (!user || !user.id) {
+      Swal.fire({
+        icon: 'error',
+        title: '用戶未登入或用戶ID遺失！',
+        text: '請先登入再重試。',
+      });
+      return;
+    }
+
     try {
       const formData = new FormData();
-      formData.append('email', data.email);
+      formData.append('old_password', data.old_password);
       formData.append('password', data.password);
+      formData.append('password_confirm', data.password_confirm);
 
-      const result: LoginResponse = await loginAction(formData);
-      localStorage.setItem('token', result.data.accessToken);
+      const result: ResetPasswordResponse = await resetPasswordAction(formData, user?.id);
 
       if (result.status) {
         Swal.fire({
           icon: 'success',
-          title: '登入成功 !',
+          title: '更新密碼成功 !',
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          setUser(result.data);
-          setToken(result.data.accessToken);
-          router.push('/');
+          form.reset();
         });
       } else {
         Swal.fire({
           icon: 'error',
-          title: '登入發生錯誤 !',
+          title: '更新密碼發生錯誤 !',
           html: result.message,
         });
       }
@@ -80,14 +84,14 @@ const LoginForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
         <FormField
           control={form.control}
-          name='email'
+          name='old_password'
           render={({ field }) => (
             <FormItem className='space-y-0'>
-              <FormLabel>Email*</FormLabel>
+              <FormLabel>舊密碼*</FormLabel>
               <FormControl>
-                <Input placeholder='您的郵件' {...field} />
+                <Input type='password' placeholder='輸入舊密碼' {...field} />
               </FormControl>
-              <FormDescription className='text-xs'>請填寫註冊郵件 !</FormDescription>
+              <FormDescription className='text-xs'>密碼最少 8 個字元 !</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -97,9 +101,23 @@ const LoginForm = () => {
           name='password'
           render={({ field }) => (
             <FormItem className='space-y-0'>
-              <FormLabel>Password*</FormLabel>
+              <FormLabel>新密碼*</FormLabel>
               <FormControl>
-                <Input type='password' placeholder='輸入密碼' {...field} />
+                <Input type='password' placeholder='輸入新密碼' {...field} />
+              </FormControl>
+              <FormDescription className='text-xs'>密碼最少 8 個字元 !</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='password_confirm'
+          render={({ field }) => (
+            <FormItem className='space-y-0'>
+              <FormLabel>新密碼確認*</FormLabel>
+              <FormControl>
+                <Input type='password' placeholder='輸入新密碼' {...field} />
               </FormControl>
               <FormDescription className='text-xs'>密碼最少 8 個字元 !</FormDescription>
               <FormMessage />
@@ -119,4 +137,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ResetPasswordForm;
