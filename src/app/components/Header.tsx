@@ -42,8 +42,11 @@ const UserDropdownMenu = ({ user, logout }: { user: User | null; logout: () => v
         <DropdownMenuLabel>我的帳號</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Link href='/reset-password'>更改密碼</Link>
+          <DropdownMenuItem
+            className='cursor-pointer'
+            onClick={() => router.push('/reset-password')}
+          >
+            <span>更改密碼</span>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => router.push(`/users/${user?.id}/profile`)}>
             <span>使用者資料</span>
@@ -59,8 +62,8 @@ const UserDropdownMenu = ({ user, logout }: { user: User | null; logout: () => v
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleLogout}>
-          <span className='cursor-pointer'>登出</span>
+        <DropdownMenuItem className='cursor-pointer' onClick={handleLogout}>
+          <span>登出</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
