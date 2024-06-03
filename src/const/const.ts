@@ -1,4 +1,4 @@
-export const isProduction = true;
+export const isSecure = false;
 
 class API {
   static PROD = 'https://pet-cherish-backend.onrender.com';
