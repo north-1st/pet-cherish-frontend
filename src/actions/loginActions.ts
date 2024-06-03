@@ -7,7 +7,6 @@ import { loginSchema } from '@/schemas/loginSchema';
 import { API_BASE_URL, isProduction } from '../const/const';
 
 export const loginAction = async (formData: FormData) => {
-  console.log(formData);
   const validatedFields = loginSchema.safeParse({
     email: formData.get('email'),
     password: formData.get('password'),
