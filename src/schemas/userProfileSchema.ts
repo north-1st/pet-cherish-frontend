@@ -14,13 +14,12 @@ export const userResponseSchema = z.object({
   id: z.string(),
   email: z.string().optional(),
   real_name: z.string().optional(),
-  phone: z.string().optional(),
+  phone: z.string().nullable(),
   nickname: z.string().nullable(),
   birthdate: z
     .string()
-    .datetime()
-    .transform((str) => new Date(str))
-    .optional(),
+    .transform((value) => new Date(value))
+    .nullable(),
   gender: genderSchema.nullable(),
   self_introduction: z.string().nullable(),
   avatar: z.string().url().nullable(),
