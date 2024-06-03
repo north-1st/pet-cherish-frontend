@@ -24,11 +24,13 @@ import {
 
 const UserDropdownMenu = ({ user, logout }: { user: User | null; logout: () => void }) => {
   const router = useRouter();
+
   const handleLogout = useCallback(() => {
     logout();
     localStorage.removeItem('user-storage');
-    destroyCookie(null, 'token');
-    router.push('/');
+    destroyCookie(null, 'user_id', { path: '/' });
+    destroyCookie(null, 'token', { path: '/' });
+    router.refresh();
   }, [logout, router]);
 
   return (
@@ -43,7 +45,7 @@ const UserDropdownMenu = ({ user, logout }: { user: User | null; logout: () => v
           <DropdownMenuItem>
             <span>更改密碼</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push(`/users/${user?.id}/profile`)}>
             <span>使用者資料</span>
           </DropdownMenuItem>
           <DropdownMenuItem>
@@ -57,10 +59,8 @@ const UserDropdownMenu = ({ user, logout }: { user: User | null; logout: () => v
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <span className='cursor-pointer' onClick={handleLogout}>
-            登出
-          </span>
+        <DropdownMenuItem onClick={handleLogout}>
+          <span className='cursor-pointer'>登出</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
