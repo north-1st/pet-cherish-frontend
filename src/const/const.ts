@@ -1,8 +1,6 @@
 export const isSecure = true;
 
-class API {
-  static PROD = 'https://pet-cherish-backend.onrender.com';
-  static DEV = 'https://pet-cherish-backend.onrender.com';
-}
+const API_PROD_BASE_URL = 'https://pet-cherish-backend.onrender.com';
+const API_DEV_BASE_URL = 'https://localhost:5000';
 
-export const API_BASE_URL: string = API.PROD;
+export const API_BASE_URL: string = API_PROD_BASE_URL;
