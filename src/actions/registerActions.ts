@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 import { registerSchema } from '@/schemas/registerSchema';
 
-import { API_BASE_URL } from '../const/const';
+import { API_BASE_URL, isSecure } from '../const/const';
 
 export const registerAction = async (formData: FormData) => {
   const validatedFields = registerSchema.safeParse({
@@ -48,7 +48,14 @@ export const registerAction = async (formData: FormData) => {
         name: 'token',
         value: result.data.accessToken,
         maxAge: 60 * 60 * 24, // 設定為 1 天
-        secure: true,
+        secure: isSecure,
+      });
+
+      cookies().set({
+        name: 'user_id',
+        value: result.data.id,
+        maxAge: 60 * 60 * 24, // 設定為 1 天
+        secure: isSecure,
       });
 
       return result;
