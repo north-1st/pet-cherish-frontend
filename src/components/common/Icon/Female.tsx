@@ -2,11 +2,11 @@ import { IconProps } from '@/schemas/iconPropsSchema';
 
 import { cn } from '@/lib/utils';
 
-const FemaleIcon = ({ width, height, className }: IconProps) => {
+const FemaleIcon = ({ width = 24, height = 24, className }: IconProps) => {
   return (
     <svg
-      width={width ?? 24}
-      height={height ?? 24}
+      width={width}
+      height={height}
       viewBox='0 0 24 24'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
