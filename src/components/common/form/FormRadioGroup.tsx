@@ -1,6 +1,8 @@
 import { FormFieldItem, FormFieldRadio } from '@/schemas/formFieldItem';
 import { FieldPath, FieldValues, UseFormReturn } from 'react-hook-form';
 
+import { cn } from '@/lib/utils';
+
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
@@ -9,12 +11,14 @@ const FormRadioGroup = <T extends FieldValues, K extends FieldPath<T>>({
   fieldName,
   formLabel,
   options,
+  isVertical = false,
   isBoolean,
 }: {
   form: UseFormReturn<T>;
   fieldName: K;
   formLabel: string;
   options: FormFieldItem[] | FormFieldRadio[];
+  isVertical?: boolean;
   isBoolean: boolean;
 }) => {
   return (
@@ -34,13 +38,12 @@ const FormRadioGroup = <T extends FieldValues, K extends FieldPath<T>>({
                 field.onChange(value);
               }}
               defaultValue={field.value?.toString()}
-              className='flex flex-col space-y-1'
             >
-              <div className='flex items-center'>
+              <div className={cn('flex flex-wrap gap-y-4', isVertical && 'flex-col')}>
                 {options.map(({ id, label }) => (
                   <FormItem
                     key={id?.toString()}
-                    className='flex w-20 items-center space-x-1 space-y-0'
+                    className='flex min-w-20 items-center space-x-1 space-y-0'
                   >
                     <FormControl>
                       <RadioGroupItem value={id?.toString()} />

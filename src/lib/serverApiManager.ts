@@ -24,6 +24,7 @@ class ServerApiManager {
           success: true,
           status: res.status,
           data: resData.data,
+          ...(resData.total && { total: resData.total }),
           message: resData.message,
         };
       } else {
@@ -76,7 +77,7 @@ class ServerApiManager {
 
   public static delete = async (
     endpoint: string,
-    payload: Record<string, any>,
+    payload?: Record<string, any>,
     options: RequestInit = {}
   ) =>
     this.request(endpoint, {

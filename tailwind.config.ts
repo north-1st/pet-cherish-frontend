@@ -26,6 +26,7 @@ const config = {
         gray02: '#3E3E3E',
         gray03: '#CBCAC8',
         gray04: '#F5F5F5',
+        grayIcon: '#1C1B1F',
         lightGreen: '#41C255',
 
         border: 'hsl(var(--border))',
