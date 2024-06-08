@@ -1,6 +1,7 @@
 import { RequestInit } from 'next/dist/server/web/spec-extension/request';
 
 import { API_BASE_URL } from '@/const/const';
+import { parseCookies } from 'nookies';
 
 import { toast } from '@/components/ui/use-toast';
 
@@ -8,7 +9,7 @@ class ClientApiManager {
   private static request = async (endpoint: string, options: RequestInit = {}) => {
     try {
       const url = new URL(endpoint, API_BASE_URL);
-      const token = localStorage.getItem('token');
+      const token = parseCookies().token;
 
       const res = await fetch(url.toString(), {
         ...options,

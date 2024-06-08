@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 
 import { API_BASE_URL } from '@/const/const';
 import { ApiResponse } from '@/schemas/apiResponse';
+import { z } from 'zod';
 
 class ServerApiManager {
   private static request = async (endpoint: string, options: RequestInit = {}) => {
@@ -24,12 +25,14 @@ class ServerApiManager {
           success: true,
           status: res.status,
           data: resData.data,
+          ...(z.number().safeParse(resData.total).success && { total: resData.total }),
           message: resData.message,
         };
       } else {
         return {
           success: false,
           status: res.status,
+          data: null,
           message: resData.message,
         };
       }
@@ -39,6 +42,7 @@ class ServerApiManager {
         status: 500,
         success: false,
         message: error instanceof Error ? error.message : '發生錯誤',
+        data: null,
       };
     }
   };
@@ -76,7 +80,7 @@ class ServerApiManager {
 
   public static delete = async (
     endpoint: string,
-    payload: Record<string, any>,
+    payload?: Record<string, any>,
     options: RequestInit = {}
   ) =>
     this.request(endpoint, {
