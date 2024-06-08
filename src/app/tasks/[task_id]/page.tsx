@@ -16,7 +16,7 @@ import CheckIcon from '@/components/common/Icon/Check';
 enum TabGroup {
   DETAILS = '詳情資訊',
   Q_AND_A = 'Q&A討論',
-  PREVIEWS = '其他保姆評價',
+  REVIEWS = '其他保姆評價',
 }
 
 export default function Page({ params }: { params: { task_id: string } }) {
@@ -126,17 +126,23 @@ export default function Page({ params }: { params: { task_id: string } }) {
       </main>
 
       {/* 頁籤區 */}
-      <section className='min-h-base-60 bg-gray04'>
+      <section className='min-h-base-60 bg-gray04 pb-10'>
         <article className='container'>
-          <Tabs.Root defaultValue='account'>
+          <Tabs.Root defaultValue={TabGroup.DETAILS}>
             <Tabs.List color='indigo'>
-              <Tabs.Trigger value={TabGroup.DETAILS}>詳情資訊</Tabs.Trigger>
-              <Tabs.Trigger value={TabGroup.Q_AND_A}>Q&A 討論 (10)</Tabs.Trigger>
-              <Tabs.Trigger value={TabGroup.PREVIEWS}>其他保姆評價 (20)</Tabs.Trigger>
+              <Tabs.Trigger value={TabGroup.DETAILS} className='border-b px-10 py-3'>
+                詳情資訊
+              </Tabs.Trigger>
+              <Tabs.Trigger value={TabGroup.Q_AND_A} className='border-b px-10 py-3'>
+                Q&A 討論 (10)
+              </Tabs.Trigger>
+              <Tabs.Trigger value={TabGroup.REVIEWS} className='border-b px-10 py-3'>
+                其他保姆評價 (20)
+              </Tabs.Trigger>
             </Tabs.List>
 
-            <Tabs.Content value={TabGroup.DETAILS}>
-              <div>
+            <Tabs.Content value={TabGroup.DETAILS} className='py-6'>
+              <article>
                 寵物習性:
                 Lucky來我們家有一年了，現在非常活潑好動，時常拆家，需要至少30分鐘的活動時間，。
                 Lucky非常友好,喜愛與人和其他狗狗互動，目前觀察下來對外人也不太會有攻擊性，但離開家人身邊會有點緊張。
@@ -150,22 +156,43 @@ export default function Page({ params }: { params: { task_id: string } }) {
                 我們家附近有一個狗狗公園,如果可能的話,希望Lucky能在那裡玩耍一會兒。 遛狗地區:
                 新北市三重區,具體地址將在確認保姆後提供。 聯絡方式: 請通過平台的 Q & A
                 討論或來聊聊功能與我聯繫,以獲取更多細節和討論遛狗的具體時間。
-              </div>
+              </article>
             </Tabs.Content>
 
-            <Tabs.Content value={TabGroup.Q_AND_A}>
+            <Tabs.Content value={TabGroup.Q_AND_A} className='py-6'>
               <div>
                 Q: 可接受多犬一起遛狗？ 保姆綽號 / 2023-03-10 20:45 A: 不行噢，Lucky
                 力氣很大，不適合。 Joanna / 2023-03-10 20:45
               </div>
             </Tabs.Content>
 
-            <Tabs.Content value={TabGroup.PREVIEWS}>
-              <div>
-                保姆頭貼 保姆綽號 / 2023-03-10 20:45
-                與飼主配合滿多次，前期討論比較花時間，但溝通都很愉快。Lucky
-                也很聰明，教幾次指令就聽的懂，推推！ 交易項目 到府安親
-              </div>
+            <Tabs.Content value={TabGroup.REVIEWS} className='py-6'>
+              <section className='grid grid-cols-10 rounded-lg bg-white px-4 py-6'>
+                <div className='col-span-2 flex items-center gap-4'>
+                  <Avatar className='h-20 w-20'>
+                    <AvatarImage alt='保姆頭貼' src='/images/people1.jpg' />
+                  </Avatar>
+                  <p>
+                    <h6>保姆綽號</h6>
+                    <time className='text-gray03'>2023-03-10 20:45</time>
+                  </p>
+                </div>
+                <main className='col-span-7 border-l-2 border-r-2 border-gray04 p-4'>
+                  <img src='/icons/star_fill.svg' alt='reviews' />
+                  與飼主配合滿多次，前期討論比較花時間，但溝通都很愉快。Lucky
+                  也很聰明，教幾次指令就聽的懂，推推！
+                </main>
+                <Button variant='link' className='col-span-1 m-auto p-4'>
+                  <img
+                    src='/icons/visibility.svg'
+                    height={16}
+                    width={16}
+                    alt='see more'
+                    className='mr-2 inline-block'
+                  />
+                  <span>到府安親</span>
+                </Button>
+              </section>
             </Tabs.Content>
           </Tabs.Root>
         </article>
