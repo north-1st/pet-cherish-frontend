@@ -6,13 +6,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import CheckIcon from '@/icons/done_outline.svg';
+import LockerIcon from '@/icons/lock_open_right.svg';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Tab from '@/components/ui/tab';
 
-import LockerIcon from '../../../../public/icons/lock_open_right.svg';
 import Details from '../components/Details';
 import QuestionAnswers from '../components/QuestionAnswers';
 import Reviews from '../components/Reviews';
