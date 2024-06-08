@@ -61,4 +61,7 @@
   img {
     @apply object-cover transition-all hover:scale-110;
   }
+  svg {
+    @apply text-2xl;
+  }
 }
