@@ -160,10 +160,30 @@ export default function Page({ params }: { params: { task_id: string } }) {
             </Tabs.Content>
 
             <Tabs.Content value={TabGroup.Q_AND_A} className='py-6'>
-              <div>
-                Q: 可接受多犬一起遛狗？ 保姆綽號 / 2023-03-10 20:45 A: 不行噢，Lucky
-                力氣很大，不適合。 Joanna / 2023-03-10 20:45
-              </div>
+              <ul className='flex flex-col gap-3 rounded-lg bg-white px-4 py-6'>
+                <li className='flex justify-between'>
+                  <div className='flex gap-2'>
+                    <Badge className='py-1 text-gray02' variant='default'>
+                      Q
+                    </Badge>
+                    <p>可接受多犬一起遛狗？</p>
+                  </div>
+                  <div className='flex gap-2'>
+                    保姆綽號
+                    <time className='text-gray03'>2023-03-10 20:45 </time>
+                  </div>
+                </li>
+                <li className='flex justify-between'>
+                  <div className='flex gap-2'>
+                    <Badge className='bg-gray01 py-1'>A</Badge>
+                    <p>不行噢，Lucky力氣很大，不適合。 </p>
+                  </div>
+                  <div className='flex gap-2'>
+                    Joanna
+                    <time className='text-gray03'>2023-03-10 20:45</time>
+                  </div>
+                </li>
+              </ul>
             </Tabs.Content>
 
             <Tabs.Content value={TabGroup.REVIEWS} className='py-6'>
@@ -174,7 +194,7 @@ export default function Page({ params }: { params: { task_id: string } }) {
                   </Avatar>
                   <p>
                     <h6>保姆綽號</h6>
-                    <time className='text-gray03'>2023-03-10 20:45</time>
+                    <time className='text-gray02'>2023-03-10 20:45</time>
                   </p>
                 </div>
                 <main className='col-span-7 border-l-2 border-r-2 border-gray04 p-4'>
