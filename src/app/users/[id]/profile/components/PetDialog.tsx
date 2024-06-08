@@ -2,9 +2,10 @@
 
 import React, { useRef } from 'react';
 
-import { petAction } from '@/actions/petAction';
+import { petAction, petDeleteAction } from '@/actions/petAction';
 import { HAS_MICROCHIP, IS_NEUTERED, PET_CHARACTER, PET_SIZE } from '@/const/pet';
 import { PetRequest, petRequestSchema } from '@/schemas/petSchema';
+import { uploadTypeSchema } from '@/schemas/upload';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -41,10 +42,28 @@ export function PetDialog({
       toast({
         description: res.message,
       });
+      if (!petId) form.reset();
       closeDialogRef.current?.click();
     } else {
       toast({
         title: '寵物設定失敗',
+        description: res.message,
+        variant: 'destructive',
+      });
+    }
+  }
+
+  async function deletePet() {
+    if (!petId) return;
+    const res = await petDeleteAction(petId!);
+    if (res.success) {
+      toast({
+        description: res.message,
+      });
+      closeDialogRef.current?.click();
+    } else {
+      toast({
+        title: '寵物刪除失敗',
         description: res.message,
         variant: 'destructive',
       });
@@ -88,7 +107,12 @@ export function PetDialog({
       contentChildren={
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
-            <FormImageInput form={form} fieldName='avatar_list' isArray />
+            <FormImageInput
+              form={form}
+              fieldName='avatar_list'
+              uploadType={uploadTypeSchema.enum.PET}
+              isArray
+            />
             <div className='grid grid-cols-2 gap-x-4 gap-y-6'>
               <FormTextInput
                 form={form}
@@ -140,7 +164,7 @@ export function PetDialog({
             />
             <div className='flex justify-end gap-4'>
               {defaultValues && (
-                <Button variant='outline' type='button'>
+                <Button variant='outline' type='button' onClick={deletePet}>
                   刪除
                 </Button>
               )}
