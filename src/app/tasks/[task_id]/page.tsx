@@ -14,6 +14,8 @@ import Tab from '@/components/ui/tab';
 
 import CheckIcon from '@/components/common/Icon/Check';
 
+import LockerIcon from '../../../../public/icons/lock_open_right.svg';
+import StarFillIcon from '../../../../public/icons/star_fill.svg';
 import Details from '../components/Details';
 import QuestionAnswers from '../components/QuestionAnswers';
 import Reviews from '../components/Reviews';
@@ -25,8 +27,6 @@ enum TabGroup {
 }
 
 export default function Page({ params }: { params: { task_id: string } }) {
-  const [activeTab, setActiveTab] = useState<TabGroup>(TabGroup.DETAILS);
-  console.log('🚀 ~ Page ~ activeTab:', activeTab);
   const tabs = [
     { label: TabGroup.DETAILS, content: <Details /> },
     { label: TabGroup.Q_AND_A, content: <QuestionAnswers /> },
@@ -50,10 +50,10 @@ export default function Page({ params }: { params: { task_id: string } }) {
         </ul>
       </nav>
 
-      {/* 主要 */}
+      {/* 任務資料 */}
       <main className='container mb-10 flex justify-between bg-white'>
         <aside className='w-[39%] rounded-md border-2 border-gray04'>
-          <div className='imgSlider'>
+          <div className='overflow-hidden'>
             <Image src='https://picsum.photos/530/300' width={530} height={300} alt='pet' />
           </div>
           <aside className='p-6'>
@@ -90,7 +90,7 @@ export default function Page({ params }: { params: { task_id: string } }) {
             </Badge>
             <aside className='flex'>
               <div className='mr-3 flex items-center text-lightGreen'>
-                <img src='/icons/lock_open_right.svg' height={16} width={16} alt='status' />
+                <LockerIcon width={16} height={16} />
                 <span className='ml-1'>公開</span>
               </div>
               <time className='text-gray02'>刊登時間：2023-03-01</time>
