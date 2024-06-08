@@ -94,11 +94,11 @@ const SearchTask = () => {
                   <div className='space-y-2'>
                     <h5 className='text-xl font-semibold'>急需遛狗 十萬火急 狗已經快把家拆了~</h5>
                     <p className='flex items-center gap-2'>
-                      <Clock color='#1C1B1F' width='20px' height='20px' />
+                      <Clock />
                       <span>2024/04/05 20:00 ~ 23:00</span>
                     </p>
                     <p className='flex items-center gap-2'>
-                      <LocationOnIcon color='#1C1B1F' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </p>
                     <div className='flex items-center gap-2'>
@@ -134,11 +134,11 @@ const SearchTask = () => {
                   <div className='space-y-2'>
                     <h5 className='text-xl font-semibold'>急需遛狗 十萬火急 狗已經快把家拆了~</h5>
                     <p className='flex items-center gap-2'>
-                      <Clock color='#1C1B1F' width='20px' height='20px' />
+                      <Clock />
                       <span>2024/04/05 20:00 ~ 23:00</span>
                     </p>
                     <p className='flex items-center gap-2'>
-                      <LocationOnIcon color='#1C1B1F' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </p>
                     <div className='flex items-center gap-2'>
@@ -174,11 +174,11 @@ const SearchTask = () => {
                   <div className='space-y-2'>
                     <h5 className='text-xl font-semibold'>急需遛狗 十萬火急 狗已經快把家拆了~</h5>
                     <p className='flex items-center gap-2'>
-                      <Clock color='#1C1B1F' width='20px' height='20px' />
+                      <Clock />
                       <span>2024/04/05 20:00 ~ 23:00</span>
                     </p>
                     <p className='flex items-center gap-2'>
-                      <LocationOnIcon color='#1C1B1F' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </p>
                     <div className='flex items-center gap-2'>
@@ -214,11 +214,11 @@ const SearchTask = () => {
                   <div className='space-y-2'>
                     <h5 className='text-xl font-semibold'>急需遛狗 十萬火急 狗已經快把家拆了~</h5>
                     <p className='flex items-center gap-2'>
-                      <Clock color='#1C1B1F' width='20px' height='20px' />
+                      <Clock />
                       <span>2024/04/05 20:00 ~ 23:00</span>
                     </p>
                     <p className='flex items-center gap-2'>
-                      <LocationOnIcon color='#1C1B1F' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </p>
                     <div className='flex items-center gap-2'>
@@ -254,11 +254,11 @@ const SearchTask = () => {
                   <div className='space-y-2'>
                     <h5 className='text-xl font-semibold'>急需遛狗 十萬火急 狗已經快把家拆了~</h5>
                     <p className='flex items-center gap-2'>
-                      <Clock color='#1C1B1F' width='20px' height='20px' />
+                      <Clock />
                       <span>2024/04/05 20:00 ~ 23:00</span>
                     </p>
                     <p className='flex items-center gap-2'>
-                      <LocationOnIcon color='#1C1B1F' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </p>
                     <div className='flex items-center gap-2'>
