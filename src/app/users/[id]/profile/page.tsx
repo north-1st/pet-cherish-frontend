@@ -1,5 +1,6 @@
 import ProfileBlock from './components/ProfileBlock';
 import UserPetsBlock from './components/UserPetsBlock';
+import UserReviewsBlock from './components/UserReviewsBlock';
 import UserTasksBlock from './components/UserTasksBlock';
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -9,6 +10,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       <div className='col-span-3'>
         <div className='flex flex-col gap-10'>
           <UserPetsBlock id={params.id} />
+          <UserReviewsBlock id={params.id} />
           <UserTasksBlock id={params.id} />
         </div>
       </div>
