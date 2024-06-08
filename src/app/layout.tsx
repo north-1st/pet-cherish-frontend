@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <html lang='en'>
+    <html lang='zh-TW'>
       <body className={notoSansTC.className}>
         <Header />
         <div className='flex-1'>{children}</div>

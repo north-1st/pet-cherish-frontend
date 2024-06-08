@@ -54,7 +54,6 @@ const FormMultiCheckboxes = <T extends FieldValues, K extends FieldPath<T>>({
               />
             ))}
           </div>
-
           <FormMessage />
         </FormItem>
       )}

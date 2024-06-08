@@ -19,3 +19,11 @@ export const petAction = async (fields: PetRequest, id?: string) => {
   }
   return res;
 };
+
+export const petDeleteAction = async (id: string) => {
+  const res = await ServerApiManager.delete(`/api/v1/pets/${id}`);
+  if (res.success) {
+    revalidateTag('user-pets');
+  }
+  return res;
+};
