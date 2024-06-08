@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,8 +10,13 @@ import * as Tabs from '@radix-ui/react-tabs';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import Tab from '@/components/ui/tab';
 
 import CheckIcon from '@/components/common/Icon/Check';
+
+import Details from '../components/Details';
+import QuestionAnswers from '../components/QuestionAnswers';
+import Reviews from '../components/Reviews';
 
 enum TabGroup {
   DETAILS = '詳情資訊',
@@ -20,6 +25,14 @@ enum TabGroup {
 }
 
 export default function Page({ params }: { params: { task_id: string } }) {
+  const [activeTab, setActiveTab] = useState<TabGroup>(TabGroup.DETAILS);
+  console.log('🚀 ~ Page ~ activeTab:', activeTab);
+  const tabs = [
+    { label: TabGroup.DETAILS, content: <Details /> },
+    { label: TabGroup.Q_AND_A, content: <QuestionAnswers /> },
+    { label: TabGroup.REVIEWS, content: <Reviews /> },
+  ];
+
   return (
     <>
       {/* 麵包屑 */}
@@ -128,93 +141,7 @@ export default function Page({ params }: { params: { task_id: string } }) {
       {/* 頁籤區 */}
       <section className='min-h-base-60 bg-gray04 pb-10'>
         <article className='container'>
-          <Tabs.Root defaultValue={TabGroup.DETAILS}>
-            <Tabs.List color='indigo'>
-              <Tabs.Trigger value={TabGroup.DETAILS} className='border-b px-10 py-3'>
-                詳情資訊
-              </Tabs.Trigger>
-              <Tabs.Trigger value={TabGroup.Q_AND_A} className='border-b px-10 py-3'>
-                Q&A 討論 (10)
-              </Tabs.Trigger>
-              <Tabs.Trigger value={TabGroup.REVIEWS} className='border-b px-10 py-3'>
-                其他保姆評價 (20)
-              </Tabs.Trigger>
-            </Tabs.List>
-
-            <Tabs.Content value={TabGroup.DETAILS} className='py-6'>
-              <article>
-                寵物習性:
-                Lucky來我們家有一年了，現在非常活潑好動，時常拆家，需要至少30分鐘的活動時間，。
-                Lucky非常友好,喜愛與人和其他狗狗互動，目前觀察下來對外人也不太會有攻擊性，但離開家人身邊會有點緊張。
-                Lucky一但玩瘋，叫名字也不會回來，要特別留意。
-                對食物非常感興趣,易受食物誘惑，我會提供 Lucky 平常的零食給您。 注意事項:
-                Lucky喜歡追逐鳥，遛狗時請務必使用牽引繩，避免Lucky追逐小動物或遠離視線範圍。
-                Lucky有輕微的分離焦慮,初次見面時可能會有一些緊張。希望在遛狗前能先見面討論，花些時間與Lucky互動,建立信任。
-                請注意不要讓Lucky接觸到巧克力或其他對狗狗有毒的食物，只能提供我準備的零食給 Lucky
-                吃。 Lucky 左前腳剛動完手術，請幫忙留意一下活動狀況。 其他說明:
-                Lucky已經完成所有必要的疫苗接種,並定期進行體內外寄生蟲的預防。
-                我們家附近有一個狗狗公園,如果可能的話,希望Lucky能在那裡玩耍一會兒。 遛狗地區:
-                新北市三重區,具體地址將在確認保姆後提供。 聯絡方式: 請通過平台的 Q & A
-                討論或來聊聊功能與我聯繫,以獲取更多細節和討論遛狗的具體時間。
-              </article>
-            </Tabs.Content>
-
-            <Tabs.Content value={TabGroup.Q_AND_A} className='py-6'>
-              <ul className='flex flex-col gap-3 rounded-lg bg-white px-4 py-6'>
-                <li className='flex justify-between'>
-                  <div className='flex gap-2'>
-                    <Badge className='py-1 text-gray02' variant='default'>
-                      Q
-                    </Badge>
-                    <p>可接受多犬一起遛狗？</p>
-                  </div>
-                  <div className='flex gap-2'>
-                    保姆綽號
-                    <time className='text-gray03'>2023-03-10 20:45 </time>
-                  </div>
-                </li>
-                <li className='flex justify-between'>
-                  <div className='flex gap-2'>
-                    <Badge className='bg-gray01 py-1'>A</Badge>
-                    <p>不行噢，Lucky力氣很大，不適合。 </p>
-                  </div>
-                  <div className='flex gap-2'>
-                    Joanna
-                    <time className='text-gray03'>2023-03-10 20:45</time>
-                  </div>
-                </li>
-              </ul>
-            </Tabs.Content>
-
-            <Tabs.Content value={TabGroup.REVIEWS} className='py-6'>
-              <section className='grid grid-cols-10 rounded-lg bg-white px-4 py-6'>
-                <div className='col-span-2 flex items-center gap-4'>
-                  <Avatar className='h-20 w-20'>
-                    <AvatarImage alt='保姆頭貼' src='/images/people1.jpg' />
-                  </Avatar>
-                  <p>
-                    <h6>保姆綽號</h6>
-                    <time className='text-gray02'>2023-03-10 20:45</time>
-                  </p>
-                </div>
-                <main className='col-span-7 border-l-2 border-r-2 border-gray04 p-4'>
-                  <img src='/icons/star_fill.svg' alt='reviews' />
-                  與飼主配合滿多次，前期討論比較花時間，但溝通都很愉快。Lucky
-                  也很聰明，教幾次指令就聽的懂，推推！
-                </main>
-                <Button variant='link' className='col-span-1 m-auto p-4'>
-                  <img
-                    src='/icons/visibility.svg'
-                    height={16}
-                    width={16}
-                    alt='see more'
-                    className='mr-2 inline-block'
-                  />
-                  <span>到府安親</span>
-                </Button>
-              </section>
-            </Tabs.Content>
-          </Tabs.Root>
+          <Tab list={tabs} />
         </article>
       </section>
     </>
