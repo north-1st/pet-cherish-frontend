@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 
 import profileAction from '@/actions/profileAction';
+import { uploadTypeSchema } from '@/schemas/upload';
 import {
   UserProfileRequest,
   genderSchema,
@@ -51,11 +52,11 @@ export function ProfileDialog({
 
   async function onSubmit(data: UserProfileRequest) {
     const res = await profileAction(data);
-
     if (res.success) {
       toast({
         description: res.message,
       });
+      form.reset();
       closeDialogRef.current?.click();
     } else {
       toast({
@@ -75,7 +76,12 @@ export function ProfileDialog({
       contentChildren={
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
-            <FormImageInput form={form} fieldName='avatar' isArray={false} />
+            <FormImageInput
+              form={form}
+              fieldName='avatar'
+              uploadType={uploadTypeSchema.enum.PROFILE}
+              isArray={false}
+            />
             <div className='grid grid-cols-2 gap-x-4 gap-y-6'>
               <FormTextInput
                 form={form}

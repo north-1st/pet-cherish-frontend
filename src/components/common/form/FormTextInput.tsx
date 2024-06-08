@@ -8,11 +8,13 @@ const FormTextInput = <T extends FieldValues, K extends FieldPath<T>>({
   fieldName,
   formLabel,
   placeholder,
+  isNumber = false,
 }: {
   form: UseFormReturn<T>;
   fieldName: K;
   formLabel: string;
   placeholder?: string;
+  isNumber?: boolean;
 }) => {
   return (
     <FormField
@@ -22,7 +24,11 @@ const FormTextInput = <T extends FieldValues, K extends FieldPath<T>>({
         <FormItem>
           <FormLabel className='text-xs text-gray02'>{formLabel}</FormLabel>
           <FormControl>
-            <Input placeholder={placeholder} {...field} />
+            <Input
+              placeholder={placeholder}
+              value={field.value}
+              onChange={(e) => field.onChange(isNumber ? Number(e.target.value) : e.target.value)}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

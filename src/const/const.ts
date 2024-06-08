@@ -1,3 +1,5 @@
+export const LOCALE = 'zh-TW';
+
 export const isSecure = true;
 
 const API_PROD_BASE_URL = 'https://pet-cherish-backend.onrender.com';

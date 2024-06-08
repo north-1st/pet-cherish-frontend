@@ -35,7 +35,6 @@ const UserDropdownMenu = ({ user, logout }: { user: User | null; logout: () => v
 
   const handleLogout = useCallback(() => {
     logout();
-    localStorage.removeItem('user-storage');
     destroyCookie(null, 'user_id', { path: '/' });
     destroyCookie(null, 'token', { path: '/' });
     router.refresh();
