@@ -45,7 +45,6 @@ const LoginForm = () => {
       formData.append('password', data.password);
 
       const result: LoginResponse = await loginAction(formData);
-      localStorage.setItem('token', result.data.accessToken);
 
       if (result.status) {
         Swal.fire({
