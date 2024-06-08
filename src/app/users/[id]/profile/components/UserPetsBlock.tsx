@@ -46,6 +46,7 @@ const UserPetsBlock = async ({ id }: { id: string }) => {
   return (
     <section className='rounded-xl bg-gray04 px-8 py-6 xl:col-span-3'>
       <PetDialog
+        key={'new-pet'}
         disabled={!isSelf}
         triggerChildren={
           <div className={cn('flex cursor-pointer items-center', !isSelf && 'mb-4')}>
@@ -56,15 +57,16 @@ const UserPetsBlock = async ({ id }: { id: string }) => {
       />
       <Carousel>
         <CarouselContent>
-          {pets.map((pet, index) => {
+          {pets.map((pet) => {
             const charatersStr = pet.character_list.map((charater, index) => {
               return `${index != 0 ? '、' : ''}${PET_CHARACTER[charater]}`;
             });
             return (
-              <CarouselItem key={index}>
+              <CarouselItem key={pet.id}>
                 <Card className='text-xs'>
                   <CardContent className='flex w-full gap-x-4 px-0 py-0'>
                     <PetDialog
+                      key={pet.id}
                       disabled={!isSelf}
                       petId={pet.id}
                       triggerChildren={
