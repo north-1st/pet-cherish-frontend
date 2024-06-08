@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { genderSchema, userResponseSchema } from '@/schemas/userProfileSchema';
 
 import ServerApiManager from '@/lib/serverApiManager';
+import { formatDate } from '@/lib/utils';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -53,14 +54,14 @@ const ProfileBlock = async ({ id }: { id: string }) => {
           </div>
           <div className='flex items-center gap-1 md:mb-4'>
             <BirthdateIcon width={20} height={20} />
-            <p className='text-sm'>{profile.birthdate?.toLocaleDateString('zh-TW')}</p>
+            <p className='text-sm'>{formatDate(profile.birthdate)}</p>
           </div>
         </div>
         {isSelf && (
           <ProfileDialog
             defaultValues={profile}
             triggerChildren={
-              <Button variant={'outline'} className='ml-auto sm:w-full'>
+              <Button variant={'outline'} className='ml-auto md:w-full'>
                 編輯
               </Button>
             }
