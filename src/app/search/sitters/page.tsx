@@ -97,7 +97,7 @@ const SearchSitter = () => {
                       <span className='text-xs'>(10)</span>
                     </div>
                     <div className='flex items-center gap-1'>
-                      <LocationOnIcon color='#1E1E1E' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </div>
                     <div className='flex gap-2'>
@@ -147,7 +147,7 @@ const SearchSitter = () => {
                       <span className='text-xs'>(10)</span>
                     </div>
                     <div className='flex items-center gap-1'>
-                      <LocationOnIcon color='#1E1E1E' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </div>
                     <div className='flex gap-2'>
@@ -197,7 +197,7 @@ const SearchSitter = () => {
                       <span className='text-xs'>(10)</span>
                     </div>
                     <div className='flex items-center gap-1'>
-                      <LocationOnIcon color='#1E1E1E' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </div>
                     <div className='flex gap-2'>
@@ -247,7 +247,7 @@ const SearchSitter = () => {
                       <span className='text-xs'>(10)</span>
                     </div>
                     <div className='flex items-center gap-1'>
-                      <LocationOnIcon color='#1E1E1E' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </div>
                     <div className='flex gap-2'>
@@ -297,7 +297,7 @@ const SearchSitter = () => {
                       <span className='text-xs'>(10)</span>
                     </div>
                     <div className='flex items-center gap-1'>
-                      <LocationOnIcon color='#1E1E1E' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </div>
                     <div className='flex gap-2'>
@@ -347,7 +347,7 @@ const SearchSitter = () => {
                       <span className='text-xs'>(10)</span>
                     </div>
                     <div className='flex items-center gap-1'>
-                      <LocationOnIcon color='#1E1E1E' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </div>
                     <div className='flex gap-2'>
@@ -397,7 +397,7 @@ const SearchSitter = () => {
                       <span className='text-xs'>(10)</span>
                     </div>
                     <div className='flex items-center gap-1'>
-                      <LocationOnIcon color='#1E1E1E' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </div>
                     <div className='flex gap-2'>
@@ -447,7 +447,7 @@ const SearchSitter = () => {
                       <span className='text-xs'>(10)</span>
                     </div>
                     <div className='flex items-center gap-1'>
-                      <LocationOnIcon color='#1E1E1E' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </div>
                     <div className='flex gap-2'>
@@ -497,7 +497,7 @@ const SearchSitter = () => {
                       <span className='text-xs'>(10)</span>
                     </div>
                     <div className='flex items-center gap-1'>
-                      <LocationOnIcon color='#1E1E1E' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </div>
                     <div className='flex gap-2'>
@@ -547,7 +547,7 @@ const SearchSitter = () => {
                       <span className='text-xs'>(10)</span>
                     </div>
                     <div className='flex items-center gap-1'>
-                      <LocationOnIcon color='#1E1E1E' width='20px' height='20px' />
+                      <LocationOnIcon />
                       <span>台北市中山區</span>
                     </div>
                     <div className='flex gap-2'>
