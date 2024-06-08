@@ -1,21 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
 
-import * as Tabs from '@radix-ui/react-tabs';
+import CheckIcon from '@/icons/done_outline.svg';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Tab from '@/components/ui/tab';
 
-import CheckIcon from '@/components/common/Icon/Check';
-
 import LockerIcon from '../../../../public/icons/lock_open_right.svg';
-import StarFillIcon from '../../../../public/icons/star_fill.svg';
 import Details from '../components/Details';
 import QuestionAnswers from '../components/QuestionAnswers';
 import Reviews from '../components/Reviews';
@@ -71,7 +68,7 @@ export default function Page({ params }: { params: { task_id: string } }) {
               </div>
               <div className='flex-1'>
                 <p>
-                  <CheckIcon className='m-2 ml-0 inline-block text-gray03' width={20} height={20} />
+                  <CheckIcon className='m-2 ml-0 inline-block text-gray03' width={40} height={40} />
                   <span>寵物晶片</span>
                 </p>
                 <p>
