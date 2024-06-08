@@ -13,6 +13,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import AddIcon from '@/components/common/Icon/Add';
 import Clock from '@/components/common/Icon/Clock';
 import LocationOnIcon from '@/components/common/Icon/LocationOnIcon';
+import Empty from '@/components/common/view/Empty';
 
 import TaskDialog from './TaskDialog';
 
@@ -66,48 +67,52 @@ const UserTasksBlock = async ({ id }: { id: string }) => {
           </div>
         }
       />
-      <div className='grid gap-4 md:grid-cols-2'>
-        {tasks.data.map((task) => {
-          return (
-            <Card key={task.id} className='text-xs'>
-              <CardContent className='gap-x-4 p-0'>
-                <TaskDialog
-                  key={task.id}
-                  disabled={!isSelf}
-                  taskId={task.id}
-                  petOptions={petOptions}
-                  triggerChildren={
-                    <Avatar className='aspect-video h-auto w-full rounded-b-none rounded-t-lg'>
-                      <AvatarImage src={task.cover ?? undefined} />
-                    </Avatar>
-                  }
-                  defaultValues={taskRequestSchema.parse(task)}
-                />
-                <div className={cn('grid gap-y-3 p-4 text-sm', isSelf && 'pt-0')}>
-                  <h3 className='line-clamp-1 text-lg font-bold'>{task.title}</h3>
-                  <div className='mr-auto rounded-2xl border border-gray02 px-3 py-1'>
-                    {SERVICE_TYPE[task.service_type]}
+      {tasks.data.length == 0 ? (
+        <Empty />
+      ) : (
+        <div className='grid gap-4 md:grid-cols-2'>
+          {tasks.data.map((task) => {
+            return (
+              <Card key={task.id} className='text-xs'>
+                <CardContent className='gap-x-4 p-0'>
+                  <TaskDialog
+                    key={task.id}
+                    disabled={!isSelf}
+                    taskId={task.id}
+                    petOptions={petOptions}
+                    triggerChildren={
+                      <Avatar className='aspect-video h-auto w-full rounded-b-none rounded-t-lg'>
+                        <AvatarImage src={task.cover ?? undefined} />
+                      </Avatar>
+                    }
+                    defaultValues={taskRequestSchema.parse(task)}
+                  />
+                  <div className={cn('grid gap-y-3 p-4 text-sm', isSelf && 'pt-0')}>
+                    <h3 className='line-clamp-1 text-lg font-bold'>{task.title}</h3>
+                    <div className='mr-auto rounded-2xl border border-gray02 px-3 py-1'>
+                      {SERVICE_TYPE[task.service_type]}
+                    </div>
+                    <p className='flex items-center gap-x-1'>
+                      <Clock />
+                      {dateTimeDuration(task.start_at, task.end_at)}
+                    </p>
+                    <p className='flex items-center gap-x-1'>
+                      <LocationOnIcon />
+                      {`${task.city}${task.district}`}
+                    </p>
+                    <hr />
+                    <p className='h-20'>{task.description}</p>
+                    <div className='flex items-center justify-between'>
+                      <p className='text-xl font-bold text-brand01'>{task.total}</p>
+                      <p className='text-gray03'>{`(${task.unit_price}元/30分鐘)`}</p>
+                    </div>
                   </div>
-                  <p className='flex items-center gap-x-1'>
-                    <Clock />
-                    {dateTimeDuration(task.start_at, task.end_at)}
-                  </p>
-                  <p className='flex items-center gap-x-1'>
-                    <LocationOnIcon />
-                    {`${task.city}${task.district}`}
-                  </p>
-                  <hr />
-                  <p className='h-20'>{task.description}</p>
-                  <div className='flex items-center justify-between'>
-                    <p className='text-xl font-bold text-brand01'>{task.total}</p>
-                    <p className='text-gray03'>{`(${task.unit_price}元/30分鐘)`}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 };

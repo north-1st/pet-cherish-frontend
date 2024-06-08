@@ -16,7 +16,7 @@ import MaleIcon from '@/components/common/Icon/Male';
 import ProfileDialog from './ProfileDialog';
 
 const getData = async (id: string) => {
-  const { status, success, data, message } = await ServerApiManager.get(
+  const { status, success, message, data } = await ServerApiManager.get(
     `/api/v1/users/${id}/profile`,
     {
       cache: 'no-store',
@@ -43,7 +43,10 @@ const ProfileBlock = async ({ id }: { id: string }) => {
     <section className='mt-4 bg-white md:mt-20'>
       <div className='mb-2 flex items-center gap-x-2 md:mb-3 md:flex-col'>
         <Avatar className='h-20 w-20 md:h-[120px] md:w-[120px]'>
-          <AvatarImage alt='Profile' src={profile.avatar ?? ''}></AvatarImage>
+          <AvatarImage
+            alt='Profile'
+            src={profile.avatar ?? '/images/default_avatar.png'}
+          ></AvatarImage>
           <AvatarFallback>{profile.nickname}</AvatarFallback>
         </Avatar>
         <div className='grid md:place-items-center'>
@@ -52,10 +55,14 @@ const ProfileBlock = async ({ id }: { id: string }) => {
             {profile.gender == genderSchema.enum.MALE && <MaleIcon />}
             {profile.gender == genderSchema.enum.FEMALE && <FemaleIcon />}
           </div>
-          <div className='flex items-center gap-1 md:mb-4'>
-            <BirthdateIcon width={20} height={20} />
-            <p className='text-sm'>{formatDate(profile.birthdate)}</p>
-          </div>
+          {profile.birthdate == null ? (
+            <p className='mb-4 text-sm text-gray03'>尚無資料</p>
+          ) : (
+            <div className='flex items-center gap-1 md:mb-4'>
+              <BirthdateIcon width={20} height={20} />
+              <p className='text-sm'>{formatDate(profile.birthdate)}</p>
+            </div>
+          )}
         </div>
         {isSelf && (
           <ProfileDialog
