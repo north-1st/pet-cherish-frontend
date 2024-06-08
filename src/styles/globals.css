@@ -65,4 +65,8 @@
   hr {
     @apply border-gray04;
   }
+
+  svg {
+    @apply text-2xl;
+  }
 }
