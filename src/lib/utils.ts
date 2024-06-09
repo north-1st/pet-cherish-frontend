@@ -20,7 +20,9 @@ export const formatTime = (date?: Date | null, options?: Intl.DateTimeFormatOpti
 };
 
 export const formatDateTime = (date: Date | null) => {
-  return date?.toLocaleString(LOCALE);
+  return date?.toLocaleString(LOCALE, {
+    hour12: false,
+  });
 };
 
 export const dateTimeDuration = (start: Date, end: Date) => {
