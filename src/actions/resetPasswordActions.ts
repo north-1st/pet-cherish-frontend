@@ -2,7 +2,7 @@
 
 import { resetPasswordSchema } from '@/schemas/resetPasswordSchema';
 
-import { API_BASE_URL } from '../const/const';
+import { API_BASE_URL } from '../const/config';
 
 export const resetPasswordAction = async (formData: FormData, userId: string) => {
   const validatedFields = resetPasswordSchema.safeParse({

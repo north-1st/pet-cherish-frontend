@@ -1,7 +1,7 @@
 import { RequestInit } from 'next/dist/server/web/spec-extension/request';
 import { cookies } from 'next/headers';
 
-import { API_BASE_URL } from '@/const/const';
+import { API_BASE_URL } from '@/const/config';
 import { ApiResponse } from '@/schemas/apiResponse';
 import { z } from 'zod';
 
