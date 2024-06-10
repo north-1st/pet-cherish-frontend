@@ -126,7 +126,7 @@ export function TaskDialog({
               form={form}
               fieldName='cover'
               uploadType={uploadTypeSchema.enum.TASK}
-              containerClassName='w-full aspect-video rounded-xl'
+              containerClassName='w-full aspect-video rounded-xl h-auto'
               fallbackClassName='rounded-xl'
               isArray={false}
             />
