@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { searchTasksAction } from '@/actions/searchTasksAction';
 import { PET_SIZE } from '@/const/pet';
 import TAIWAN_DISTRICTS from '@/const/taiwanDistricts';
 import { SERVICE_TYPE } from '@/const/task';
@@ -46,8 +47,40 @@ const TaskForm = () => {
     },
   });
 
-  const onSubmit = async (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: SearchTasksRequest) => {
+    const newData = {
+      ...data,
+      service_type_list: data.service_type_list
+        .map(
+          (description) =>
+            Object.keys(SERVICE_TYPE).find(
+              (key) => SERVICE_TYPE[key as keyof typeof SERVICE_TYPE] === description
+            ) as keyof typeof SERVICE_TYPE | undefined
+        )
+        .filter((key): key is keyof typeof SERVICE_TYPE => key !== undefined),
+      pet_size_list: data.pet_size_list
+        .map(
+          (description) =>
+            Object.keys(PET_SIZE).find(
+              (key) => PET_SIZE[key as keyof typeof PET_SIZE] === description
+            ) as keyof typeof PET_SIZE | undefined
+        )
+        .filter((key): key is keyof typeof PET_SIZE => key !== undefined),
+    };
+
+    const formData = new FormData();
+    formData.append('service_city', newData.service_city);
+    formData.append('service_district_list', newData.service_district_list.join(','));
+    formData.append('service_type_list', newData.service_type_list.join(','));
+    formData.append('pet_size_list', newData.pet_size_list.join(','));
+
+    try {
+      const result: SearchTasksRequest = await searchTasksAction(formData);
+
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -167,7 +200,7 @@ const TaskForm = () => {
           type='submit'
           variant='outline'
         >
-          登入
+          搜尋
         </Button>
       </form>
     </Form>
