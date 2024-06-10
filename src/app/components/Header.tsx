@@ -69,7 +69,10 @@ const UserDropdownMenu = ({ user, logout }: { user: User | null; logout: () => v
             <Person width={20} height={20} className='mr-2' />
             <span>使用者資料</span>
           </DropdownMenuItem>
-          <DropdownMenuItem className='cursor-pointer'>
+          <DropdownMenuItem
+            className='cursor-pointer'
+            onClick={() => router.push(`/users/${user?.id}/sitter`)}
+          >
             <Face width={20} height={20} className='mr-2' />
             <span>保姆資料</span>
           </DropdownMenuItem>
