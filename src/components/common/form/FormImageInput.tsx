@@ -21,6 +21,7 @@ const uploadImage = async (file: File, type: UploadType) => {
 const FormImageInput = <T extends FieldValues, K extends FieldPath<T>>({
   form,
   fieldName,
+  formLabel,
   uploadType,
   placeholder,
   containerClassName,
@@ -29,6 +30,7 @@ const FormImageInput = <T extends FieldValues, K extends FieldPath<T>>({
 }: {
   form: UseFormReturn<T>;
   fieldName: K;
+  formLabel?: string;
   uploadType: UploadType;
   placeholder?: string;
   containerClassName?: string;
@@ -40,8 +42,9 @@ const FormImageInput = <T extends FieldValues, K extends FieldPath<T>>({
       control={form.control}
       name={fieldName}
       render={({ field }) => (
-        <FormItem className='flex'>
-          <FormLabel>
+        <FormItem>
+          <FormLabel className='text-xs text-gray02'>
+            {formLabel}
             <Avatar className={cn('h-[120px] w-[120px] cursor-pointer', containerClassName)}>
               <AvatarImage src={isArray ? field.value?.[0] : field.value} />
               <AvatarFallback className={fallbackClassName}></AvatarFallback>
