@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 import { loginSchema } from '@/schemas/loginSchema';
 
-import { API_BASE_URL, isSecure } from '../const/const';
+import { API_BASE_URL, IS_SECURE } from '../const/config';
 
 export const loginAction = async (formData: FormData) => {
   const validatedFields = loginSchema.safeParse({
@@ -47,14 +47,14 @@ export const loginAction = async (formData: FormData) => {
         name: 'token',
         value: result.data.accessToken,
         maxAge: 60 * 60 * 24, // 設定為 1 天
-        secure: isSecure, // 需要在 HTTPS 上啟用
+        secure: IS_SECURE, // 需要在 HTTPS 上啟用
       });
 
       cookies().set({
         name: 'user_id',
         value: result.data.id,
         maxAge: 60 * 60 * 24, // 設定為 1 天
-        secure: isSecure, // 需要在 HTTPS 上啟用
+        secure: IS_SECURE, // 需要在 HTTPS 上啟用
       });
 
       return result;

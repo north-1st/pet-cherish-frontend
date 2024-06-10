@@ -1,4 +1,4 @@
-import { LOCALE } from '@/const/const';
+import { LOCALE } from '@/const/config';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -20,7 +20,9 @@ export const formatTime = (date?: Date | null, options?: Intl.DateTimeFormatOpti
 };
 
 export const formatDateTime = (date: Date | null) => {
-  return date?.toLocaleString(LOCALE);
+  return date?.toLocaleString(LOCALE, {
+    hour12: false,
+  });
 };
 
 export const dateTimeDuration = (start: Date, end: Date) => {
