@@ -1,4 +1,4 @@
-import { LOCALE } from '@/const/const';
+import { LOCALE } from '@/const/config';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 

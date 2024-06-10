@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 
-import { API_BASE_URL } from '@/const/const';
+import { API_BASE_URL } from '@/const/config';
 import { PET_CHARACTER } from '@/const/pet';
 import { ApiResponse } from '@/schemas/apiResponse';
 import { petListResponseSchema } from '@/schemas/petSchema';
