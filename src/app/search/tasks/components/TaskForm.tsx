@@ -10,6 +10,8 @@ import { SearchTasksRequest, searchTasksRequestSchema } from '@/schemas/searchTa
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
+import { SearchTasksResponse, Task } from '@/types/types';
+
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -36,7 +38,11 @@ import {
   MultiSelectorTrigger,
 } from '@/components/extension/multi-select';
 
-const TaskForm = () => {
+interface TaskFormProps {
+  setTaskList: React.Dispatch<React.SetStateAction<Task[]>>;
+}
+
+const TaskForm = ({ setTaskList }: TaskFormProps) => {
   const form = useForm<SearchTasksRequest>({
     resolver: zodResolver(searchTasksRequestSchema),
     defaultValues: {
@@ -75,9 +81,11 @@ const TaskForm = () => {
     formData.append('pet_size_list', newData.pet_size_list.join(','));
 
     try {
-      const result: SearchTasksRequest = await searchTasksAction(formData);
+      const result: SearchTasksResponse = await searchTasksAction(formData);
 
-      console.log(result);
+      if (result.status && Array.isArray(result.data.tasks_list)) {
+        setTaskList(result.data.tasks_list);
+      }
     } catch (error) {
       console.error(error);
     }
