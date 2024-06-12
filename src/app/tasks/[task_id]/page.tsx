@@ -14,6 +14,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Tab from '@/components/ui/tab';
 
+import Breadcrumbs from '@/components/common/breadcrumbs';
+
 import Details from '../components/Details';
 import QuestionAnswers from '../components/QuestionAnswers';
 import Reviews from '../components/Reviews';
@@ -31,30 +33,15 @@ export default function Page({ params }: { params: { task_id: string } }) {
     { label: TabGroup.REVIEWS, content: <Reviews /> },
   ];
 
+  const navList = [
+    { label: '任務列表', href: '/search/tasks' },
+    { label: `任務編號：${params.task_id}`, href: `/tasks/${params.task_id}` },
+  ];
+
   return (
     <>
       {/* 麵包屑 */}
-      <nav className='container p-3'>
-        <ul className='flex items-center gap-2'>
-          <li>
-            <Link className='align-top text-gray03' href='/'>
-              首頁
-            </Link>
-          </li>
-          <li>
-            <ArrowRightIcon className='mr-2 inline-block text-gray03' />
-            <Link className='align-top text-gray03' href='/search/tasks'>
-              任務列表
-            </Link>
-          </li>
-          <li>
-            <ArrowRightIcon className='mr-2 inline-block text-gray03' />
-            <Link className='align-top' href={`/tasks/${params.task_id}`}>
-              任務編號：{params.task_id}
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      <Breadcrumbs navList={navList} />
 
       {/* 任務資料 */}
       <main className='container mb-10 flex flex-col justify-between bg-white md:flex-row'>
