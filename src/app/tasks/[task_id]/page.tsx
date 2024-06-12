@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import CheckIcon from '@/icons/done_outline.svg';
+import ArrowRightIcon from '@/icons/keyboard_double_arrow_right.svg';
 import LockerIcon from '@/icons/lock_open_right.svg';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
@@ -34,28 +35,36 @@ export default function Page({ params }: { params: { task_id: string } }) {
     <>
       {/* 麵包屑 */}
       <nav className='container p-3'>
-        <ul className='flex gap-5'>
-          <li className='breadcrumbItem'>
-            <Link href='/'>首頁</Link>
+        <ul className='flex items-center gap-2'>
+          <li>
+            <Link className='align-top text-gray03' href='/'>
+              首頁
+            </Link>
           </li>
-          <li className='breadcrumbItem'>
-            <Link href='/search/tasks'>任務列表</Link>
+          <li>
+            <ArrowRightIcon className='mr-2 inline-block text-gray03' />
+            <Link className='align-top text-gray03' href='/search/tasks'>
+              任務列表
+            </Link>
           </li>
-          <li className='breadcrumbItem'>
-            <Link href={`/tasks/${params.task_id}`}>任務編號：{params.task_id}</Link>
+          <li>
+            <ArrowRightIcon className='mr-2 inline-block text-gray03' />
+            <Link className='align-top' href={`/tasks/${params.task_id}`}>
+              任務編號：{params.task_id}
+            </Link>
           </li>
         </ul>
       </nav>
 
       {/* 任務資料 */}
-      <main className='container mb-10 flex justify-between bg-white'>
-        <aside className='w-[39%] rounded-md border-2 border-gray04'>
+      <main className='container mb-10 flex flex-col justify-between bg-white md:flex-row'>
+        <aside className='mb-5 rounded-md border-2 border-gray04 md:mb-0 md:w-[39%]'>
           <div className='overflow-hidden'>
             <Image src='https://picsum.photos/530/300' width={530} height={300} alt='pet' />
           </div>
           <aside className='p-6'>
             <h3 className='text-lg font-bold'>張小庭</h3>
-            <section className='flex text-sm'>
+            <section className='flex flex-col text-sm sm:flex-row'>
               <div className='flex-1'>
                 <p>
                   <h5 className='m-2 ml-0 inline-block text-gray03'>品種</h5>
@@ -68,7 +77,7 @@ export default function Page({ params }: { params: { task_id: string } }) {
               </div>
               <div className='flex-1'>
                 <p>
-                  <CheckIcon className='m-2 ml-0 inline-block text-gray03' width={40} height={40} />
+                  <CheckIcon className='m-2 ml-0 inline-block text-gray03' width={20} height={20} />
                   <span>寵物晶片</span>
                 </p>
                 <p>
@@ -80,21 +89,24 @@ export default function Page({ params }: { params: { task_id: string } }) {
           </aside>
         </aside>
 
-        <article className='flex w-[59%] flex-col justify-between'>
+        <article className='flex flex-col justify-between gap-2 text-sm sm:text-base md:w-[59%]'>
           <header className='flex items-center justify-between'>
             <Badge className='border-gray02 text-gray02' variant='outline'>
               任務編號：{params.task_id}
             </Badge>
-            <aside className='flex'>
-              <div className='mr-3 flex items-center text-lightGreen'>
+            <aside className='flex gap-2 text-right'>
+              <div className='flex min-w-20 items-center justify-end text-lightGreen'>
                 <LockerIcon width={16} height={16} />
                 <span className='ml-1'>公開</span>
               </div>
-              <time className='text-gray02'>刊登時間：2023-03-01</time>
+              <p className='text-gray02'>
+                刊登時間：
+                <time>2023-03-01</time>
+              </p>
             </aside>
           </header>
 
-          <h2 className='text-3xl font-bold'>急需遛狗 十萬火急 狗已經快把家拆了~</h2>
+          <h2 className='text-2xl font-bold sm:text-3xl'>急需遛狗 十萬火急 狗已經快把家拆了~</h2>
           <div className='flex justify-between rounded-md bg-gray04 p-3'>
             <p className='flex items-center gap-2'>
               <Avatar>
@@ -107,15 +119,15 @@ export default function Page({ params }: { params: { task_id: string } }) {
           </div>
 
           <ul>
-            <li className='m-4 ml-0 flex gap-2'>
+            <li className='m-4 ml-0 flex flex-wrap gap-2'>
               <h3 className='text-gray02'>任務需求</h3>
               <strong>陪伴散步</strong>
             </li>
-            <li className='m-4 ml-0 flex gap-2'>
+            <li className='m-4 ml-0 flex flex-wrap gap-2'>
               <h3 className='text-gray02'>任務時間</h3>
               <strong>2024-03-01 17:00 ~ 2024-03-01 19:00</strong>
             </li>
-            <li className='m-4 ml-0 flex gap-2'>
+            <li className='m-4 ml-0 flex flex-wrap gap-2'>
               <h3 className='text-gray02'>任務地區</h3>
               <strong>新北市三重區</strong>
             </li>
