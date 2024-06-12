@@ -23,16 +23,16 @@ import Reviews from '../../../components/common/view/Reviews';
 enum TabGroup {
   DETAILS = '詳情資訊',
   Q_AND_A = 'Q&A討論',
-  REVIEWS = '其他保姆評價',
+  REVIEWS = '其他飼主評價',
 }
 
-export default function Page({ params }: { params: { task_id: string } }) {
+export default function Page({ params }: { params: { user_id: string } }) {
   const qaList = [
     {
-      question: { title: '可接受多犬一起遛狗嗎？', name: '保姆綽號', dateTime: '2023-03-10 20:45' },
+      question: { title: '可接受長期配合嗎？', name: '飼主綽號', dateTime: '2023-03-10 20:45' },
       answer: {
-        title: '不行噢，Lucky力氣很大，不適合。',
-        name: 'Joanna',
+        title: '可以私訊聊聊。',
+        name: 'Bob',
         dateTime: '2023-03-10 20:45',
       },
     },
@@ -42,16 +42,15 @@ export default function Page({ params }: { params: { task_id: string } }) {
     {
       poster: {
         headIcon: '/images/people1.jpg',
-        name: '保姆綽號',
+        name: '飼主綽號',
         dateTime: '2023-03-10 20:45',
       },
       review: {
         rating: 4,
-        content:
-          '與飼主配合滿多次，前期討論比較花時間，但溝通都很愉快。Lucky也很聰明，教幾次指令就聽的懂，推推！',
+        content: '與保姆配合滿多次，前期討論比較花時間，但溝通都很愉快，推推！',
       },
       task: {
-        serviceType: SERVICE_TYPE.HEALTH_CARE,
+        serviceType: SERVICE_TYPE.WALKING,
       },
     },
   ];
@@ -62,18 +61,28 @@ export default function Page({ params }: { params: { task_id: string } }) {
       content: (
         <Details
           content={`
-            寵物習性: Lucky來我們家有一年了，現在非常活潑好動，時常拆家，需要至少30分鐘的活動時間，。
-            Lucky非常友好,喜愛與人和其他狗狗互動，目前觀察下來對外人也不太會有攻擊性，但離開家人身邊會有點緊張。
-            Lucky一但玩瘋，叫名字也不會回來，要特別留意。 對食物非常感興趣,易受食物誘惑，我會提供 Lucky
-            平常的零食給您。 注意事項:
-            Lucky喜歡追逐鳥，遛狗時請務必使用牽引繩，避免Lucky追逐小動物或遠離視線範圍。
-            Lucky有輕微的分離焦慮,初次見面時可能會有一些緊張。希望在遛狗前能先見面討論，花些時間與Lucky互動,建立信任。
-            請注意不要讓Lucky接觸到巧克力或其他對狗狗有毒的食物，只能提供我準備的零食給 Lucky 吃。 Lucky
-            左前腳剛動完手術，請幫忙留意一下活動狀況。 其他說明:
-            Lucky已經完成所有必要的疫苗接種,並定期進行體內外寄生蟲的預防。
-            我們家附近有一個狗狗公園,如果可能的話,希望Lucky能在那裡玩耍一會兒。 遛狗地區:
-            新北市三重區,具體地址將在確認保姆後提供。 聯絡方式: 請通過平台的 Q & A
-            討論或來聊聊功能與我聯繫,以獲取更多細節和討論遛狗的具體時間。
+            自我介紹:
+            大家好,我是Emily,一位熱愛狗狗的專業遛狗保姆。自小與多種犬類共同成長,我對於狗狗的行為、需求有深刻的理解。憑藉著我對這些忠實夥伴的愛,我決定將我的熱情轉化為專業,幫助那些需要關愛的狗狗們。
+
+            服務經驗:
+            我在遛狗服務行業擁有超過5年的經驗,期間照顧過從小型犬到大型犬的各種品種,包括拉布拉多、黃金獵犬、比熊等。
+
+            專業證照:
+            我擁有專業的寵物護理師證照,並且定期參加各種寵物護理和行為訓練的進修課程,以確保我的技能和知識能夠符合最新的標準。
+
+            服務內容:
+            日常遛狗服務,包括散步、跑步和遊戲,以滿足狗狗的身體活動需求。
+            行為訓練諮詢,幫助解決如牽引繩拉扯、對其他狗狗或人的反應等常見問題。
+            客製化服務計劃,根據狗狗的年齡、品種和健康狀況制定適合的活動方案。
+
+            承諾:
+            作為您的遛狗保姆,我的首要任務是確保您的狗狗在我們一起度過的每一刻都感到快樂、安全。我承諾提供最貼心、最專業的服務,讓您可以安心將寶貝交給我照顧。
+
+            服務範圍:
+            新北市三重區、新北市板橋區。
+
+            聯絡方式:
+            請通過平台的 Q & A 討論或來聊聊功能與我聯繫,我期待著與您的狗狗見面,開啟我們的快樂散步時光!
           `}
         />
       ),
@@ -83,8 +92,8 @@ export default function Page({ params }: { params: { task_id: string } }) {
   ];
 
   const navList = [
-    { label: '任務列表', href: '/search/tasks' },
-    { label: `任務編號：${params.task_id}`, href: `/tasks/${params.task_id}` },
+    { label: '保姆列表', href: '/search/sitters' },
+    { label: `保姆編號：${params.user_id}`, href: `/sitters/${params.user_id}` },
   ];
 
   return (
@@ -99,26 +108,21 @@ export default function Page({ params }: { params: { task_id: string } }) {
             <Image src='https://picsum.photos/530/300' width={530} height={300} alt='pet' />
           </div>
           <aside className='p-6'>
-            <h3 className='text-lg font-bold'>張小庭</h3>
+            <h3 className='text-lg font-bold'>David 保姆資歷</h3>
             <section className='flex flex-col text-sm sm:flex-row'>
               <div className='flex-1'>
                 <p>
-                  <span className='m-2 ml-0 inline-block text-gray03'>品種</span>
-                  <span>拉布拉多．大型</span>
-                </p>
-                <p>
-                  <span className='m-2 ml-0 inline-block text-gray03'>個性</span>
-                  <span>暴躁、可愛、聰明</span>
-                </p>
-              </div>
-              <div className='flex-1'>
-                <p>
                   <CheckIcon className='m-2 ml-0 inline-block text-gray03' width={20} height={20} />
-                  <span>寵物晶片</span>
+                  <span>良民證</span>
                 </p>
                 <p>
                   <CheckIcon className='m-2 ml-0 inline-block text-gray03' width={20} height={20} />
-                  <span>結紮</span>
+                  <span>平台認證</span> :{' '}
+                  <span className='m-2 ml-0 inline-block text-gray02'>平台服務次數達100次</span>
+                </p>
+                <p>
+                  <CheckIcon className='m-2 ml-0 inline-block text-gray03' width={20} height={20} />
+                  <span className='m-2 ml-0 inline-block text-gray02'>是否開放到府接送</span>
                 </p>
               </div>
             </section>
@@ -128,7 +132,7 @@ export default function Page({ params }: { params: { task_id: string } }) {
         <article className='flex flex-col justify-between gap-2 text-sm sm:text-base md:w-[59%]'>
           <header className='flex items-center justify-between'>
             <Badge className='border-gray02 text-gray02' variant='outline'>
-              任務編號：{params.task_id}
+              保姆編號：{params.user_id}
             </Badge>
             <aside className='flex gap-2 text-right'>
               <div className='flex min-w-20 items-center justify-end text-lightGreen'>
@@ -142,43 +146,53 @@ export default function Page({ params }: { params: { task_id: string } }) {
             </aside>
           </header>
 
-          <h2 className='text-2xl font-bold sm:text-3xl'>急需遛狗 十萬火急 狗已經快把家拆了~</h2>
-          <div className='flex justify-between rounded-md bg-gray04 p-3'>
+          {/* <h2 className='text-2xl font-bold sm:text-3xl'>急需遛狗 十萬火急 狗已經快把家拆了~</h2> */}
+          {/* <div className='flex justify-between rounded-md bg-gray04 p-3'>
             <p className='flex items-center gap-2'>
               <Avatar>
-                <AvatarImage alt='飼主頭貼' src='/images/people2.jpg' />
+                <AvatarImage alt='保姆頭貼' src='/images/people2.jpg' />
               </Avatar>
-              <strong>Joanna</strong>
-              評價 (<Link href={'#'}>23</Link>)
+              <strong>Bob</strong>
+              評價 (<Link href={'#'}>20</Link>)
             </p>
-            <Button className='bg-white text-gray01'>查看飼主</Button>
-          </div>
+           <Button className='bg-white text-gray01'>查看飼主</Button>
+          </div> */}
 
           <ul>
             <li className='m-4 ml-0 flex flex-wrap gap-2'>
-              <h3 className='text-gray02'>任務需求</h3>
-              <strong>陪伴散步</strong>
+              <ul>
+                <h3 className='text-gray02'>服務內容</h3>
+                <li>到府安親服務：800 /30分鐘</li>
+                <li>遛狗服務：800 /30分鐘</li>
+                <li>攝影服務：800 /30分鐘</li>
+              </ul>
             </li>
             <li className='m-4 ml-0 flex flex-wrap gap-2'>
-              <h3 className='text-gray02'>任務時間</h3>
-              <strong>2024-03-01 17:00 ~ 2024-03-01 19:00</strong>
+              <ul>
+                <h3 className='text-gray02'>服務地區</h3>
+                <li>新北市三重區</li>
+                <li>新北市板橋區</li>
+              </ul>
             </li>
             <li className='m-4 ml-0 flex flex-wrap gap-2'>
-              <h3 className='text-gray02'>任務地區</h3>
-              <strong>新北市三重區</strong>
+              <ul>
+                <h3 className='text-gray02'>服務犬型</h3>
+                <li>大型犬</li>
+                <li>中型犬</li>
+              </ul>
             </li>
           </ul>
 
-          <div className='flex items-center gap-5'>
+          {/* <div className='flex items-center gap-5'>
             <strong className='text-bold text-2xl text-brand01'>2000 元</strong>
             <span className='priceNote'>(1000 元/30分鐘)</span>
-          </div>
+          </div> */}
 
           <div className='flex gap-5'>
             <Button className='w-full' variant='dark_outline'>
               我要聊聊
             </Button>
-            <Button className='w-full'>我要接單</Button>
+            {/* <Button className='w-full'>我要接單</Button> */}
           </div>
         </article>
       </main>
