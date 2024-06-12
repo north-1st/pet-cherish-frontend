@@ -54,11 +54,11 @@ export default function Page({ params }: { params: { task_id: string } }) {
             <section className='flex flex-col text-sm sm:flex-row'>
               <div className='flex-1'>
                 <p>
-                  <h5 className='m-2 ml-0 inline-block text-gray03'>品種</h5>
+                  <span className='m-2 ml-0 inline-block text-gray03'>品種</span>
                   <span>拉布拉多．大型</span>
                 </p>
                 <p>
-                  <h5 className='m-2 ml-0 inline-block text-gray03'>個性</h5>
+                  <span className='m-2 ml-0 inline-block text-gray03'>個性</span>
                   <span>暴躁、可愛、聰明</span>
                 </p>
               </div>
@@ -99,7 +99,7 @@ export default function Page({ params }: { params: { task_id: string } }) {
               <Avatar>
                 <AvatarImage alt='飼主頭貼' src='/images/people2.jpg' />
               </Avatar>
-              <h4>Joanna</h4>
+              <strong>Joanna</strong>
               評價 (<Link href={'#'}>23</Link>)
             </p>
             <Button className='bg-white text-gray01'>查看飼主</Button>
