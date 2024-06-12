@@ -18,6 +18,29 @@ export interface User {
   is_sitter: boolean;
 }
 
+export interface Task {
+  accept_sitter_contact: boolean;
+  city: string;
+  cover: string;
+  created_at: string;
+  description: string;
+  district: string;
+  end_at: string;
+  id: string;
+  order_id: null | string;
+  pet_id: string;
+  public: string;
+  review_id: string;
+  service_type: string;
+  start_at: string;
+  status: string;
+  title: string;
+  total: number;
+  unit_price: number;
+  updated_at: string;
+  user_id: string;
+}
+
 export interface RegisterResponse {
   status: boolean;
   message: string;
@@ -34,4 +57,12 @@ export interface ResetPasswordResponse {
   status: boolean;
   message: string;
   data: User;
+}
+
+export interface SearchTasksResponse {
+  status: boolean;
+  message: string;
+  data: {
+    tasks_list: Task;
+  };
 }
