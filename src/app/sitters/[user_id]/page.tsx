@@ -9,6 +9,7 @@ import {
 import ServerApiManager from '@/lib/serverApiManager';
 
 import ApplySitterForm from './components/ApplySitterForm';
+import SitterServiceForm from './components/SitterServiceForm';
 
 const Page = async ({ params }: { params: { user_id: string } }) => {
   const getData = async (id: string) => {
@@ -42,6 +43,8 @@ const Page = async ({ params }: { params: { user_id: string } }) => {
               defaultValues={applySitterRequestSchema.partial().parse(sitter)}
             />
           )}
+
+          {sitter.status == sitterStatusSchema.enum.PASS && <SitterServiceForm />}
         </div>
       </div>
     </main>
