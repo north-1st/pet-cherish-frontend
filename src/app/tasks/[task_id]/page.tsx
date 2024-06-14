@@ -37,7 +37,6 @@ enum TabGroup {
 
 export default function Page({ params }: { params: { task_id: string } }) {
   const [data, setData] = useState<TaskDataResponse>();
-  console.log('🚀 ~ Page ~ data:', data);
 
   const getData = async (task_id: string) => {
     try {
@@ -47,7 +46,6 @@ export default function Page({ params }: { params: { task_id: string } }) {
       });
 
       const jsonData: ApiResponse = await res.json();
-      console.log('🚀 ~ getData ~ data:', data);
       if (jsonData.status) {
         const result = taskByIdResponseDataSchema.parse(jsonData.data);
         setData(result);
