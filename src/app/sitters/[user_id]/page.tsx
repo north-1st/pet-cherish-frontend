@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import { notFound } from 'next/navigation';
 
 import {
   applySitterRequestSchema,
@@ -9,14 +10,20 @@ import {
 import ServerApiManager from '@/lib/serverApiManager';
 
 import ApplySitterForm from './components/ApplySitterForm';
+import SitterServiceDetails from './components/SitterServiceDetails';
 import SitterServiceForm from './components/SitterServiceForm';
 
 const Page = async ({ params }: { params: { user_id: string } }) => {
+  const isSelf = cookies().get('user_id')?.value == params.user_id;
   const getData = async (id: string) => {
-    const { success, message, data } = await ServerApiManager.get(`/api/v1/sitters/${id}`, {
+    const { success, message, data, status } = await ServerApiManager.get(`/api/v1/sitters/${id}`, {
       cache: 'no-store',
       next: { tags: ['user-sitter'] },
     });
+
+    if (!isSelf && status == 404) {
+      notFound();
+    }
 
     if (success == true) {
       return sitterResponseSchema.parse(data);
@@ -29,6 +36,13 @@ const Page = async ({ params }: { params: { user_id: string } }) => {
   };
 
   const sitter = await getData(params.user_id);
+
+  if (
+    sitter.status == sitterStatusSchema.enum.ON_BOARD ||
+    (!isSelf && sitter.status == sitterStatusSchema.enum.PASS)
+  ) {
+    return <SitterServiceDetails sitter={sitter} />;
+  }
 
   return (
     <main>
