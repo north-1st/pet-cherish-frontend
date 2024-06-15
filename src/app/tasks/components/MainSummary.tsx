@@ -1,15 +1,16 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { redirect, useRouter } from 'next/navigation';
+import { Dispatch, SetStateAction } from 'react';
 
-import { API_BASE_URL } from '@/const/config';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 import { PET_CHARACTER, PET_SIZE } from '@/const/pet';
 import { SERVICE_TYPE, TASK_PUBLIC } from '@/const/task';
 import NoneIcon from '@/icons/close.svg';
 import CheckIcon from '@/icons/done_outline.svg';
 import LockerIcon from '@/icons/lock_open_right.svg';
 import LockedIcon from '@/icons/locked.svg';
-import { TaskDataResponse } from '@/schemas/taskSchema';
+import { TaskDataResponse, taskRequestSchema } from '@/schemas/taskSchema';
+import { parseCookies } from 'nookies';
 
 import { dateTimeDuration, formatDate } from '@/lib/utils';
 
@@ -20,7 +21,14 @@ import { Button } from '@/components/ui/button';
 import Empty from '@/components/common/view/Empty';
 import Rating from '@/components/common/view/Rating';
 
-const MainSummary = ({ data }: { data?: TaskDataResponse }) => {
+import TaskDialog from './TaskDialog';
+
+interface MainSummaryProps {
+  data?: TaskDataResponse;
+  setReload: Dispatch<SetStateAction<boolean>>;
+}
+const MainSummary = ({ data, setReload }: MainSummaryProps) => {
+  const { user_id } = parseCookies();
   const router = useRouter();
   if (!data) {
     return <Empty />;
@@ -30,7 +38,9 @@ const MainSummary = ({ data }: { data?: TaskDataResponse }) => {
     <main className='container mb-10 flex flex-col justify-between bg-white md:flex-row'>
       <aside className='mb-5 rounded-md border-2 border-gray04 md:mb-0 md:w-[39%]'>
         <div className='overflow-hidden'>
-          <Image src='https://picsum.photos/530/300' width={530} height={300} alt='pet' />
+          <Avatar className='aspect-video h-auto w-full rounded-b-none rounded-t-lg'>
+            <AvatarImage src={data.cover ?? undefined} />
+          </Avatar>
         </div>
         <aside className='p-6'>
           <h3 className='text-lg font-bold'>{data.pet.name}</h3>
@@ -133,10 +143,31 @@ const MainSummary = ({ data }: { data?: TaskDataResponse }) => {
         </div>
 
         <div className='flex gap-5'>
-          <Button className='w-full' variant='dark_outline'>
-            我要聊聊
-          </Button>
-          <Button className='w-full'>我要接單</Button>
+          {data.user_id === user_id ? (
+            <TaskDialog
+              key={data.id}
+              disabled={false}
+              taskId={data.id}
+              petOptions={data.user.pet_list.map((item) => ({
+                id: item.id,
+                label: item.name,
+              }))}
+              triggerChildren={
+                <Button className='w-full' variant='destructive'>
+                  我要編輯
+                </Button>
+              }
+              defaultValues={taskRequestSchema.parse(data)}
+              setReload={setReload}
+            />
+          ) : (
+            <>
+              <Button className='w-full' variant='dark_outline'>
+                我要聊聊
+              </Button>
+              <Button className='w-full'>我要接單</Button>
+            </>
+          )}
         </div>
       </article>
     </main>

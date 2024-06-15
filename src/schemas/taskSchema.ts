@@ -89,6 +89,12 @@ export const taskByIdResponseDataSchema = z.object({
     avator: z.string().nullable().optional(),
     average_rating: z.number().default(0),
     total_reviews: z.number().default(0),
+    pet_list: z.array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+      })
+    ),
   }),
   pet: petResponseSchema,
 });
