@@ -1,5 +1,7 @@
 'use client';
 
+import { RefObject } from 'react';
+
 import { sitterServiceAction } from '@/actions/sitterAction';
 import { YES_NO_OPTIONS } from '@/const/common_options';
 import { PET_SIZE_OPTIONS } from '@/const/pet';
@@ -23,8 +25,10 @@ import FormTextInput from '@/components/common/form/FormTextInput';
 
 const SitterServiceForm = ({
   defaultValues,
+  closeDialogRef,
 }: {
   defaultValues?: Partial<SitterServiceRequest>;
+  closeDialogRef?: RefObject<HTMLButtonElement>;
 }) => {
   const form = useForm<SitterServiceRequest>({
     resolver: zodResolver(sitterServiceRequestSchema),
@@ -144,7 +148,11 @@ const SitterServiceForm = ({
             placeholder='請輸入服務描述'
           />
           <div className='flex justify-end gap-4'>
-            <Button type='submit' className='w-full text-black md:w-auto'>
+            <Button
+              type='submit'
+              className='w-full text-black md:w-auto'
+              onClick={() => closeDialogRef?.current?.click()}
+            >
               刊登服務
             </Button>
           </div>

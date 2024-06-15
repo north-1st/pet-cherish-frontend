@@ -13,6 +13,10 @@ export const applySitterRequestSchema = z.object({
 
 export const sitterResponseSchema = z.object({
   user_id: z.string(),
+  user: z.object({
+    nickname: z.string().nullable(),
+    avatar: z.string().url().nullable(),
+  }),
   has_certificate: z.boolean().default(false),
   has_police_check: z.boolean().default(false),
   service_city: z.string().nullable(),
@@ -27,9 +31,9 @@ export const sitterResponseSchema = z.object({
   service_description: z.string(),
   average_rating: z.number().nullable(),
   total_reviews: z.number().default(0),
-  certificate_number: z.string().nullable(),
-  certificate_image: z.string().url().nullable(),
-  police_check_image: z.string().url().nullable(),
+  certificate_number: z.string().nullable().optional(),
+  certificate_image: z.string().url().nullable().optional(),
+  police_check_image: z.string().url().nullable().optional(),
   created_at: z.string().transform((value) => new Date(value)),
   updated_at: z.string().transform((value) => new Date(value)),
   status: sitterStatusSchema.nullable(),
