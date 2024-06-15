@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect, useRouter } from 'next/navigation';
 
+import { API_BASE_URL } from '@/const/config';
 import { PET_CHARACTER, PET_SIZE } from '@/const/pet';
 import { SERVICE_TYPE, TASK_PUBLIC } from '@/const/task';
 import NoneIcon from '@/icons/close.svg';
@@ -16,8 +18,10 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 import Empty from '@/components/common/view/Empty';
+import Rating from '@/components/common/view/Rating';
 
 const MainSummary = ({ data }: { data?: TaskDataResponse }) => {
+  const router = useRouter();
   if (!data) {
     return <Empty />;
   }
@@ -95,9 +99,15 @@ const MainSummary = ({ data }: { data?: TaskDataResponse }) => {
               <AvatarImage alt='飼主頭貼' src={data.user.avator || '/images/default_avatar.png'} />
             </Avatar>
             <strong>{data.user.nickname || data.user.real_name}</strong>
-            評價 (<Link href={'#'}>{data.user.total_reviews}</Link>)
+            <Rating rating={data.user.average_rating} /> (
+            <Link href={'#'}>{data.user.total_reviews}</Link>)
           </p>
-          <Button className='bg-white text-gray01'>查看飼主</Button>
+          <Button
+            className='bg-white text-gray01'
+            onClick={() => router.push(`/users/${data.user_id}/profile`)}
+          >
+            查看飼主
+          </Button>
         </div>
 
         <ul>

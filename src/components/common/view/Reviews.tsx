@@ -1,10 +1,11 @@
 import { SERVICE_TYPE } from '@/const/task';
-import StarFillIcon from '@/icons/star_fill.svg';
 import VisibilityIcon from '@/icons/visibility.svg';
 import { ServiceType } from '@/schemas/taskSchema';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+
+import Rating from './Rating';
 
 export interface ReviewsProps {
   poster: {
@@ -21,16 +22,6 @@ export interface ReviewsProps {
   };
 }
 export default function Reviews({ reviewList }: { reviewList: ReviewsProps[] }) {
-  const handleRatingStar = (rating: number) => {
-    const stars: number[] = [];
-    if (rating > 0) {
-      for (let i = 0; i < Math.floor(rating); i++) {
-        stars.push(i);
-      } // 小數點顯示待確認
-    }
-    return stars;
-  };
-
   return (
     <>
       {reviewList.map((item) => (
@@ -49,13 +40,7 @@ export default function Reviews({ reviewList }: { reviewList: ReviewsProps[] }) 
               </p>
             </div>
             <main className='col-span-7 border-b-2 border-gray04 p-4 xl:border-b-0 xl:border-l-2 xl:border-r-2'>
-              <ul className='mb-1 flex gap-1'>
-                {handleRatingStar(item.review.rating).map((star) => (
-                  <li key={star}>
-                    <StarFillIcon />
-                  </li>
-                ))}
-              </ul>
+              <Rating rating={item.review.rating} />
               {item.review.content}
             </main>
             <Button variant='link' className='col-span-1 m-auto p-4 text-gray01'>
