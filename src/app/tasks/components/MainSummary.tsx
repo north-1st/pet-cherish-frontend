@@ -21,6 +21,8 @@ import { Button } from '@/components/ui/button';
 import Empty from '@/components/common/view/Empty';
 import Rating from '@/components/common/view/Rating';
 
+import ApplyOrderDialog from './ApplyOrderDialog';
+import { TaskDescription } from './TaskDescription';
 import TaskDialog from './TaskDialog';
 
 interface MainSummaryProps {
@@ -120,27 +122,7 @@ const MainSummary = ({ data, setReload }: MainSummaryProps) => {
           </Button>
         </div>
 
-        <ul>
-          <li className='m-4 ml-0 flex flex-wrap gap-2'>
-            <h3 className='text-gray02'>任務需求</h3>
-            <strong>{SERVICE_TYPE[data.service_type]}</strong>
-          </li>
-          <li className='m-4 ml-0 flex flex-wrap gap-2'>
-            <h3 className='text-gray02'>任務時間</h3>
-            <strong>{dateTimeDuration(data.start_at, data.end_at)}</strong>
-          </li>
-          <li className='m-4 ml-0 flex flex-wrap gap-2'>
-            <h3 className='text-gray02'>任務地區</h3>
-            <strong>
-              {data.city} {data.district}
-            </strong>
-          </li>
-        </ul>
-
-        <div className='flex items-center gap-5'>
-          <strong className='text-bold text-2xl text-brand01'>{data.total} 元</strong>
-          <span className='priceNote'>({data.unit_price} 元 / 30分鐘)</span>
-        </div>
+        <TaskDescription data={data} />
 
         <div className='flex gap-5'>
           {data.user_id === user_id ? (
@@ -162,10 +144,16 @@ const MainSummary = ({ data, setReload }: MainSummaryProps) => {
             />
           ) : (
             <>
-              <Button className='w-full' variant='dark_outline'>
-                我要聊聊
-              </Button>
-              <Button className='w-full'>我要接單</Button>
+              {data.accept_sitter_contact && (
+                <Button className='w-full' variant='dark_outline'>
+                  我要聊聊
+                </Button>
+              )}
+              <ApplyOrderDialog
+                disabled={data.user_id === user_id}
+                targetTask={data}
+                triggerChildren={<Button className='w-full'>我要接單</Button>}
+              />
             </>
           )}
         </div>
