@@ -101,3 +101,5 @@ export type GetTasksByUserRequest = z.infer<typeof taskListRequestSchema>;
 export type TaskResponse = z.infer<typeof taskResponseSchema>;
 export type TaskListResponse = z.infer<typeof taskListResponseSchema>;
 export type TaskDataResponse = z.infer<typeof taskByIdResponseDataSchema>;
+
+export type ServiceType = z.infer<typeof serviceTypeSchema>;

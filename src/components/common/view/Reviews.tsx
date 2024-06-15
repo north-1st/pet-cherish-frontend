@@ -1,12 +1,14 @@
+import { SERVICE_TYPE } from '@/const/task';
 import StarFillIcon from '@/icons/star_fill.svg';
 import VisibilityIcon from '@/icons/visibility.svg';
+import { ServiceType } from '@/schemas/taskSchema';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 
 export interface ReviewsProps {
   poster: {
-    headIcon: string;
+    headIcon: string | null | undefined;
     name: string;
     dateTime: string;
   };
@@ -15,7 +17,7 @@ export interface ReviewsProps {
     content: string;
   };
   task: {
-    serviceType: string;
+    serviceType: ServiceType;
   };
 }
 export default function Reviews({ reviewList }: { reviewList: ReviewsProps[] }) {
@@ -36,7 +38,10 @@ export default function Reviews({ reviewList }: { reviewList: ReviewsProps[] }) 
           <section className='grid grid-cols-1 rounded-lg bg-white px-4 py-6 xl:grid-cols-10'>
             <div className='flex items-center gap-4 xl:col-span-2'>
               <Avatar className='h-20 w-20'>
-                <AvatarImage alt={item.poster.name} src={item.poster.dateTime} />
+                <AvatarImage
+                  alt={item.poster.name}
+                  src={`${item.poster?.headIcon || '/images/default_avatar.png'}`}
+                />
               </Avatar>
               <p>
                 <h6 className='mb-1'>{item.poster.name}</h6>
@@ -55,7 +60,7 @@ export default function Reviews({ reviewList }: { reviewList: ReviewsProps[] }) 
             </main>
             <Button variant='link' className='col-span-1 m-auto p-4 text-gray01'>
               <VisibilityIcon />
-              <span className='p-1'>{item.task.serviceType}</span>
+              <span className='p-1'>{SERVICE_TYPE[item.task.serviceType]}</span>
             </Button>
           </section>
         </>
