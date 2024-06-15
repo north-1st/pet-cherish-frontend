@@ -89,6 +89,9 @@ const config = {
         'screen-minus-144px': 'calc(100vh - 144px)', // 減去 Header 和 Footer 總高度 144px
         'base-60': '60vh', // 擴充高度用
       },
+      maxWidth: {
+        form: '700px',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

@@ -17,12 +17,7 @@ export const PET_SIZE = {
   [petSizeSchema.enum.S]: '小',
 };
 
-export const HAS_MICROCHIP = {
-  true: '有',
-  false: '無',
-};
-
-export const IS_NEUTERED = {
-  true: '是',
-  false: '否',
-};
+export const PET_SIZE_OPTIONS = Object.entries(PET_SIZE).map(([key, value]) => ({
+  id: key,
+  label: value,
+}));

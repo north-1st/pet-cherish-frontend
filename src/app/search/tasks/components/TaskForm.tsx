@@ -4,7 +4,7 @@ import React from 'react';
 
 import { searchTasksAction } from '@/actions/searchTasksAction';
 import { PET_SIZE } from '@/const/pet';
-import TAIWAN_DISTRICTS from '@/const/taiwanDistricts';
+import { TAIWAN_DISTRICTS } from '@/const/taiwanDistricts';
 import { SERVICE_TYPE } from '@/const/task';
 import { SearchTasksRequest, searchTasksRequestSchema } from '@/schemas/searchTasksSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
