@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { paginationRequestSchema } from './pagination';
+import { petResponseSchema } from './petSchema';
 import { urlSchema } from './upload';
 
 export const taskPublicSchema = z.enum([
@@ -59,6 +60,39 @@ export const taskListResponseSchema = z.object({
   data: z.array(taskResponseSchema),
 });
 
+export const taskByIdResponseDataSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  public: taskPublicSchema.default(taskPublicSchema.enum.OPEN),
+  status: taskStatusSchema.default(taskStatusSchema.enum.NULL),
+  cover: urlSchema,
+  service_type: serviceTypeSchema,
+  city: z.string(),
+  district: z.string(),
+  unit_price: z.number(),
+  total: z.number(),
+  description: z.string(),
+  accept_sitter_contact: z.boolean().default(false),
+  start_at: z.string().transform((value) => new Date(value)),
+  end_at: z.string().transform((value) => new Date(value)),
+  created_at: z.string().transform((value) => new Date(value)),
+  updated_at: z.string().transform((value) => new Date(value)),
+  user_id: z.string(),
+  pet_id: z.string(),
+  order_id: z.string().nullable().optional(),
+  review_id: z.string().nullable().optional(),
+  user: z.object({
+    id: z.string(),
+    email: z.string(),
+    real_name: z.string(),
+    nickname: z.string().nullable().optional(),
+    avator: z.string().nullable().optional(),
+    average_rating: z.number().default(0),
+    total_reviews: z.number().default(0),
+  }),
+  pet: petResponseSchema,
+});
+
 export type TaskRequest = z.infer<typeof taskRequestSchema>;
 export type DeleteTaskRequest = z.infer<typeof deleteTaskRequestSchema>;
 
@@ -66,3 +100,4 @@ export type GetTasksByUserRequest = z.infer<typeof taskListRequestSchema>;
 
 export type TaskResponse = z.infer<typeof taskResponseSchema>;
 export type TaskListResponse = z.infer<typeof taskListResponseSchema>;
+export type TaskDataResponse = z.infer<typeof taskByIdResponseDataSchema>;
