@@ -21,6 +21,7 @@ import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Tab from '@/components/ui/tab';
+import { toast } from '@/components/ui/use-toast';
 
 import Breadcrumbs from '@/components/common/breadcrumbs';
 import Empty from '@/components/common/view/Empty';
@@ -38,21 +39,31 @@ enum TabGroup {
 export default function Page({ params }: { params: { task_id: string } }) {
   const [data, setData] = useState<TaskDataResponse>();
 
+  const getReviews = async () => {};
+
   const getData = async (task_id: string) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/v1/tasks/${task_id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/tasks/${task_id}`, {
         cache: 'no-store',
         next: { tags: ['user-tasks'] },
       });
 
-      const jsonData: ApiResponse = await res.json();
+      const jsonData: ApiResponse = await response.json();
       if (jsonData.status) {
         const result = taskByIdResponseDataSchema.parse(jsonData.data);
         setData(result);
+      } else {
+        throw new Error(jsonData.message);
       }
-    } catch (error) {
-      console.log('API/ error: ', error);
-      throw new Error('Failed to fetch data');
+    } catch (error: any) {
+      console.log('API/getTaskById error: ', error);
+      if (typeof error.message === 'string') {
+        toast({
+          title: 'Failed to fetch data',
+          description: error.message,
+          variant: 'destructive',
+        });
+      }
     }
   };
   useEffect(() => {
