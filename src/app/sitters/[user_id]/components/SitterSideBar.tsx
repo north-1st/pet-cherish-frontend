@@ -1,5 +1,5 @@
+import CheckIcon from '@/icons/done_outline.svg';
 import { SitterResponse } from '@/schemas/sitterSchema';
-import { CheckIcon } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
