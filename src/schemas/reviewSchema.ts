@@ -29,3 +29,5 @@ export const ownerReviewListResponseSchema = z.object({
 });
 
 export const reviewListResponseSchema = z.array(ownerReviewResponse);
+
+export type ReviewListResponse = z.infer<typeof ownerReviewListResponseSchema>;
