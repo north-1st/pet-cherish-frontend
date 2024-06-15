@@ -11,7 +11,6 @@ import { formatDateTime } from '@/lib/utils';
 import Tab from '@/components/ui/tab';
 
 import Breadcrumbs from '@/components/common/breadcrumbs';
-import Empty from '@/components/common/view/Empty';
 import { ReviewsProps } from '@/components/common/view/Reviews';
 
 import Details from '../../../components/common/view/Details';
@@ -48,6 +47,7 @@ enum TabGroup {
 export default function Page({ params }: { params: { task_id: string } }) {
   const [currentData, setCurrentData] = useState<TaskDataResponse>();
   const [ownerReviews, setOwnerReviews] = useState<ReviewsProps[]>([]);
+  const [reload, setReload] = useState(false);
 
   const getPageData = async (task_id: string) => {
     const data = await getTaskById(task_id);
@@ -80,7 +80,7 @@ export default function Page({ params }: { params: { task_id: string } }) {
     if (params.task_id) {
       getPageData(params.task_id);
     }
-  }, [params.task_id]);
+  }, [params.task_id, reload]);
 
   const qaList = [
     {
@@ -96,7 +96,7 @@ export default function Page({ params }: { params: { task_id: string } }) {
   const tabs = [
     {
       label: TabGroup.DETAILS,
-      content: <Details content={currentData?.description || <Empty />} />,
+      content: <Details content={currentData?.description} />,
     },
     {
       label: TabGroup.Q_AND_A,
@@ -119,7 +119,7 @@ export default function Page({ params }: { params: { task_id: string } }) {
       <Breadcrumbs navList={navList} />
 
       {/* 任務資料 */}
-      <MainSummary data={currentData} />
+      <MainSummary data={currentData} setReload={setReload} />
 
       {/* 頁籤區 */}
       <section className='min-h-base-60 bg-gray04 pb-10'>

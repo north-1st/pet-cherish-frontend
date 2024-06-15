@@ -1,5 +1,11 @@
 import React from 'react';
 
-export default function Details({ content }: { content: string | React.ReactElement }) {
+import Empty from './Empty';
+
+export default function Details({ content }: { content?: string }) {
+  if (!content) {
+    return <Empty />;
+  }
+
   return <>{content}</>;
 }
