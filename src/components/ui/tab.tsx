@@ -13,13 +13,16 @@ const Tab = ({ list }: TabsComponentProps) => {
 
   return (
     <Tabs.Root value={activeTab} onValueChange={(value) => setActiveTab(value)}>
-      <Tabs.List className='border-b border-gray03' color='orange'>
+      <Tabs.List
+        className='w-full overflow-x-scroll whitespace-nowrap border-b border-gray03 sm:overflow-hidden'
+        color='orange'
+      >
         {list.map((tab) => (
           <Tabs.Trigger
             key={tab.label}
             value={tab.label}
             className={cn(
-              'border-gray01 px-8 py-3 text-gray03 hover:border-b-2 hover:text-gray01 active:text-gray01',
+              'border-gray01 px-6 py-3  text-gray03 hover:border-b-2 hover:text-gray01 active:text-gray01 sm:px-8',
               activeTab === tab.label && 'border-b-2 border-gray01 text-gray01'
             )}
           >

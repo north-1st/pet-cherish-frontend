@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 
 import { taskAction, taskDeleteAction } from '@/actions/taskAction';
-import TAIWAN_DISTRICTS from '@/const/taiwanDistricts';
+import { CITIES_OPTIONS, DISTRICTS_OPTIONS } from '@/const/taiwanDistricts';
 import { ACCEPT_SITTER_CONTACT, SERVICE_TYPE, TASK_IS_CLOSED } from '@/const/task';
 import { TaskRequest, taskRequestSchema } from '@/schemas/taskSchema';
 import { uploadTypeSchema } from '@/schemas/upload';
@@ -81,24 +81,6 @@ export function TaskDialog({
     }))
   );
 
-  const cities = TAIWAN_DISTRICTS.map(({ name }) => ({
-    id: name,
-    label: name,
-  }));
-
-  const districts = useRef(
-    TAIWAN_DISTRICTS.reduce(
-      (acc, { name, districts }) => {
-        acc[name] = districts.map(({ name }) => ({
-          id: name,
-          label: name,
-        }));
-        return acc;
-      },
-      {} as Record<string, { id: string; label: string }[]>
-    )
-  );
-
   const isClosed = useRef(
     Object.entries(TASK_IS_CLOSED).map(([key, value]) => ({
       id: key,
@@ -143,7 +125,7 @@ export function TaskDialog({
                 form={form}
                 fieldName='city'
                 formLabel='縣市'
-                options={cities}
+                options={CITIES_OPTIONS}
                 placeholder='請選擇縣市'
                 onChange={() => {
                   form.resetField('district');
@@ -154,7 +136,7 @@ export function TaskDialog({
                   form={form}
                   fieldName='district'
                   formLabel='區域'
-                  options={districts.current[form.getValues('city')] ?? []}
+                  options={DISTRICTS_OPTIONS[form.getValues('city')] ?? []}
                   placeholder='請選擇區域'
                 />
               )}

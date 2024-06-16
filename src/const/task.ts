@@ -1,5 +1,5 @@
 import { sitterCertificateSchema } from '@/schemas/sitterSchema';
-import { serviceTypeSchema, taskPublicSchema } from '@/schemas/taskSchema';
+import { serviceTypeSchema, taskPublicSchema, taskStatusSchema } from '@/schemas/taskSchema';
 
 export const SERVICE_TYPE = {
   [serviceTypeSchema.enum.PHOTOGRAPHY]: '專業攝影',
@@ -19,6 +19,14 @@ export const TASK_PUBLIC = {
   [taskPublicSchema.enum.IN_TRANSACTION]: '交易中',
   [taskPublicSchema.enum.DELETED]: '已刪除',
   [taskPublicSchema.enum.COMPLETED]: '已完成',
+};
+
+export const TASK_STATUS = {
+  [taskStatusSchema.enum.NULL]: '未有保母下單',
+  [taskStatusSchema.enum.PENDING]: '已有保母下單',
+  [taskStatusSchema.enum.UN_PAID]: '未付款',
+  [taskStatusSchema.enum.TRACKING]: '任務進行中',
+  [taskStatusSchema.enum.COMPLETED]: '已完成',
 };
 
 export const TASK_IS_CLOSED = {

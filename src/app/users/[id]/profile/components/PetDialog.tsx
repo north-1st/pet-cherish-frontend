@@ -3,7 +3,8 @@
 import React, { useRef } from 'react';
 
 import { petAction, petDeleteAction } from '@/actions/petAction';
-import { HAS_MICROCHIP, IS_NEUTERED, PET_CHARACTER, PET_SIZE } from '@/const/pet';
+import { HAS_OPTIONS, YES_NO_OPTIONS } from '@/const/common_options';
+import { PET_CHARACTER, PET_SIZE_OPTIONS } from '@/const/pet';
 import { PetRequest, petRequestSchema } from '@/schemas/petSchema';
 import { uploadTypeSchema } from '@/schemas/upload';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -77,27 +78,6 @@ export function PetDialog({
     }))
   );
 
-  const petSize = useRef(
-    Object.entries(PET_SIZE).map(([key, value]) => ({
-      id: key,
-      label: value,
-    }))
-  );
-
-  const hasMicrochip = useRef(
-    Object.entries(HAS_MICROCHIP).map(([key, value]) => ({
-      id: key,
-      label: value,
-    }))
-  );
-
-  const isNeutered = useRef(
-    Object.entries(IS_NEUTERED).map(([key, value]) => ({
-      id: key,
-      label: value,
-    }))
-  );
-
   return (
     <TriggerDialog
       disabled={disabled}
@@ -131,7 +111,7 @@ export function PetDialog({
               form={form}
               fieldName='size'
               formLabel='犬型'
-              options={petSize.current}
+              options={PET_SIZE_OPTIONS}
               isBoolean={false}
             />
             <FormMultiCheckboxes
@@ -145,14 +125,14 @@ export function PetDialog({
                 form={form}
                 fieldName='has_microchipped'
                 formLabel='寵物晶片'
-                options={hasMicrochip.current}
+                options={HAS_OPTIONS}
                 isBoolean
               />
               <FormRadioGroup
                 form={form}
                 fieldName='is_neutered'
                 formLabel='結紮'
-                options={isNeutered.current}
+                options={YES_NO_OPTIONS}
                 isBoolean
               />
             </div>

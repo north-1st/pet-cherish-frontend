@@ -28,9 +28,10 @@ const config = {
         gray04: '#F5F5F5',
         grayIcon: '#1C1B1F',
         lightGreen: '#41C255',
+        error: '#F34343',
 
         border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
+        input: '#1E1E1E',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -88,6 +89,9 @@ const config = {
       minHeight: {
         'screen-minus-144px': 'calc(100vh - 144px)', // 減去 Header 和 Footer 總高度 144px
         'base-60': '60vh', // 擴充高度用
+      },
+      maxWidth: {
+        form: '700px',
       },
     },
   },

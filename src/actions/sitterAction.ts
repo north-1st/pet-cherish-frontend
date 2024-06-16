@@ -1,8 +1,9 @@
 'use server';
 
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { cookies } from 'next/headers';
 
-import { ApplySitterRequest } from '@/schemas/sitterSchema';
+import { ApplySitterRequest, SitterServiceRequest } from '@/schemas/sitterSchema';
 
 import ServerApiManager from '@/lib/serverApiManager';
 
@@ -16,6 +17,16 @@ export const applySitterAction = async (fields: ApplySitterRequest, isUpdate: bo
 
   if (res.success) {
     revalidateTag('user-sitter');
+  }
+  return res;
+};
+
+export const sitterServiceAction = async (fields: SitterServiceRequest) => {
+  const res = await ServerApiManager.patch('/api/v1/sitters', fields);
+
+  if (res.success) {
+    revalidateTag('user-sitter');
+    revalidatePath(`/sitters/${cookies().get('user_id')?.value}`);
   }
   return res;
 };
