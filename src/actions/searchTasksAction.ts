@@ -35,7 +35,8 @@ export const searchTasksAction = async (formData: FormData) => {
     service_type_list: service_type_list.join(','),
     pet_size_list: pet_size_list.join(','),
     page: '1',
-    limit: '1',
+    limit: '10',
+    offset: '0',
   });
 
   try {
