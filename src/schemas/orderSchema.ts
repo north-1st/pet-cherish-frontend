@@ -2,6 +2,8 @@ import { z } from 'zod';
 
 import { taskResponseSchema, taskStatusSchema } from './taskSchema';
 
+export const orderRoleSchema = z.enum(['pet-owner', 'sitter']);
+
 export const orderStatusSchema = z.enum([
   'PENDING', // 待付款
   'VALID', // 訂單已成立
@@ -35,6 +37,8 @@ const orderResponseSchema = z.object({
 });
 
 export const orderResponseListSchema = z.array(orderResponseSchema);
+
+export type OrderRole = z.infer<typeof orderRoleSchema>;
 
 export type OrderStatus = z.infer<typeof orderStatusSchema>;
 export type OwnerOrderStatus = z.infer<typeof ownerOrderStatusSchema>;
