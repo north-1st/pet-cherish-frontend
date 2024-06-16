@@ -51,8 +51,11 @@ export const taskResponseSchema = taskRequestSchema.extend({
   total: z.number(),
   start_at: z.string().transform((value) => new Date(value)),
   end_at: z.string().transform((value) => new Date(value)),
-  created_at: z.string().datetime(),
-  updated_at: z.string().datetime(),
+  created_at: z.string().transform((value) => new Date(value)),
+  updated_at: z.string().transform((value) => new Date(value)),
+  pet_id: z.string().nullable().optional(),
+  order_id: z.string().nullable().optional(),
+  review_id: z.string().nullable().optional(),
 });
 
 export const taskListResponseSchema = z.object({

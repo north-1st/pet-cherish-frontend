@@ -28,9 +28,10 @@ const config = {
         gray04: '#F5F5F5',
         grayIcon: '#1C1B1F',
         lightGreen: '#41C255',
+        error: '#F34343',
 
         border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
+        input: '#1E1E1E',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
