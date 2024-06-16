@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { PET_CHARACTER, PET_SIZE } from '@/const/pet';
-import { SERVICE_TYPE, TASK_PUBLIC } from '@/const/task';
+import { TASK_PUBLIC } from '@/const/task';
 import NoneIcon from '@/icons/close.svg';
 import CheckIcon from '@/icons/done_outline.svg';
 import LockerIcon from '@/icons/lock_open_right.svg';
@@ -12,7 +12,7 @@ import LockedIcon from '@/icons/locked.svg';
 import { TaskDataResponse, taskRequestSchema } from '@/schemas/taskSchema';
 import { parseCookies } from 'nookies';
 
-import { dateTimeDuration, formatDate } from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
