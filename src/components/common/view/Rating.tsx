@@ -6,7 +6,7 @@ const Rating = ({ rating }: { rating: number }) => {
   const emptyRating = new Array(5 - ratingArray.length).fill(0);
 
   return (
-    <div className='flex items-center'>
+    <div className='flex items-center gap-1'>
       {ratingArray.map((item, index) => {
         return <StarFillIcon key={index} color='#FFC702' width='16px' height='15px' />;
       })}

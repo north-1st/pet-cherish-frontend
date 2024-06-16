@@ -11,12 +11,12 @@ import { formatDateTime } from '@/lib/utils';
 import Tab from '@/components/ui/tab';
 
 import Breadcrumbs from '@/components/common/breadcrumbs';
-import { ReviewsProps } from '@/components/common/view/Reviews';
 
 import Details from '../../../components/common/view/Details';
-import QuestionAnswers from '../../../components/common/view/QuestionAnswers';
-import Reviews from '../../../components/common/view/Reviews';
+// import QuestionAnswers from '../../../components/common/view/QuestionAnswers';
 import MainSummary from '../components/MainSummary';
+import Reviews, { ReviewsProps } from '../components/Reviews';
+import SitterApplication from '../components/SitterApplication';
 
 export const getOwnerReviewsByUserId = async (id: string): Promise<ReviewListResponse> => {
   const { success, data } = await ClientApiManager.get(`/api/v1/pet-owners/${id}/reviews`);
@@ -40,8 +40,9 @@ export const getTaskById = async (task_id: string): Promise<TaskDataResponse> =>
 
 enum TabGroup {
   DETAILS = '詳情資訊',
-  Q_AND_A = 'Q&A討論',
+  // Q_AND_A = 'Q&A討論',
   REVIEWS = '其他保姆評價',
+  SITTER_APPILCATION = '保姆接單申請',
 }
 
 export default function Page({ params }: { params: { task_id: string } }) {
@@ -60,11 +61,11 @@ export default function Page({ params }: { params: { task_id: string } }) {
         poster: {
           headIcon: avatar || '',
           name: nickname || real_name,
-          dateTime: formatDateTime(sitter_user_updated_at) || '',
+          rating: sitter_rating,
         },
         review: {
-          rating: sitter_rating,
           content: sitter_content,
+          dateTime: formatDateTime(sitter_user_updated_at) || '',
         },
         task: {
           serviceType: service_type,
@@ -98,13 +99,17 @@ export default function Page({ params }: { params: { task_id: string } }) {
       label: TabGroup.DETAILS,
       content: <Details content={currentData?.description} />,
     },
-    {
-      label: TabGroup.Q_AND_A,
-      content: <QuestionAnswers qaList={qaList} />,
-    },
+    // {
+    //   label: TabGroup.Q_AND_A,
+    //   content: <QuestionAnswers qaList={qaList} />,
+    // },
     {
       label: TabGroup.REVIEWS,
       content: <Reviews reviewList={ownerReviews} />,
+    },
+    {
+      label: TabGroup.SITTER_APPILCATION,
+      content: <SitterApplication />,
     },
   ];
 
