@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
+import { orderRoleSchema, orderStatusSchema, ownerOrderStatusSchema } from '@/schemas/orderSchema';
 import { destroyCookie } from 'nookies';
 
 import { User } from '@/types/types';
@@ -76,11 +77,26 @@ const UserDropdownMenu = ({ user, logout }: { user: User | null; logout: () => v
             <Face width={20} height={20} className='mr-2' />
             <span>保姆資料</span>
           </DropdownMenuItem>
-          <DropdownMenuItem className='cursor-pointer'>
+          <DropdownMenuItem
+            className='cursor-pointer'
+            onClick={() =>
+              router.push(
+                `/orders/${orderRoleSchema.enum['pet-owner']}?status=` +
+                  ownerOrderStatusSchema.enum.PENDING
+              )
+            }
+          >
             <FeaturedPlay width={20} height={20} className='mr-2' />
             <span>飼主訂單</span>
           </DropdownMenuItem>
-          <DropdownMenuItem className='cursor-pointer'>
+          <DropdownMenuItem
+            className='cursor-pointer'
+            onClick={() =>
+              router.push(
+                `/orders/${orderRoleSchema.enum.sitter}?status=` + orderStatusSchema.enum.PENDING
+              )
+            }
+          >
             <List width={20} height={20} className='mr-2' />
             <span>保姆訂單</span>
           </DropdownMenuItem>
