@@ -1,3 +1,4 @@
+import { sitterCertificateSchema } from '@/schemas/sitterSchema';
 import { serviceTypeSchema, taskPublicSchema } from '@/schemas/taskSchema';
 
 export const SERVICE_TYPE = {
@@ -5,6 +6,11 @@ export const SERVICE_TYPE = {
   [serviceTypeSchema.enum.HEALTH_CARE]: '寵物保健',
   [serviceTypeSchema.enum.BATH]: '到府洗澡',
   [serviceTypeSchema.enum.WALKING]: '陪伴散步',
+};
+
+export const CERTIFICATE_TYPE = {
+  [sitterCertificateSchema.enum.CERTIFICATE]: '保姆證',
+  [sitterCertificateSchema.enum.POLICE_CHECK]: '良民證',
 };
 
 export const TASK_PUBLIC = {
