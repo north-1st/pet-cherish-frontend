@@ -5,6 +5,8 @@ import { urlSchema } from './upload';
 
 export const sitterStatusSchema = z.enum(['APPROVING', 'REJECTED', 'PASS', 'ON_BOARD']);
 
+export const sitterCertificateSchema = z.enum(['CERTIFICATE', 'POLICE_CHECK']);
+
 export const applySitterRequestSchema = z.object({
   certificate_number: z.string(),
   certificate_image: z.string().url(),

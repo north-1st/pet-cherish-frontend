@@ -18,6 +18,21 @@ export interface User {
   is_sitter: boolean;
 }
 
+export interface Pet {
+  avatar_list: string[];
+  breed: string;
+  character_list: string[];
+  created_at: string;
+  has_microchipped: boolean;
+  health_description: string;
+  id: string;
+  is_neutered: boolean;
+  name: string;
+  owner_user_id: string;
+  size: string;
+  updated_at: string;
+}
+
 export interface Task {
   accept_sitter_contact: boolean;
   city: string;
@@ -28,6 +43,7 @@ export interface Task {
   end_at: string;
   id: string;
   order_id: null | string;
+  pet: Pet;
   pet_id: string;
   public: string;
   review_id: string;
@@ -39,6 +55,28 @@ export interface Task {
   unit_price: number;
   updated_at: string;
   user_id: string;
+}
+
+export interface Sitter {
+  avatar: null | string;
+  average_rating: number;
+  certificate_list: string[];
+  nickname: string;
+  real_name: string;
+  service_city: string;
+  service_description: string;
+  service_district_list: string[];
+  service_type_list: string[];
+  status: string;
+  total_reviews: number;
+  user_id: string;
+}
+
+export interface Pagination {
+  current_page: number;
+  has_next_page: boolean;
+  has_prev_page: boolean;
+  total_pages: number;
 }
 
 export interface RegisterResponse {
@@ -63,6 +101,18 @@ export interface SearchTasksResponse {
   status: boolean;
   message: string;
   data: {
-    tasks_list: Task;
+    tasks_list: Task[];
   };
+  pagination: Pagination;
+  total: number;
+}
+
+export interface SearchSittersResponse {
+  status: boolean;
+  message: string;
+  data: {
+    sitter_list: Sitter[];
+  };
+  pagination: Pagination;
+  total: number;
 }
