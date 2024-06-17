@@ -4,19 +4,19 @@ import { useEffect, useState } from 'react';
 
 import { ReviewListResponse, ownerReviewListResponseSchema } from '@/schemas/reviewSchema';
 import { TaskDataResponse, taskByIdResponseDataSchema } from '@/schemas/taskSchema';
+import { parseCookies } from 'nookies';
 
 import ClientApiManager from '@/lib/clientApiManager';
 import { formatDateTime } from '@/lib/utils';
 
-import Tab from '@/components/ui/tab';
-
 import Breadcrumbs from '@/components/common/breadcrumbs';
 
-import Details from '../../../components/common/view/Details';
+import Details from '../components/Details';
 // import QuestionAnswers from '../../../components/common/view/QuestionAnswers';
 import MainSummary from '../components/MainSummary';
 import Reviews, { ReviewsProps } from '../components/Reviews';
 import SitterApplication from '../components/SitterApplication';
+import Tab from '../components/Tab';
 
 export const getOwnerReviewsByUserId = async (id: string): Promise<ReviewListResponse> => {
   const { success, data } = await ClientApiManager.get(`/api/v1/pet-owners/${id}/reviews`);
@@ -46,6 +46,7 @@ enum TabGroup {
 }
 
 export default function Page({ params }: { params: { task_id: string } }) {
+  const { user_id } = parseCookies();
   const [currentData, setCurrentData] = useState<TaskDataResponse>();
   const [ownerReviews, setOwnerReviews] = useState<ReviewsProps[]>([]);
   const [reload, setReload] = useState(false);
@@ -97,7 +98,7 @@ export default function Page({ params }: { params: { task_id: string } }) {
   const tabs = [
     {
       label: TabGroup.DETAILS,
-      content: <Details content={currentData?.description} />,
+      content: <Details data={currentData} />,
     },
     // {
     //   label: TabGroup.Q_AND_A,
@@ -107,11 +108,14 @@ export default function Page({ params }: { params: { task_id: string } }) {
       label: TabGroup.REVIEWS,
       content: <Reviews reviewList={ownerReviews} />,
     },
-    {
-      label: TabGroup.SITTER_APPILCATION,
-      content: <SitterApplication />,
-    },
   ];
+
+  // if (currentData?.user_id === user_id) {
+  //   tabs.push({
+  //     label: TabGroup.SITTER_APPILCATION,
+  //     content: <SitterApplication task_id={params.task_id} />,
+  //   });
+  // }
 
   const navList = [
     { label: '任務列表', href: '/search/tasks' },
