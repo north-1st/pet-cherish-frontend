@@ -2,7 +2,7 @@
 
 import { revalidateTag } from 'next/cache';
 
-import { CreateOrderRequest, OwnerOrdersRequest } from '@/schemas/orderSchema';
+import { CreateOrderRequest } from '@/schemas/orderSchema';
 
 import ServerApiManager from '@/lib/serverApiManager';
 

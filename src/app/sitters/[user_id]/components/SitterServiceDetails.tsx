@@ -65,7 +65,7 @@ export default function SitterServiceDetails({ sitter }: { sitter: SitterRespons
       content: <Details content={sitter.service_description} />,
     },
     { label: TabGroup.Q_AND_A, content: <QuestionAnswers qaList={qaList} /> },
-    { label: TabGroup.REVIEWS, content: <Reviews reviewList={reviewList} /> },
+    // { label: TabGroup.REVIEWS, content: <Reviews reviewList={reviewList} /> },
   ];
 
   const navList = [
