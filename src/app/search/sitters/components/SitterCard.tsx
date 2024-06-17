@@ -1,5 +1,5 @@
 import { SERVICE_TYPE } from '@/const/task';
-import { CERTIFICATE_TYPE } from '@/const/task';
+// import { CERTIFICATE_TYPE } from '@/const/task';
 import ListAltIcon from '@/icons/list_alt.svg';
 
 import { Sitter } from '@/types/types';
@@ -15,19 +15,17 @@ import Empty from '@/components/common/view/Empty';
 import NewRating from '@/components/common/view/NewRating';
 
 interface SitterCardProps {
-  sitterList: Sitter[];
+  currentPostList: Sitter[];
 }
 
-const SitterCard = ({ sitterList }: SitterCardProps) => {
-  console.log(sitterList);
-
-  if (sitterList.length === 0) {
+const SitterCard = ({ currentPostList }: SitterCardProps) => {
+  if (currentPostList.length === 0) {
     return <Empty />;
   }
 
   return (
     <>
-      {sitterList.map((sitter) => {
+      {currentPostList.map((sitter) => {
         return (
           <Card key={sitter.user_id}>
             <CardContent className='p-6'>

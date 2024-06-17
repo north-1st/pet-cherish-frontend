@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { searchSittersAction } from '@/actions/searchSittersAction';
-import TAIWAN_DISTRICTS from '@/const/taiwanDistricts';
+import { TAIWAN_DISTRICTS } from '@/const/taiwanDistricts';
 // import { CERTIFICATE_TYPE } from '@/const/task';
 import { SERVICE_TYPE } from '@/const/task';
 import { SearchSittersRequest, searchSittersSchema } from '@/schemas/searchSittersSchema';
