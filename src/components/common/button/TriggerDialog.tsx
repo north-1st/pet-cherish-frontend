@@ -18,7 +18,7 @@ export function TriggerDialog({
   disabled = false,
 }: {
   triggerChildren: React.ReactNode;
-  title: string;
+  title?: string;
   contentChildren: React.ReactNode;
   closeDialogRef: React.RefObject<HTMLButtonElement>;
   disabled?: boolean;
