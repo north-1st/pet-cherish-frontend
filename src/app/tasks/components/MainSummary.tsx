@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { PET_CHARACTER, PET_SIZE } from '@/const/pet';
-import { TASK_PUBLIC } from '@/const/task';
+import { TASK_PUBLIC, TASK_STATUS } from '@/const/task';
 import NoneIcon from '@/icons/close.svg';
 import CheckIcon from '@/icons/done_outline.svg';
 import LockerIcon from '@/icons/lock_open_right.svg';
@@ -123,6 +123,12 @@ const MainSummary = ({ data, setReload }: MainSummaryProps) => {
         </div>
 
         <TaskDescription data={data} />
+        {data?.status && (
+          <div className='m-4 ml-0 flex flex-wrap gap-2'>
+            <h3 className='text-gray02'>任務狀態</h3>
+            <strong>{TASK_STATUS[data.status]}</strong>
+          </div>
+        )}
 
         <div className='flex gap-5'>
           {data.user_id === user_id ? (
