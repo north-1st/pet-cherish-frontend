@@ -6,7 +6,7 @@ import CardIcon from '@/icons/card.svg';
 import StarOutlineIcon from '@/icons/star-outline.svg';
 import StylusIcon from '@/icons/stylus.svg';
 import VisibilityIcon from '@/icons/visibility.svg';
-import { OrderResponse, orderStatusSchema, ownerOrderStatusSchema } from '@/schemas/orderSchema';
+import { OrderResponse, orderStatusSchema } from '@/schemas/orderSchema';
 
 import { cn } from '@/lib/utils';
 
@@ -18,9 +18,9 @@ const ghostButtonsClassName = 'flex w-full gap-x-0 md:gap-x-4';
 
 export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
   const { task } = order;
-  const { data: status } = ownerOrderStatusSchema.safeParse(useSearchParams().get('status'));
+  const { data: status } = orderStatusSchema.safeParse(useSearchParams().get('status'));
 
-  if (status == ownerOrderStatusSchema.enum.UN_PAID) {
+  if (status == orderStatusSchema.enum.VALID) {
     return (
       <>
         <CancelOrderButton orderId={order.id} taskId={task.id} />
@@ -31,7 +31,7 @@ export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
     );
   }
 
-  if (status == ownerOrderStatusSchema.enum.TRACKING) {
+  if (status == orderStatusSchema.enum.TRACKING) {
     return (
       <div className='w-full gap-x-4 md:flex'>
         <Button className={cn(buttonClassName, 'md:order-1')} onClick={() => {}}>
@@ -48,7 +48,7 @@ export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
     );
   }
 
-  if (status == ownerOrderStatusSchema.enum.COMPLETED) {
+  if (status == orderStatusSchema.enum.COMPLETED) {
     return (
       <div className={ghostButtonsClassName}>
         <ReviewButton order={order} />

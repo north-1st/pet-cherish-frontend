@@ -5,12 +5,7 @@ import { ReactNode, useEffect } from 'react';
 import { redirect, useSearchParams } from 'next/navigation';
 
 import { OWNER_ORDER_STATUS_TAB, SITTER_ORDER_STATUS_TAB } from '@/const/order';
-import {
-  OrderRole,
-  orderRoleSchema,
-  orderStatusSchema,
-  ownerOrderStatusSchema,
-} from '@/schemas/orderSchema';
+import { OrderRole, orderRoleSchema, orderStatusSchema } from '@/schemas/orderSchema';
 
 export default function Layout({
   children,
@@ -33,7 +28,7 @@ export default function Layout({
       !Object.keys(OWNER_ORDER_STATUS_TAB).includes(status ?? '')
     ) {
       redirect(
-        `/orders/${orderRoleSchema.enum['pet-owner']}?status=` + ownerOrderStatusSchema.enum.PENDING
+        `/orders/${orderRoleSchema.enum['pet-owner']}?status=` + orderStatusSchema.enum.PENDING
       );
     }
   }, [status, params.role]);

@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { ReviewListResponse, ownerReviewListResponseSchema } from '@/schemas/reviewSchema';
-import { TaskDataResponse, taskByIdResponseDataSchema } from '@/schemas/taskSchema';
+import { TaskDataResponse } from '@/schemas/taskSchema';
 import { getOwnerReviewsByUserId, getTaskById } from '@/server';
 import { parseCookies } from 'nookies';
 
@@ -63,16 +62,16 @@ export default function Page({ params }: { params: { task_id: string } }) {
     }
   }, [params.task_id, reload]);
 
-  const qaList = [
-    {
-      question: { title: '可接受多犬一起遛狗嗎？', name: '保姆綽號', dateTime: '2023-03-10 20:45' },
-      answer: {
-        title: '不行噢，Lucky力氣很大，不適合。',
-        name: 'Joanna',
-        dateTime: '2023-03-10 20:45',
-      },
-    },
-  ];
+  // const qaList = [
+  //   {
+  //     question: { title: '可接受多犬一起遛狗嗎？', name: '保姆綽號', dateTime: '2023-03-10 20:45' },
+  //     answer: {
+  //       title: '不行噢，Lucky力氣很大，不適合。',
+  //       name: 'Joanna',
+  //       dateTime: '2023-03-10 20:45',
+  //     },
+  //   },
+  // ];
 
   const tabs = [
     {
@@ -88,13 +87,12 @@ export default function Page({ params }: { params: { task_id: string } }) {
       content: <Reviews reviewList={ownerReviews} />,
     },
   ];
-
-  // if (currentData?.user_id === user_id) {
-  //   tabs.push({
-  //     label: TabGroup.SITTER_APPILCATION,
-  //     content: <SitterApplication task_id={params.task_id} />,
-  //   });
-  // }
+  if (currentData?.user_id === user_id) {
+    tabs.push({
+      label: TabGroup.SITTER_APPILCATION,
+      content: <SitterApplication task_id={params.task_id} />,
+    });
+  }
 
   const navList = [
     { label: '任務列表', href: '/search/tasks' },
@@ -111,9 +109,7 @@ export default function Page({ params }: { params: { task_id: string } }) {
 
       {/* 頁籤區 */}
       <section className='min-h-base-60 bg-gray04 pb-10'>
-        <article className='container'>
-          <Tab list={tabs} />
-        </article>
+        <article className='container'>{currentData?.user_id && <Tab list={tabs} />}</article>
       </section>
     </>
   );
