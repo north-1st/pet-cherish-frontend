@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 
 import { ReviewListResponse, ownerReviewListResponseSchema } from '@/schemas/reviewSchema';
 import { TaskDataResponse, taskByIdResponseDataSchema } from '@/schemas/taskSchema';
+import { getOwnerReviewsByUserId, getTaskById } from '@/server';
 import { parseCookies } from 'nookies';
 
-import ClientApiManager from '@/lib/clientApiManager';
 import { formatDateTime } from '@/lib/utils';
 
 import Breadcrumbs from '@/components/common/breadcrumbs';
@@ -17,26 +17,6 @@ import MainSummary from '../components/MainSummary';
 import Reviews, { ReviewsProps } from '../components/Reviews';
 import SitterApplication from '../components/SitterApplication';
 import Tab from '../components/Tab';
-
-// export const getOwnerReviewsByUserId = async (id: string): Promise<ReviewListResponse> => {
-//   const { success, data } = await ClientApiManager.get(`/api/v1/pet-owners/${id}/reviews`);
-
-//   if (success == true) {
-//     return ownerReviewListResponseSchema.parse(data);
-//   }
-
-//   return ownerReviewListResponseSchema.parse({});
-// };
-
-// export const getTaskById = async (task_id: string): Promise<TaskDataResponse> => {
-//   const { success, data } = await ClientApiManager.get(`/api/v1/tasks/${task_id}`);
-
-//   if (success) {
-//     return taskByIdResponseDataSchema.parse(data);
-//   }
-
-//   return taskByIdResponseDataSchema.parse({});
-// };
 
 enum TabGroup {
   DETAILS = '詳情資訊',
@@ -52,29 +32,29 @@ export default function Page({ params }: { params: { task_id: string } }) {
   const [reload, setReload] = useState(false);
 
   const getPageData = async (task_id: string) => {
-    // const data = await getTaskById(task_id);
-    // const reviewsResult = await getOwnerReviewsByUserId(data.user_id);
-    // const reviewsData = reviewsResult.reviews.map((item) => {
-    //   const { sitter_user_updated_at, sitter_rating, sitter_content } = item;
-    //   const { avatar, real_name, nickname } = item.sitter;
-    //   const { service_type } = item.task;
-    //   return {
-    //     poster: {
-    //       headIcon: avatar || '',
-    //       name: nickname || real_name,
-    //       rating: sitter_rating,
-    //     },
-    //     review: {
-    //       content: sitter_content,
-    //       dateTime: formatDateTime(sitter_user_updated_at) || '',
-    //     },
-    //     task: {
-    //       serviceType: service_type,
-    //     },
-    //   };
-    // });
-    // setCurrentData(data);
-    // setOwnerReviews(reviewsData);
+    const data = await getTaskById(task_id);
+    const reviewsResult = await getOwnerReviewsByUserId(data.user_id);
+    const reviewsData = reviewsResult.reviews.map((item) => {
+      const { sitter_user_updated_at, sitter_rating, sitter_content } = item;
+      const { avatar, real_name, nickname } = item.sitter;
+      const { service_type } = item.task;
+      return {
+        poster: {
+          headIcon: avatar || '',
+          name: nickname || real_name,
+          rating: sitter_rating,
+        },
+        review: {
+          content: sitter_content,
+          dateTime: formatDateTime(sitter_user_updated_at) || '',
+        },
+        task: {
+          serviceType: service_type,
+        },
+      };
+    });
+    setCurrentData(data);
+    setOwnerReviews(reviewsData);
   };
 
   useEffect(() => {
