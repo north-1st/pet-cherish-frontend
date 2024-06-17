@@ -35,7 +35,7 @@ export const searchSittersAction = async (formData: FormData) => {
     service_type_list: service_type_list.join(','),
     // certificate_list: certificate_list.join(','),
     page: '1',
-    limit: '10',
+    limit: '99999',
     offset: '0',
   });
 
