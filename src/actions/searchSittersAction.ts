@@ -1,19 +1,19 @@
 'use server';
 
-import { searchTasksRequestSchema } from '@/schemas/searchTasksSchema';
+import { searchSittersSchema } from '@/schemas/searchSittersSchema';
 
 import { API_BASE_URL } from '../const/config';
 
-export const searchTasksAction = async (formData: FormData) => {
+export const searchSittersAction = async (formData: FormData) => {
   const service_district_list = (formData.get('service_district_list') as string)?.split(',') || [];
   const service_type_list = (formData.get('service_type_list') as string)?.split(',') || [];
-  const pet_size_list = (formData.get('pet_size_list') as string)?.split(',') || [];
+  // const certificate_list = (formData.get('certificate_list') as string)?.split(',') || [];
 
-  const validatedFields = searchTasksRequestSchema.safeParse({
+  const validatedFields = searchSittersSchema.safeParse({
     service_city: formData.get('service_city'),
     service_district_list,
+    // certificate_list,
     service_type_list,
-    pet_size_list,
   });
 
   if (!validatedFields.success) {
@@ -33,14 +33,14 @@ export const searchTasksAction = async (formData: FormData) => {
     ...rawFormData,
     service_district_list: service_district_list.join(','),
     service_type_list: service_type_list.join(','),
-    pet_size_list: pet_size_list.join(','),
+    // certificate_list: certificate_list.join(','),
     page: '1',
     limit: '99999',
     offset: '0',
   });
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/v1/tasks?${queryParams.toString()}`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/sitters?${queryParams.toString()}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

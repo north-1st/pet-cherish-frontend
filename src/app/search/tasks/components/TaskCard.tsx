@@ -15,19 +15,19 @@ import { Card, CardContent } from '@/components/ui/card';
 import Empty from '@/components/common/view/Empty';
 
 interface TaskCardProps {
-  taskList: Task[];
+  currentPostList: Task[];
 }
 
-const TaskCard = ({ taskList }: TaskCardProps) => {
-  console.log(taskList);
+const TaskCard = ({ currentPostList }: TaskCardProps) => {
+  console.log(currentPostList);
 
-  if (taskList.length === 0) {
+  if (currentPostList.length === 0) {
     return <Empty />;
   }
 
   return (
     <>
-      {taskList.map((task) => {
+      {currentPostList.map((task) => {
         return (
           <Card key={task.id}>
             <CardContent className='p-6'>
