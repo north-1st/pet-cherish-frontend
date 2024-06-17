@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { orderRoleSchema, orderStatusSchema, ownerOrderStatusSchema } from '@/schemas/orderSchema';
+import { orderRoleSchema, orderStatusSchema } from '@/schemas/orderSchema';
 import { destroyCookie } from 'nookies';
 
 import { User } from '@/types/types';
@@ -82,7 +82,7 @@ const UserDropdownMenu = ({ user, logout }: { user: User | null; logout: () => v
             onClick={() =>
               router.push(
                 `/orders/${orderRoleSchema.enum['pet-owner']}?status=` +
-                  ownerOrderStatusSchema.enum.PENDING
+                  orderStatusSchema.enum.PENDING
               )
             }
           >
