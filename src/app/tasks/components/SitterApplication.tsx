@@ -2,34 +2,10 @@
 
 import { useEffect, useState } from 'react';
 
-import {
-  OrderStatus, // OwnerOrderPaginationResponse,
-  // OwnerOrdersRequest,
-  // OwnerOrdersResponse,
-  ownerOrderListsResponseSchema,
-  ownerOrdersPaginationSchema,
-} from '@/schemas/orderSchema';
-
-import ClientApiManager from '@/lib/clientApiManager';
-
 import { Button } from '@/components/ui/button';
 
 import Empty from '@/components/common/view/Empty';
 import PosterCard from '@/components/common/view/PosterCard';
-
-// export const getPetOwnerOrders = async (
-//   query: OwnerOrdersRequest
-// ): Promise<OwnerOrderPaginationResponse> => {
-//   const { success, data } = await ClientApiManager.get(
-//     `/api/v1/orders/pet-owner?limit=${query.limit}&page=${query.page}&status=${query.status}&task_id=${query.task_id}`
-//   );
-
-//   if (success) {
-//     return ownerOrderListsResponseSchema.parse(data);
-//   }
-
-//   return ownerOrderListsResponseSchema.parse({});
-// };
 
 interface SitterApplicationProps {
   task_id: string;
