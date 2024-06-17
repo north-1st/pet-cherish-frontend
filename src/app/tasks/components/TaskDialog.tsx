@@ -3,7 +3,7 @@
 import React, { Dispatch, SetStateAction, useRef } from 'react';
 
 import { taskAction, taskDeleteAction } from '@/actions/taskAction';
-import TAIWAN_DISTRICTS from '@/const/taiwanDistricts';
+import { TAIWAN_DISTRICTS } from '@/const/taiwanDistricts';
 import { ACCEPT_SITTER_CONTACT, SERVICE_TYPE, TASK_IS_CLOSED } from '@/const/task';
 import { TaskRequest, taskRequestSchema } from '@/schemas/taskSchema';
 import { uploadTypeSchema } from '@/schemas/upload';

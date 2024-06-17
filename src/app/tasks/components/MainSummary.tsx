@@ -106,14 +106,14 @@ const MainSummary = ({ data, setReload }: MainSummaryProps) => {
 
         <h2 className='text-2xl font-bold sm:text-3xl'>{data.title}</h2>
         <div className='flex justify-between rounded-md bg-gray04 p-3'>
-          <p className='flex items-center gap-2'>
+          <div className='flex items-center gap-2'>
             <Avatar>
               <AvatarImage alt='飼主頭貼' src={data.user.avator || '/images/default_avatar.png'} />
             </Avatar>
             <strong>{data.user.nickname || data.user.real_name}</strong>
             <Rating rating={data.user.average_rating} /> (
             <Link href={'#'}>{data.user.total_reviews}</Link>)
-          </p>
+          </div>
           <Button
             className='bg-white text-gray01'
             onClick={() => router.push(`/users/${data.user_id}/profile`)}
