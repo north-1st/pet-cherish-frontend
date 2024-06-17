@@ -1,4 +1,4 @@
-const TAIWAN_DISTRICTS = [
+export const TAIWAN_DISTRICTS = [
   {
     districts: [
       {
@@ -1617,4 +1617,18 @@ const TAIWAN_DISTRICTS = [
   },
 ];
 
-export default TAIWAN_DISTRICTS;
+export const CITIES_OPTIONS = TAIWAN_DISTRICTS.map(({ name }) => ({
+  id: name,
+  label: name,
+}));
+
+export const DISTRICTS_OPTIONS = TAIWAN_DISTRICTS.reduce(
+  (acc, { name, districts }) => {
+    acc[name] = districts.map(({ name }) => ({
+      id: name,
+      label: name,
+    }));
+    return acc;
+  },
+  {} as Record<string, { id: string; label: string }[]>
+);
