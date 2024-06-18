@@ -96,7 +96,7 @@ export default function Page({ params }: { params: { task_id: string } }) {
 
   const navList = [
     { label: '任務列表', href: '/search/tasks' },
-    { label: `任務編號：${params.task_id}`, href: `/tasks/${params.task_id}` },
+    { label: `${currentData?.title || ''}`, href: `/tasks/${params.task_id}` },
   ];
 
   return (
