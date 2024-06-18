@@ -1,4 +1,4 @@
-import { orderStatusSchema } from '@/schemas/orderSchema';
+import { orderStatusSchema, paymentStatusSchema } from '@/schemas/orderSchema';
 
 export const ORDER_STATUS = {
   [orderStatusSchema.enum.PENDING]: '待處理',
@@ -25,4 +25,9 @@ export const SITTER_ORDER_STATUS_TAB = {
   [orderStatusSchema.enum.COMPLETED]: '已完成',
   [orderStatusSchema.enum.CANCELED]: '已取消',
   [orderStatusSchema.enum.INVALID]: '未成立',
+};
+
+export const PAYMENT_RESULT = {
+  [paymentStatusSchema.enum.SUCCESS]: '付款成功',
+  [paymentStatusSchema.enum.FAILURE]: '付款失敗',
 };
