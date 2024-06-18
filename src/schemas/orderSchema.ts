@@ -15,6 +15,11 @@ export const orderStatusSchema = z.enum([
   'INVALID', // 訂單不成立
 ]);
 
+export const paymentStatusSchema = z.enum([
+  'SUCCESS', // 付款成功
+  'FAILURE', // 付款失敗
+]);
+
 export const createOrderBodySchema = z.object({
   task_id: z.string(),
   note: z.string(),
@@ -76,3 +81,5 @@ export type CreateOrderRequest = z.infer<typeof createOrderBodySchema>;
 export type OrdersRequest = z.infer<typeof ordersRequestSchema>;
 
 export type OrderPaginationResponse = z.infer<typeof ordersPaginationResponseSchema>;
+
+export type PaymentStatus = z.infer<typeof paymentStatusSchema>;

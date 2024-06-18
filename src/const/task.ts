@@ -23,7 +23,7 @@ export const TASK_PUBLIC = {
 
 export const TASK_STATUS = {
   [taskStatusSchema.enum.NULL]: '未有保母下單',
-  [taskStatusSchema.enum.PENDING]: '已有保母下單',
+  [taskStatusSchema.enum.PENDING]: '已有保姆下單',
   [taskStatusSchema.enum.UN_PAID]: '未付款',
   [taskStatusSchema.enum.TRACKING]: '任務進行中',
   [taskStatusSchema.enum.COMPLETED]: '已完成',

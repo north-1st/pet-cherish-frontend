@@ -57,6 +57,13 @@ export const loginAction = async (formData: FormData) => {
         secure: IS_SECURE, // 需要在 HTTPS 上啟用
       });
 
+      cookies().set({
+        name: 'is_sitter',
+        value: result.data.is_sitter,
+        maxAge: 60 * 60 * 24,
+        secure: IS_SECURE,
+      });
+
       return result;
     } else {
       return { ...result, data: {} };
