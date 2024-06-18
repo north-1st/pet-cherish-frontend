@@ -84,11 +84,12 @@ const MainSummary = ({ data, setReload }: MainSummaryProps) => {
       <article className='flex flex-col justify-between gap-2 text-sm sm:text-base md:w-[59%]'>
         <header className='flex items-center justify-between'>
           <Badge className='border-gray02 text-gray02' variant='outline'>
-            任務編號：{data.id}
+            {/* 任務編號：{data.id} */}
+            任務狀態 : {TASK_STATUS[data.status]}
           </Badge>
           <aside className='flex gap-2 text-right'>
             <div
-              className={`flex min-w-20 items-center justify-end ${data.public === 'OPEN' ? 'text-lightGreen' : 'text-red-600'}`}
+              className={`flex min-w-20 items-center justify-end ${data.public === 'OPEN' ? 'text-lightGreen' : 'text-error'}`}
             >
               {data.public === 'OPEN' ? (
                 <LockerIcon width={16} height={16} />
@@ -123,12 +124,12 @@ const MainSummary = ({ data, setReload }: MainSummaryProps) => {
         </div>
 
         <TaskDescription data={data} />
-        {data?.status && (
+        {/* {data?.status && (
           <div className='m-4 ml-0 flex flex-wrap gap-2'>
             <h3 className='text-gray02'>任務狀態</h3>
             <strong>{TASK_STATUS[data.status]}</strong>
           </div>
-        )}
+        )} */}
 
         <div className='flex gap-5'>
           {data.user_id === user_id ? (
@@ -156,7 +157,7 @@ const MainSummary = ({ data, setReload }: MainSummaryProps) => {
                 </Button>
               )}
               <ApplyOrderDialog
-                disabled={data.user_id === user_id}
+                disabled={data.user_id === user_id} // 補：接單已送出資訊 call API 去確認 有沒有 Order.task_id === params.task_id && OrderStatus.RENDING
                 targetTask={data}
                 triggerChildren={<Button className='w-full'>我要接單</Button>}
               />
