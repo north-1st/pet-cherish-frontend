@@ -83,8 +83,6 @@ const SitterForm = ({ setSitterList }: SitterFormProps) => {
     try {
       const result: SearchSittersResponse = await searchSittersAction(formData);
 
-      console.log(result);
-
       if (result.status && Array.isArray(result.data.sitter_list)) {
         setSitterList(result.data.sitter_list);
       }
