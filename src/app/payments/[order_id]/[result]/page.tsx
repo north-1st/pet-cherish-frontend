@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react';
 
+import { PAYMENT_RESULT } from '@/const/order';
 import { SERVICE_TYPE } from '@/const/task';
 import PayResultIcon from '@/icons/dog.svg';
-import { OrderResponse } from '@/schemas/orderSchema';
+import { OrderResponse, PaymentStatus } from '@/schemas/orderSchema';
 import { parseCookies } from 'nookies';
 
 import { dateTimeDuration } from '@/lib/utils';
@@ -12,15 +13,17 @@ import { dateTimeDuration } from '@/lib/utils';
 interface PaymentResultParams {
   payment_id: string; // stripe id
   order_id: string;
+  result: PaymentStatus;
 }
 export default function Page({ params }: { params: PaymentResultParams }) {
+  const isSuccess = params.result === 'SUCCESS';
   const { user_id } = parseCookies();
-  const [currentData, setCurrentData] = useState<OrderResponse>();
+  const [data, setData] = useState<OrderResponse>();
 
   // 取得指定 Order 資料
   const getPageData = async (order_id: string) => {
-    // const data = await getOrderById(order_id);
-    // setCurrentData(data);
+    // const response = await getOrderById(order_id);
+    // setData(response);
   };
 
   useEffect(() => {
@@ -34,10 +37,13 @@ export default function Page({ params }: { params: PaymentResultParams }) {
       <div className='m-auto w-[30%] min-w-[500px] rounded-lg border-2 border-gray04 p-5'>
         {}
         <div className='flex flex-col items-center justify-center'>
-          {/* <PayResultIcon className='text-brand01 text-[5rem]' /> */}
-          <PayResultIcon className='text-[5rem] text-error' />
+          <PayResultIcon className={`text-[5rem] ${isSuccess ? 'text-brand01' : 'text-error'}`} />
           <h2 className='my-4 text-2xl font-bold'>訂單付款結果</h2>
-          <h3 className='border-b-4 border-error text-2xl font-bold text-error'>失敗</h3>
+          <h3
+            className={`border-b-4 ${isSuccess ? 'border-brand01 text-brand01' : 'border-error text-error'} text-2xl font-bold `}
+          >
+            {PAYMENT_RESULT[params.result]}
+          </h3>
         </div>
 
         {/* 訂單資訊 */}
@@ -47,8 +53,7 @@ export default function Page({ params }: { params: PaymentResultParams }) {
             <ul>
               <li className='m-4 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>流水編號</h3>
-                {/* <strong>{params.order_id}</strong> */}
-                <strong>{2536365535538}</strong>
+                <strong>{params.payment_id}</strong>
               </li>
               <li className='m-4 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>付款時間</h3>
@@ -57,8 +62,11 @@ export default function Page({ params }: { params: PaymentResultParams }) {
               </li>
               <li className='m-4 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>訂單編號</h3>
-                {/* <strong>{params.order_id}</strong> */}
-                <strong>{253535538}</strong>
+                <strong>{params.order_id}</strong>
+              </li>
+              <li className='m-4 ml-0 flex flex-wrap gap-3'>
+                <h3 className='text-gray02'>任務內容</h3>
+                <strong>{'任務標題'}</strong>
               </li>
               <li className='m-4 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>任務需求</h3>
@@ -96,7 +104,7 @@ export default function Page({ params }: { params: PaymentResultParams }) {
             <hr className='my-3 border-t-2 border-gray04' />
 
             {/* 任務價格 */}
-            <div className='flex justify-between'>
+            <div className='flex items-center justify-between'>
               <h3 className='my-3 text-xl font-bold'>$ 應付金額</h3>
               <strong className='text-bold text-2xl text-brand01'>{3000} 元</strong>
             </div>
