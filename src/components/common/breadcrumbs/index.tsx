@@ -11,7 +11,7 @@ const Breadcrumbs = ({ navList }: { navList: BreadcrumbsProps[] }) => {
     <nav className='container p-3'>
       <ul className='flex items-center gap-2'>
         <li>
-          <Link className='align-top text-gray03' href='/'>
+          <Link className='align-top text-gray03 hover:text-alert' href='/'>
             首頁
           </Link>
         </li>
@@ -19,7 +19,7 @@ const Breadcrumbs = ({ navList }: { navList: BreadcrumbsProps[] }) => {
           <li key={item.label}>
             <ArrowRightIcon className='mr-2 inline-block text-gray03' />
             <Link
-              className={`align-top ${index + 1 < navList.length ? 'text-gray03' : 'text-gray02'}`}
+              className={`align-top ${index + 1 < navList.length ? 'text-gray03' : 'text-gray02'} hover:text-alert`}
               href={item.href}
             >
               {item.label}

@@ -29,6 +29,7 @@ const config = {
         grayIcon: '#1C1B1F',
         lightGreen: '#41C255',
         error: '#F34343',
+        alert: '#f27474',
 
         border: 'hsl(var(--border))',
         input: '#1E1E1E',
