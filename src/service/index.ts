@@ -130,7 +130,7 @@ export const updateOrderSteps = async (endpoint: string, task_id: string) => {
       throw new Error(result.message);
     }
   } catch (error) {
-    console.log('API/acceptSitter error: ', error);
+    console.log('API/updateOrderSteps error: ', error);
     toast({
       title: '失敗',
       description: error instanceof Error ? error.message : '發生錯誤',
