@@ -1,4 +1,4 @@
-import { ZodObject, ZodRawShape, z } from 'zod';
+import { ZodObject, ZodRawShape, optional, z } from 'zod';
 
 import { paginationSchema } from './pagination';
 import { taskResponseSchema } from './taskSchema';
@@ -32,12 +32,13 @@ export const ordersRequestSchema = paginationSchema.extend({
 
 export const orderResponseSchema = z.object({
   id: z.string(),
-  sitter_user_id: z.string(),
   pet_owner_user_id: z.string(),
   status: orderStatusSchema,
   note: z.string(),
-  third_party_id: z.string().nullable(),
-  payment_at: z.string().nullable(),
+  payment_id: z.string().nullable().optional(),
+  payment_url: z.string().nullable().optional(),
+  payment_status: z.string().nullable().optional(),
+  payment_at: z.string().nullable().optional(),
   report_content: z.string(),
   report_image_list: z.array(z.string()),
   report_created_at: z
@@ -50,9 +51,21 @@ export const orderResponseSchema = z.object({
     .transform((value) => (value ? new Date(value) : null)),
   created_at: z.string().transform((value) => new Date(value)),
   updated_at: z.string().transform((value) => new Date(value)),
-  task_id: z.string(),
   sitter_user: userResponseSchema,
   task: taskResponseSchema,
+});
+
+const productSchema = z.object({
+  name: z.string(),
+  price: z.number(),
+  quantity: z.number(),
+});
+
+export const checkoutBodyRequestSchema = z.object({
+  products: z.array(productSchema),
+  metadata: z.object({
+    order_id: z.string(),
+  }),
 });
 
 export function createResponsePaginationDataSchema<T extends ZodRawShape>(
@@ -67,6 +80,17 @@ export function createResponsePaginationDataSchema<T extends ZodRawShape>(
 }
 export const ordersPaginationResponseSchema =
   createResponsePaginationDataSchema(orderResponseSchema);
+
+export function createBaseResponseDataSchema(dataSchema: z.AnyZodObject) {
+  return z.object({
+    data: dataSchema,
+    status: z.boolean(),
+  });
+}
+export const orderDataResponseSchema = z.object({
+  data: orderResponseSchema,
+  status: z.boolean(),
+});
 
 export const orderResponseListSchema = z.array(orderResponseSchema);
 
@@ -83,3 +107,5 @@ export type OrdersRequest = z.infer<typeof ordersRequestSchema>;
 export type OrderPaginationResponse = z.infer<typeof ordersPaginationResponseSchema>;
 
 export type PaymentStatus = z.infer<typeof paymentStatusSchema>;
+
+export type PaymentRequest = z.infer<typeof checkoutBodyRequestSchema>;
