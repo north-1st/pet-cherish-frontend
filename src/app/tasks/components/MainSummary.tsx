@@ -9,7 +9,12 @@ import NoneIcon from '@/icons/close.svg';
 import CheckIcon from '@/icons/done_outline.svg';
 import LockerIcon from '@/icons/lock_open_right.svg';
 import LockedIcon from '@/icons/locked.svg';
-import { TaskDataResponse, taskRequestSchema } from '@/schemas/taskSchema';
+import {
+  TaskDataResponse,
+  taskPublicSchema,
+  taskRequestSchema,
+  taskStatusSchema,
+} from '@/schemas/taskSchema';
 import { parseCookies } from 'nookies';
 
 import { formatDate } from '@/lib/utils';
@@ -159,7 +164,11 @@ const MainSummary = ({ data, setReload }: MainSummaryProps) => {
               <ApplyOrderDialog
                 disabled={data.user_id === user_id} // 補：接單已送出資訊 call API 去確認 有沒有 Order.task_id === params.task_id && OrderStatus.RENDING
                 targetTask={data}
-                triggerChildren={<Button className='w-full'>我要接單</Button>}
+                triggerChildren={
+                  <Button className='w-full' disabled={data.public !== taskPublicSchema.Enum.OPEN}>
+                    我要接單
+                  </Button>
+                }
               />
             </>
           )}
