@@ -1,4 +1,4 @@
-import { PAYMENT_RESULT } from '@/const/order';
+import { PAYMENT_RESULT, PLATFORM_FEE } from '@/const/order';
 import { SERVICE_TYPE } from '@/const/task';
 import PayResultIcon from '@/icons/dog.svg';
 import { OrderResponse, PaymentStatus } from '@/schemas/orderSchema';
@@ -13,7 +13,6 @@ export interface PaymentResultPorps {
 }
 export default function PaymentResult({ result, data }: PaymentResultPorps) {
   const isSuccess = result === 'SUCCESS';
-  const PLATFORM_FEE = 50;
 
   // if (!data) {
   //   return <Empty />;
@@ -98,7 +97,7 @@ export default function PaymentResult({ result, data }: PaymentResultPorps) {
             <div className='flex items-center justify-between'>
               <h3 className='my-3 text-xl font-bold'>$ 應付金額</h3>
               {/* <strong className='text-bold text-2xl text-brand01'>{data.task.total} 元</strong> */}
-              <strong className='text-bold text-2xl text-brand01'>{3000} 元</strong>
+              <strong className='text-bold text-2xl text-brand01'>{3000 + PLATFORM_FEE} 元</strong>
             </div>
           </article>
         </section>

@@ -38,7 +38,7 @@ export default function PosterCard(props: PosterCardProps) {
         <time className='text-gray03'>{main.dateTime}</time>
         <p>{main.content}</p>
       </main>
-      <aside className={`flex items-center justify-center gap-3 p-5 pb-0 xl:pt-0 `}>
+      <aside className={`flex min-w-[250px] items-center justify-center gap-3 p-5 pb-0 xl:pt-0`}>
         {actions}
       </aside>
     </section>
