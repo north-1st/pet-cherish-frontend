@@ -4,11 +4,9 @@ import { serviceTypeSchema, taskPublicSchema, taskStatusSchema } from '@/schemas
 export const fakeData = [
   {
     id: '6658a84a54390e6a3ed4370e',
-    sitter_user_id: '66571db5146b42a4acc541b6',
     pet_owner_user_id: '6658a67f6676e47b02f23e8b',
     status: orderStatusSchema.enum.PENDING,
     note: '我是保姆100，想接法鬥案子！',
-
     payment_at: null,
     report_content: '',
     report_image_list: [],
@@ -16,7 +14,6 @@ export const fakeData = [
     report_updated_at: null,
     created_at: new Date('2024-05-30T16:24:42.444Z'),
     updated_at: new Date('2024-05-30T16:24:42.444Z'),
-    task_id: '66489faba8bcd77a22dedbe3',
     task: {
       id: '66489faba8bcd77a22dedbe3',
       title: '任務名稱',
@@ -55,11 +52,9 @@ export const fakeData = [
   },
   {
     id: '6658a256a8b5660a69d5e0d9',
-    sitter_user_id: '66571db5146b42a4acc541b6',
     pet_owner_user_id: '66571fc0146b42a4acc541b7',
     status: orderStatusSchema.enum.TRACKING,
     note: '我是保姆100，想接案！',
-
     payment_at: null,
     report_content: '',
     report_image_list: [],
@@ -67,7 +62,6 @@ export const fakeData = [
     report_updated_at: null,
     created_at: new Date('2024-05-30T15:59:18.340Z'),
     updated_at: new Date('2024-05-30T15:59:18.340Z'),
-    task_id: '66489faba8bcd77a22dedbe3',
     task: {
       id: '66489faba8bcd77a22dedbe3',
       title: '任務名稱',
@@ -106,11 +100,9 @@ export const fakeData = [
   },
   {
     id: '6658a84a54390e6a3ed4370e',
-    sitter_user_id: '66571db5146b42a4acc541b6',
     pet_owner_user_id: '6658a67f6676e47b02f23e8b',
     status: orderStatusSchema.enum.VALID,
     note: '我是保姆100，想接法鬥案子！',
-
     payment_at: null,
     report_content: '',
     report_image_list: [],
@@ -118,7 +110,6 @@ export const fakeData = [
     report_updated_at: null,
     created_at: new Date('2024-05-30T16:24:42.444Z'),
     updated_at: new Date('2024-05-30T16:24:42.444Z'),
-    task_id: '66489faba8bcd77a22dedbe3',
     task: {
       id: '66489faba8bcd77a22dedbe3',
       title: '任務名稱',
@@ -157,11 +148,9 @@ export const fakeData = [
   },
   {
     id: '6658a84a54390e6a3ed4370e',
-    sitter_user_id: '66571db5146b42a4acc541b6',
     pet_owner_user_id: '6658a67f6676e47b02f23e8b',
     status: orderStatusSchema.enum.INVALID,
     note: '我是保姆100，想接法鬥案子！',
-
     payment_at: null,
     report_content: '',
     report_image_list: [],
@@ -169,7 +158,6 @@ export const fakeData = [
     report_updated_at: null,
     created_at: new Date('2024-05-30T16:24:42.444Z'),
     updated_at: new Date('2024-05-30T16:24:42.444Z'),
-    task_id: '66489faba8bcd77a22dedbe3',
     task: {
       id: '66489faba8bcd77a22dedbe3',
       title: '任務名稱',
@@ -208,11 +196,9 @@ export const fakeData = [
   },
   {
     id: '6658a84a54390e6a3ed4370e',
-    sitter_user_id: '66571db5146b42a4acc541b6',
     pet_owner_user_id: '6658a67f6676e47b02f23e8b',
     status: orderStatusSchema.enum.COMPLETED,
     note: '我是保姆100，想接法鬥案子！',
-
     payment_at: null,
     report_content: '',
     report_image_list: [],
@@ -220,7 +206,6 @@ export const fakeData = [
     report_updated_at: null,
     created_at: new Date('2024-05-30T16:24:42.444Z'),
     updated_at: new Date('2024-05-30T16:24:42.444Z'),
-    task_id: '66489faba8bcd77a22dedbe3',
     task: {
       id: '66489faba8bcd77a22dedbe3',
       title: '任務名稱',

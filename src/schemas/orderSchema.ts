@@ -1,4 +1,4 @@
-import { ZodObject, ZodRawShape, z } from 'zod';
+import { ZodObject, ZodRawShape, optional, z } from 'zod';
 
 import { paginationSchema } from './pagination';
 import { taskResponseSchema } from './taskSchema';
@@ -35,10 +35,10 @@ export const orderResponseSchema = z.object({
   pet_owner_user_id: z.string(),
   status: orderStatusSchema,
   note: z.string(),
-  payment_id: z.string().nullable(),
-  payment_url: z.string().nullable(),
-  payment_status: z.string().nullable(),
-  payment_at: z.string().nullable(),
+  payment_id: z.string().nullable().optional(),
+  payment_url: z.string().nullable().optional(),
+  payment_status: z.string().nullable().optional(),
+  payment_at: z.string().nullable().optional(),
   report_content: z.string(),
   report_image_list: z.array(z.string()),
   report_created_at: z
