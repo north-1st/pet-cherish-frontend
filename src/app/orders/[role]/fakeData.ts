@@ -8,7 +8,7 @@ export const fakeData = [
     pet_owner_user_id: '6658a67f6676e47b02f23e8b',
     status: orderStatusSchema.enum.PENDING,
     note: '我是保姆100，想接法鬥案子！',
-    third_party_id: null,
+
     payment_at: null,
     report_content: '',
     report_image_list: [],
@@ -59,7 +59,7 @@ export const fakeData = [
     pet_owner_user_id: '66571fc0146b42a4acc541b7',
     status: orderStatusSchema.enum.TRACKING,
     note: '我是保姆100，想接案！',
-    third_party_id: null,
+
     payment_at: null,
     report_content: '',
     report_image_list: [],
@@ -110,7 +110,7 @@ export const fakeData = [
     pet_owner_user_id: '6658a67f6676e47b02f23e8b',
     status: orderStatusSchema.enum.VALID,
     note: '我是保姆100，想接法鬥案子！',
-    third_party_id: null,
+
     payment_at: null,
     report_content: '',
     report_image_list: [],
@@ -161,7 +161,7 @@ export const fakeData = [
     pet_owner_user_id: '6658a67f6676e47b02f23e8b',
     status: orderStatusSchema.enum.INVALID,
     note: '我是保姆100，想接法鬥案子！',
-    third_party_id: null,
+
     payment_at: null,
     report_content: '',
     report_image_list: [],
@@ -212,7 +212,7 @@ export const fakeData = [
     pet_owner_user_id: '6658a67f6676e47b02f23e8b',
     status: orderStatusSchema.enum.COMPLETED,
     note: '我是保姆100，想接法鬥案子！',
-    third_party_id: null,
+
     payment_at: null,
     report_content: '',
     report_image_list: [],
