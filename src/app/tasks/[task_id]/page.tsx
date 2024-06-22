@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { TaskDataResponse } from '@/schemas/taskSchema';
-import { getOwnerReviewsByUserId, getTaskById } from '@/server';
+import { getOwnerReviewsByUserId, getTaskById } from '@/service';
 import { parseCookies } from 'nookies';
 
 import { formatDateTime } from '@/lib/utils';
