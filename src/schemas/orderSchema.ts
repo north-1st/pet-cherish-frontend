@@ -36,7 +36,6 @@ export const orderResponseSchema = z.object({
   pet_owner_user_id: z.string(),
   status: orderStatusSchema,
   note: z.string(),
-  third_party_id: z.string().nullable(),
   payment_at: z.string().nullable(),
   report_content: z.string(),
   report_image_list: z.array(z.string()),
@@ -53,6 +52,19 @@ export const orderResponseSchema = z.object({
   task_id: z.string(),
   sitter_user: userResponseSchema,
   task: taskResponseSchema,
+});
+
+const productSchema = z.object({
+  name: z.string(),
+  price: z.number(),
+  quantity: z.number(),
+});
+
+export const checkoutBodyRequestSchema = z.object({
+  products: z.array(productSchema),
+  metadata: z.object({
+    order_id: z.string(),
+  }),
 });
 
 export function createResponsePaginationDataSchema<T extends ZodRawShape>(
@@ -83,3 +95,5 @@ export type OrdersRequest = z.infer<typeof ordersRequestSchema>;
 export type OrderPaginationResponse = z.infer<typeof ordersPaginationResponseSchema>;
 
 export type PaymentStatus = z.infer<typeof paymentStatusSchema>;
+
+export type PaymentRequest = z.infer<typeof checkoutBodyRequestSchema>;
