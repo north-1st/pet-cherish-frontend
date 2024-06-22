@@ -1,7 +1,7 @@
 import { PAYMENT_RESULT, PLATFORM_FEE } from '@/const/order';
 import { SERVICE_TYPE } from '@/const/task';
 import PayResultIcon from '@/icons/dog.svg';
-import { OrderResponse, PaymentStatus } from '@/schemas/orderSchema';
+import { OrderResponse, PaymentStatus, paymentStatusSchema } from '@/schemas/orderSchema';
 
 import { dateTimeDuration, formatDateTime } from '@/lib/utils';
 
@@ -12,11 +12,11 @@ export interface PaymentResultPorps {
   data?: OrderResponse;
 }
 export default function PaymentResult({ result, data }: PaymentResultPorps) {
-  const isSuccess = result === 'SUCCESS';
+  const isSuccess = result === paymentStatusSchema.Enum.SUCCESS;
 
-  // if (!data) {
-  //   return <Empty />;
-  // }
+  if (!data) {
+    return <Empty />;
+  }
 
   return (
     <section className='p-5'>
@@ -36,40 +36,34 @@ export default function PaymentResult({ result, data }: PaymentResultPorps) {
         <section className='py-5'>
           <article className='container'>
             <ul>
-              <li className='m-4 ml-0 flex flex-wrap gap-3'>
+              {/* <li className='m-4 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>流水編號</h3>
-                {/* <strong>{data.payment_id}</strong> */}
-              </li>
+                <strong>{data.payment_id}</strong>
+              </li> */}
               <li className='m-4 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>付款時間</h3>
-                {/* <strong>{data.payment_at && formatDateTime(new Date(data.payment_at))}</strong> */}
-                <strong>{'2024/03/24 17:53'}</strong>
+                <strong>{data.payment_at && formatDateTime(new Date(data.payment_at))}</strong>
               </li>
               <li className='m-4 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>訂單編號</h3>
-                {/* <strong>{data.task_id}</strong> */}
-                <strong>{333444555}</strong>
+                <strong>{data.task.id}</strong>
               </li>
               <li className='m-4 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>任務內容</h3>
-                {/* <strong>{data.task.title}</strong> */}
-                <strong>{'任務標題'}</strong>
+                <strong>{data.task.title}</strong>
               </li>
               <li className='m-4 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>任務需求</h3>
-                {/* <strong>{SERVICE_TYPE[data.task.service_type]}</strong> */}
-                <strong>{SERVICE_TYPE['BATH']}</strong>
+                <strong>{SERVICE_TYPE[data.task.service_type]}</strong>
               </li>
               <li className='m-4 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>任務時間</h3>
-                {/* <strong>{dateTimeDuration(data.task.start_at, data.task.end_at)}</strong> */}
-                <strong>{'2024/03/20 17:00 ~ 21:00'}</strong>
+                <strong>{dateTimeDuration(data.task.start_at, data.task.end_at)}</strong>
               </li>
               <li className='m-4 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>任務地區</h3>
                 <strong>
-                  {/* {data.task.city} {data.task.district} */}
-                  {'台北市'} {'內湖區'}
+                  {data.task.city} {data.task.district}
                 </strong>
               </li>
             </ul>
@@ -78,13 +72,11 @@ export default function PaymentResult({ result, data }: PaymentResultPorps) {
             <ul>
               <li className='m-4 ml-0 flex justify-between'>
                 <h3 className='text-gray02'>服務費用 (每30分鐘)</h3>
-                {/* <strong>{data.task.unit_price} 元</strong> */}
-                <strong>{1000} 元</strong>
+                <strong>{data.task.unit_price} 元</strong>
               </li>
               <li className='m-4 ml-0 flex justify-between'>
                 <h3 className='text-gray02'>服務時間 (每30分鐘)</h3>
-                {/* <strong>X {data.task.total / data.task.unit_price}</strong> */}
-                <strong>X {3} 元</strong>
+                <strong>X {Math.round(data.task.total / data.task.unit_price)}</strong>
               </li>
               <li className='m-4 ml-0 flex justify-between'>
                 <h3 className='text-gray02'>平台費用 (每次)</h3>
@@ -96,8 +88,9 @@ export default function PaymentResult({ result, data }: PaymentResultPorps) {
             {/* 訂單價格 */}
             <div className='flex items-center justify-between'>
               <h3 className='my-3 text-xl font-bold'>$ 應付金額</h3>
-              {/* <strong className='text-bold text-2xl text-brand01'>{data.task.total} 元</strong> */}
-              <strong className='text-bold text-2xl text-brand01'>{3000 + PLATFORM_FEE} 元</strong>
+              <strong className='text-bold text-2xl text-brand01'>
+                {data.task.total + PLATFORM_FEE} 元
+              </strong>
             </div>
           </article>
         </section>
