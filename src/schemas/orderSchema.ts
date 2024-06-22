@@ -32,10 +32,12 @@ export const ordersRequestSchema = paginationSchema.extend({
 
 export const orderResponseSchema = z.object({
   id: z.string(),
-  sitter_user_id: z.string(),
   pet_owner_user_id: z.string(),
   status: orderStatusSchema,
   note: z.string(),
+  payment_id: z.string().nullable(),
+  payment_url: z.string().nullable(),
+  payment_status: z.string().nullable(),
   payment_at: z.string().nullable(),
   report_content: z.string(),
   report_image_list: z.array(z.string()),
@@ -49,7 +51,6 @@ export const orderResponseSchema = z.object({
     .transform((value) => (value ? new Date(value) : null)),
   created_at: z.string().transform((value) => new Date(value)),
   updated_at: z.string().transform((value) => new Date(value)),
-  task_id: z.string(),
   sitter_user: userResponseSchema,
   task: taskResponseSchema,
 });
@@ -79,6 +80,17 @@ export function createResponsePaginationDataSchema<T extends ZodRawShape>(
 }
 export const ordersPaginationResponseSchema =
   createResponsePaginationDataSchema(orderResponseSchema);
+
+export function createBaseResponseDataSchema(dataSchema: z.AnyZodObject) {
+  return z.object({
+    data: dataSchema,
+    status: z.boolean(),
+  });
+}
+export const orderDataResponseSchema = z.object({
+  data: orderResponseSchema,
+  status: z.boolean(),
+});
 
 export const orderResponseListSchema = z.array(orderResponseSchema);
 
