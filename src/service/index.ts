@@ -4,7 +4,6 @@ import {
   OrdersRequest,
   PaymentRequest,
   orderDataResponseSchema,
-  orderResponseSchema,
   ordersPaginationResponseSchema,
 } from '@/schemas/orderSchema';
 import { ReviewListResponse, ownerReviewListResponseSchema } from '@/schemas/reviewSchema';
@@ -14,6 +13,19 @@ import { parseCookies } from 'nookies';
 import ClientApiManager from '@/lib/clientApiManager';
 
 import { toast } from '@/components/ui/use-toast';
+
+type MethodOption = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE' | 'OPTIONS';
+export const clientCongfig = (method: MethodOption, request?: any) => {
+  const token = parseCookies().token;
+  return {
+    method,
+    body: JSON.stringify(request),
+    headers: {
+      Authorization: token ? `Bearer ${token}` : '',
+      'Content-Type': 'application/json',
+    },
+  };
+};
 
 export const getOwnerReviewsByUserId = async (id: string): Promise<ReviewListResponse> => {
   const { success, data } = await ClientApiManager.get(`/api/v1/pet-owners/${id}/reviews`);
@@ -33,19 +45,6 @@ export const getTaskById = async (task_id: string): Promise<TaskDataResponse> =>
   }
 
   return taskByIdResponseDataSchema.parse({});
-};
-
-type MethodOption = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE' | 'OPTIONS';
-export const clientCongfig = (method: MethodOption, request?: any) => {
-  const token = parseCookies().token;
-  return {
-    method,
-    body: JSON.stringify(request),
-    headers: {
-      Authorization: token ? `Bearer ${token}` : '',
-      'Content-Type': 'application/json',
-    },
-  };
 };
 
 export const getPetOwnerOrders = async (query: OrdersRequest): Promise<OrderPaginationResponse> => {
@@ -108,6 +107,30 @@ export const getOrderById = async (order_id: string) => {
     return orderDataResponseSchema.parse({});
   } catch (error) {
     console.log('API/getOrderById error: ', error);
+    toast({
+      title: '失敗',
+      description: error instanceof Error ? error.message : '發生錯誤',
+      variant: 'destructive',
+    });
+  }
+};
+
+export const updateOrderSteps = async (endpoint: string, task_id: string) => {
+  try {
+    const options = clientCongfig('PATCH', { task_id });
+    const response = await fetch(endpoint, options);
+    const result = await response.json();
+    if (response.ok) {
+      toast({
+        title: '成功',
+        description: result.message,
+      });
+      return result;
+    } else {
+      throw new Error(result.message);
+    }
+  } catch (error) {
+    console.log('API/acceptSitter error: ', error);
     toast({
       title: '失敗',
       description: error instanceof Error ? error.message : '發生錯誤',

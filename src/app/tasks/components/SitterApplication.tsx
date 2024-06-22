@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-import { ORDER_STATUS } from '@/const/order';
+import { API_BASE_URL } from '@/const/config';
 import { OrderResponse, orderStatusSchema, ordersRequestSchema } from '@/schemas/orderSchema';
-import { getPetOwnerOrders } from '@/server';
+import { getPetOwnerOrders, updateOrderSteps } from '@/service';
 
 import { formatDateTime } from '@/lib/utils';
 
@@ -20,15 +20,24 @@ interface SitterApplicationProps {
 }
 const SitterApplication = (props: SitterApplicationProps) => {
   const [applyList, setApplyList] = useState<OrderResponse[]>([]);
+  const [reload, setReload] = useState(false);
 
   const getData = async (task_id: string) => {
     const defaultQuery = ordersRequestSchema.parse({
       task_id,
-      status: `${orderStatusSchema.enum.PENDING},${orderStatusSchema.enum.INVALID}`,
+      status: `${orderStatusSchema.enum.VALID},${orderStatusSchema.enum.PENDING},${orderStatusSchema.enum.INVALID}`,
     });
     const response = await getPetOwnerOrders(defaultQuery);
 
     setApplyList(response.data);
+  };
+
+  const handleRefused = async (targetOrder: OrderResponse) => {
+    await updateOrderSteps(
+      `${API_BASE_URL}/api/v1/orders/${targetOrder.id}/refuse-sitter`,
+      props.task_id
+    );
+    setReload(!reload);
   };
 
   useEffect(() => {
@@ -36,7 +45,7 @@ const SitterApplication = (props: SitterApplicationProps) => {
     if (props.task_id) {
       getData(props.task_id);
     }
-  }, [props.task_id]);
+  }, [props.task_id, reload]);
 
   if (applyList.length === 0) {
     return <Empty />;
@@ -60,7 +69,12 @@ const SitterApplication = (props: SitterApplicationProps) => {
             <>
               {item.status === orderStatusSchema.Enum.PENDING && (
                 <>
-                  <Button variant='outline' className='text-gray01' key='refuse-sitter'>
+                  <Button
+                    variant='outline'
+                    className='text-gray01'
+                    key='refuse-sitter'
+                    onClick={() => handleRefused(item)}
+                  >
                     拒絕保姆
                   </Button>
                   <AcceptSitterDialog
