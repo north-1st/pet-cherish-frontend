@@ -18,7 +18,7 @@ export const taskStatusSchema = z.enum(['NULL', 'PENDING', 'UN_PAID', 'TRACKING'
 
 export const taskRequestSchema = z.object({
   title: z.string(),
-  public: z.enum([taskPublicSchema.enum.OPEN, taskPublicSchema.enum.CLOSED]),
+  public: taskPublicSchema,
   cover: z.string().url().catch(''),
   service_type: serviceTypeSchema,
   pet_id: z.string(),
