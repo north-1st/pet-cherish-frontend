@@ -31,3 +31,5 @@ export const PAYMENT_RESULT = {
   [paymentStatusSchema.enum.SUCCESS]: '付款成功',
   [paymentStatusSchema.enum.FAILURE]: '付款失敗',
 };
+
+export const PLATFORM_FEE = 50; // 平台手續費

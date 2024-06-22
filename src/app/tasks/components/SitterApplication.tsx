@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
+import { API_BASE_URL } from '@/const/config';
 import { OrderResponse, orderStatusSchema, ordersRequestSchema } from '@/schemas/orderSchema';
-import { getPetOwnerOrders } from '@/server';
+import { getPetOwnerOrders, updateOrderSteps } from '@/service';
 
 import { formatDateTime } from '@/lib/utils';
 
@@ -12,20 +13,31 @@ import { Button } from '@/components/ui/button';
 import Empty from '@/components/common/view/Empty';
 import PosterCard from '@/components/common/view/PosterCard';
 
+import AcceptSitterDialog from './AcceptSitterDialog';
+
 interface SitterApplicationProps {
   task_id: string;
 }
 const SitterApplication = (props: SitterApplicationProps) => {
   const [applyList, setApplyList] = useState<OrderResponse[]>([]);
+  const [reload, setReload] = useState(false);
 
   const getData = async (task_id: string) => {
     const defaultQuery = ordersRequestSchema.parse({
       task_id,
-      status: `${orderStatusSchema.enum.PENDING},${orderStatusSchema.enum.INVALID}`,
+      status: `${orderStatusSchema.enum.VALID},${orderStatusSchema.enum.PENDING},${orderStatusSchema.enum.INVALID}`,
     });
     const response = await getPetOwnerOrders(defaultQuery);
 
     setApplyList(response.data);
+  };
+
+  const handleRefused = async (targetOrder: OrderResponse) => {
+    await updateOrderSteps(
+      `${API_BASE_URL}/api/v1/orders/${targetOrder.id}/refuse-sitter`,
+      props.task_id
+    );
+    setReload(!reload);
   };
 
   useEffect(() => {
@@ -33,7 +45,7 @@ const SitterApplication = (props: SitterApplicationProps) => {
     if (props.task_id) {
       getData(props.task_id);
     }
-  }, [props.task_id]);
+  }, [props.task_id, reload]);
 
   if (applyList.length === 0) {
     return <Empty />;
@@ -55,12 +67,37 @@ const SitterApplication = (props: SitterApplicationProps) => {
           }}
           actions={
             <>
-              <Button variant='secondary' className='text-gray01' key='refuse-sitter'>
-                拒絕
-              </Button>
-              <Button className='text-gray01' key='accept-sitter'>
-                接受
-              </Button>
+              {item.status === orderStatusSchema.Enum.PENDING && (
+                <>
+                  <Button
+                    variant='outline'
+                    className='text-gray01'
+                    key='refuse-sitter'
+                    onClick={() => handleRefused(item)}
+                  >
+                    拒絕保姆
+                  </Button>
+                  <AcceptSitterDialog
+                    disabled={item.status !== orderStatusSchema.Enum.PENDING}
+                    targetOrder={applyList[0]}
+                    triggerChildren={
+                      <Button className='text-gray01' key='accept-sitter'>
+                        接受接單
+                      </Button>
+                    }
+                  />
+                </>
+              )}
+              {item.status === orderStatusSchema.Enum.INVALID && (
+                <Button disabled={true} variant='secondary' className='w-[200px]'>
+                  已拒絕保姆
+                </Button>
+              )}
+              {item.status === orderStatusSchema.Enum.VALID && (
+                <Button disabled={true} variant='secondary' className='w-[200px]'>
+                  已接受保姆
+                </Button>
+              )}
             </>
           }
         />
