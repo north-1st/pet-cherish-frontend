@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { OrderResponse, PaymentStatus } from '@/schemas/orderSchema';
-import { getOrderById } from '@/server';
+import { getOrderById } from '@/service';
 
 import PaymentResult from '@/components/common/view/PaymentResult';
 
@@ -14,8 +14,9 @@ interface PaymentResultParams {
 }
 export default function Page({ params }: { params: PaymentResultParams }) {
   const [data, setData] = useState<OrderResponse>();
+  // (1) 先更新訂單狀態
 
-  // 取得指定 Order 資料
+  // (2) 取得指定 Order 資料
   const getPageData = async (order_id: string) => {
     const response = await getOrderById(order_id);
     setData(response?.data);
