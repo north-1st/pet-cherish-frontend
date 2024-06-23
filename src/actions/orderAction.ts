@@ -1,6 +1,7 @@
 'use server';
 
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 import { CreateOrderRequest } from '@/schemas/orderSchema';
 
@@ -14,12 +15,26 @@ export const applyForOrder = async (fields: CreateOrderRequest) => {
   return response;
 };
 
-// export const getPetOwnerOrders = async (query: OwnerOrdersRequest) => {
-//   const response = await ServerApiManager.get(
-//     `/api/v1/orders/pet-owner?limit=${query.limit}&page=${query.page}&status=${query.status}`
-//   );
-//   if (response.success) {
-//     revalidateTag('owner-orders');
-//   }
-//   return response;
-// };
+export const paidForOrder = async (orderId: string, task_id: string) => {
+  const response = await ServerApiManager.patch(`/api/v1/orders/${orderId}/paid`, { task_id });
+  if (response.success) {
+    redirect('stripe');
+  }
+  return response;
+};
+
+export const cancelOrder = async (orderId: string, task_id: string) => {
+  const response = await ServerApiManager.patch(`/api/v1/orders/${orderId}/cancel`, { task_id });
+  if (response.success) {
+    revalidatePath('/orders/[role]');
+  }
+  return response;
+};
+
+export const completeOrder = async (orderId: string, task_id: string) => {
+  const response = await ServerApiManager.patch(`/api/v1/orders/${orderId}/complete`, { task_id });
+  if (response.success) {
+    revalidatePath('/orders/[role]');
+  }
+  return response;
+};

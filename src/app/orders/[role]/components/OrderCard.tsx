@@ -1,4 +1,6 @@
-import Link from 'next/link';
+'use client';
+
+import { redirect } from 'next/navigation';
 
 import { SERVICE_TYPE } from '@/const/task';
 import { OrderResponse } from '@/schemas/orderSchema';
@@ -13,7 +15,7 @@ const OrderCard = ({ order, isOwner }: { order: OrderResponse; isOwner: boolean 
   const { task } = order;
 
   return (
-    <Link href={`/tasks/${task.id}`}>
+    <div className='cursor-pointer' onClick={() => redirect(`/tasks/${task.id}`)}>
       <div className='border-b-2 border-gray04 p-4 text-gray02 md:p-6'>
         <OrderCodeStatus className='xl:hidden' order={order} />
         <div className='flex gap-x-3 md:gap-x-6'>
@@ -44,7 +46,7 @@ const OrderCard = ({ order, isOwner }: { order: OrderResponse; isOwner: boolean 
           {isOwner ? <OwnerOrderButtons order={order} /> : <SitterOrderButtons order={order} />}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
