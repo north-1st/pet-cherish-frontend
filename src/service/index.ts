@@ -3,8 +3,12 @@ import {
   OrderPaginationResponse,
   OrdersRequest,
   PaymentRequest,
+  UpdatePaymentStatusOrderRequest,
+  completeResponseBodySchema,
+  completeResponseSchema,
   orderDataResponseSchema,
   ordersPaginationResponseSchema,
+  updatePaymentStatusOrderBodySchema,
 } from '@/schemas/orderSchema';
 import { ReviewListResponse, ownerReviewListResponseSchema } from '@/schemas/reviewSchema';
 import { TaskDataResponse, taskByIdResponseDataSchema } from '@/schemas/taskSchema';
@@ -27,6 +31,7 @@ export const clientCongfig = (method: MethodOption, request?: any) => {
   };
 };
 
+// 查詢：飼主所有評價
 export const getOwnerReviewsByUserId = async (id: string): Promise<ReviewListResponse> => {
   const { success, data } = await ClientApiManager.get(`/api/v1/pet-owners/${id}/reviews`);
 
@@ -37,6 +42,7 @@ export const getOwnerReviewsByUserId = async (id: string): Promise<ReviewListRes
   return ownerReviewListResponseSchema.parse({});
 };
 
+// 查詢：指定任務
 export const getTaskById = async (task_id: string): Promise<TaskDataResponse> => {
   const { success, data } = await ClientApiManager.get(`/api/v1/tasks/${task_id}`);
 
@@ -47,6 +53,7 @@ export const getTaskById = async (task_id: string): Promise<TaskDataResponse> =>
   return taskByIdResponseDataSchema.parse({});
 };
 
+// 查詢：所有訂單<飼主視角>
 export const getPetOwnerOrders = async (query: OrdersRequest): Promise<OrderPaginationResponse> => {
   try {
     const options = clientCongfig('GET');
@@ -71,6 +78,7 @@ export const getPetOwnerOrders = async (query: OrdersRequest): Promise<OrderPagi
   }
 };
 
+// 導轉金流頁面
 export const payForOder = async (request: PaymentRequest) => {
   try {
     const options = clientCongfig('PATCH', request);
@@ -94,6 +102,7 @@ export const payForOder = async (request: PaymentRequest) => {
   }
 };
 
+// 查詢：指定訂單
 export const getOrderById = async (order_id: string) => {
   try {
     const options = clientCongfig('GET');
@@ -115,6 +124,7 @@ export const getOrderById = async (order_id: string) => {
   }
 };
 
+// 訂單狀態更新：拒絕指定保母、接受指定保母、
 export const updateOrderSteps = async (endpoint: string, task_id: string) => {
   try {
     const options = clientCongfig('PATCH', { task_id });
@@ -130,7 +140,61 @@ export const updateOrderSteps = async (endpoint: string, task_id: string) => {
       throw new Error(result.message);
     }
   } catch (error) {
-    console.log('API/updateOrderSteps error: ', error);
+    const targetStep = endpoint.split('/');
+    console.log(`API/${targetStep[targetStep.length - 1]} error: `, error);
+    toast({
+      title: '失敗',
+      description: error instanceof Error ? error.message : '發生錯誤',
+      variant: 'destructive',
+    });
+  }
+};
+
+// 訂單狀態更新：飼主付款
+export const updatePaymentStatusOrder = async (
+  order_id: string,
+  request: UpdatePaymentStatusOrderRequest
+) => {
+  try {
+    const options = clientCongfig('PATCH', request);
+    const response = await fetch(`${API_BASE_URL}/api/v1/orders/${order_id}/paid`, options);
+    const result = await response.json();
+    if (response.ok) {
+      toast({
+        title: '成功',
+        description: result.message,
+      });
+      return result;
+    } else {
+      throw new Error(result.message);
+    }
+  } catch (error) {
+    console.log(`API/payforOrder error: `, error);
+    toast({
+      title: '失敗',
+      description: error instanceof Error ? error.message : '發生錯誤',
+      variant: 'destructive',
+    });
+  }
+};
+
+// Stripe 訂單資訊
+export const paymentComplete = async (session_id: string) => {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/v1/payment/complete?session_id=${session_id}`
+    );
+    const result = await response.json();
+    if (response.ok) {
+      toast({
+        title: '成功',
+        description: result.message,
+      });
+      return completeResponseSchema.parse(result);
+    }
+    return completeResponseSchema.parse({});
+  } catch (error) {
+    console.log('API/paymentComplete error: ', error);
     toast({
       title: '失敗',
       description: error instanceof Error ? error.message : '發生錯誤',
