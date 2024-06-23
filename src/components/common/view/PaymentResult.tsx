@@ -1,11 +1,9 @@
-import { PAYMENT_RESULT, PLATFORM_FEE } from '@/const/order';
+import { PAYMENT_RESULT, PLATFORM_FEE, PaymentMethodVueType } from '@/const/order';
 import { SERVICE_TYPE } from '@/const/task';
 import PayResultIcon from '@/icons/dog.svg';
 import { OrderResponse, PaymentStatus, paymentStatusSchema } from '@/schemas/orderSchema';
 
 import { dateTimeDuration, formatDateTime } from '@/lib/utils';
-
-import Empty from './Empty';
 
 export interface PaymentResultPorps {
   result: PaymentStatus;
@@ -13,10 +11,6 @@ export interface PaymentResultPorps {
 }
 export default function PaymentResult({ result, data }: PaymentResultPorps) {
   const isSuccess = result === paymentStatusSchema.Enum.SUCCESS;
-
-  if (!data) {
-    return <Empty />;
-  }
 
   return (
     <section className='p-5'>
@@ -36,60 +30,69 @@ export default function PaymentResult({ result, data }: PaymentResultPorps) {
         <section className='pt-2'>
           <article className='container'>
             <ul>
-              {/* <li className='m-4 ml-0 flex flex-wrap gap-3'>
-                <h3 className='text-gray02'>流水編號</h3>
-                <strong>{data.payment_id}</strong>
-              </li> */}
-              <li className='m-3 ml-0 flex flex-wrap gap-3'>
+              <li className='m-2 ml-0 flex flex-wrap gap-3'>
+                <h3 className='text-gray02'>付款方式</h3>
+                <strong>{data?.payment_type && PaymentMethodVueType[data.payment_type]}</strong>
+              </li>
+              <li className='m-2 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>付款時間</h3>
-                <strong>{data.payment_at && formatDateTime(new Date(data.payment_at))}</strong>
+                <strong>{data?.payment_at && formatDateTime(new Date(data?.payment_at))}</strong>
               </li>
-              <li className='m-3 ml-0 flex flex-wrap gap-3'>
+              <li className='m-2 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>訂單編號</h3>
-                <span className='text-gray03'>{data.task.id}</span>
+                <span className='text-gray03'>{data?.task.id}</span>
               </li>
-              <li className='m-3 ml-0 flex flex-wrap gap-3'>
+              <li className='m-2 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>任務內容</h3>
-                <strong>{data.task.title}</strong>
+                <strong>{data?.task.title}</strong>
               </li>
-              <li className='m-3 ml-0 flex flex-wrap gap-3'>
+              <li className='m-2 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>任務需求</h3>
-                <strong>{SERVICE_TYPE[data.task.service_type]}</strong>
+                <strong>{data?.task.service_type && SERVICE_TYPE[data.task.service_type]}</strong>
               </li>
-              <li className='m-3 ml-0 flex flex-wrap gap-3'>
+              <li className='m-2 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>任務時間</h3>
-                <strong>{dateTimeDuration(data.task.start_at, data.task.end_at)}</strong>
+                <strong>
+                  {data?.task.start_at &&
+                    data?.task.end_at &&
+                    dateTimeDuration(data.task.start_at, data.task.end_at)}
+                </strong>
               </li>
-              <li className='m-3 ml-0 flex flex-wrap gap-3'>
+              <li className='m-2 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>任務地區</h3>
                 <strong>
-                  {data.task.city} {data.task.district}
+                  {data?.task.city} {data?.task.district}
                 </strong>
               </li>
             </ul>
-            <hr className='my-3 border-t-2 border-gray04' />
-            <h5 className='my-3 text-lg font-bold'>小計</h5>
+            <hr className='my-2 border-t-2 border-gray04' />
+            <h5 className='my-2 text-lg font-bold'>小計</h5>
             <ul>
-              <li className='m-3 ml-0 flex justify-between'>
+              <li className='m-2 ml-0 flex justify-between'>
                 <h3 className='text-gray02'>服務費用 (每30分鐘)</h3>
-                <strong>{data.task.unit_price} 元</strong>
+                <strong>{data?.task.unit_price} 元</strong>
               </li>
-              <li className='m-3 ml-0 flex justify-between'>
+              <li className='m-2 ml-0 flex justify-between'>
                 <h3 className='text-gray02'>服務時間 (每30分鐘)</h3>
-                <strong>X {Math.round(data.task.total / data.task.unit_price)}</strong>
+                <strong>
+                  X{' '}
+                  {data?.task.total &&
+                    data?.task.unit_price &&
+                    Math.round(data?.task.total / data?.task.unit_price)}
+                </strong>
               </li>
-              <li className='m-3 ml-0 flex justify-between'>
+              <li className='m-2 ml-0 flex justify-between'>
                 <h3 className='text-gray02'>平台費用 (每次)</h3>
                 <strong>{PLATFORM_FEE} 元</strong>
               </li>
             </ul>
-            <hr className='my-3 border-t-2 border-gray04' />
+            <hr className='my-2 border-t-2 border-gray04' />
 
             {/* 訂單價格 */}
             <div className='flex items-center justify-between'>
               <h3 className='my-2 text-xl font-bold'>$ 應付金額</h3>
               <strong className='text-bold text-2xl text-brand01'>
-                {data.task.total + PLATFORM_FEE} 元
+                {data?.task.total && data?.task.total + PLATFORM_FEE} 元
               </strong>
             </div>
           </article>
