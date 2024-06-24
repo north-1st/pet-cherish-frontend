@@ -35,7 +35,7 @@ export function AcceptSitterDialog({
         {
           name: SERVICE_TYPE[targetOrder.task.service_type],
           price: targetOrder.task.unit_price,
-          quantity: targetOrder.task.total / targetOrder.task.unit_price,
+          quantity: Math.round(targetOrder.task.total / targetOrder.task.unit_price),
         },
         {
           name: '平台手續費',
@@ -45,6 +45,7 @@ export function AcceptSitterDialog({
       ],
       metadata: {
         order_id: targetOrder.id,
+        task_id: targetOrder.task.id,
       },
     };
     await updateOrderSteps(

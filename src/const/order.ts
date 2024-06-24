@@ -1,4 +1,8 @@
-import { orderStatusSchema, paymentStatusSchema } from '@/schemas/orderSchema';
+import {
+  orderStatusSchema,
+  paymentMethodTypeSchema,
+  paymentStatusSchema,
+} from '@/schemas/orderSchema';
 
 export const ORDER_STATUS = {
   [orderStatusSchema.enum.PENDING]: '待處理',
@@ -33,3 +37,12 @@ export const PAYMENT_RESULT = {
 };
 
 export const PLATFORM_FEE = 50; // 平台手續費
+
+export const PAYMENT_METHOD_VALUE = {
+  [paymentMethodTypeSchema.Enum.card]: '信用卡',
+  [paymentMethodTypeSchema.Enum.bank_transfer]: '銀行轉帳',
+  [paymentMethodTypeSchema.Enum.alipay]: '支付寶',
+  [paymentMethodTypeSchema.Enum.apple_pay]: '蘋果支付',
+  [paymentMethodTypeSchema.Enum.google_pay]: 'Google 支付',
+  [paymentMethodTypeSchema.Enum.wechat]: '微信支付',
+};
