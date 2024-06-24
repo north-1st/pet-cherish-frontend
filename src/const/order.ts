@@ -38,7 +38,7 @@ export const PAYMENT_RESULT = {
 
 export const PLATFORM_FEE = 50; // 平台手續費
 
-export const PaymentMethodVueType = {
+export const PAYMENT_METHOD_VALUE = {
   [paymentMethodTypeSchema.Enum.card]: '信用卡',
   [paymentMethodTypeSchema.Enum.bank_transfer]: '銀行轉帳',
   [paymentMethodTypeSchema.Enum.alipay]: '支付寶',

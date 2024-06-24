@@ -4,11 +4,9 @@ import {
   OrdersRequest,
   PaymentRequest,
   UpdatePaymentStatusOrderRequest,
-  completeResponseBodySchema,
   completeResponseSchema,
   orderDataResponseSchema,
   ordersPaginationResponseSchema,
-  updatePaymentStatusOrderBodySchema,
 } from '@/schemas/orderSchema';
 import { ReviewListResponse, ownerReviewListResponseSchema } from '@/schemas/reviewSchema';
 import { TaskDataResponse, taskByIdResponseDataSchema } from '@/schemas/taskSchema';
@@ -54,19 +52,19 @@ export const getTaskById = async (task_id: string): Promise<TaskDataResponse> =>
 };
 
 // 查詢：所有訂單<飼主視角>
-export const getPetOwnerOrders = async (query: OrdersRequest): Promise<OrderPaginationResponse> => {
+export const getPetOwnerOrders = async (query: OrdersRequest) => {
   try {
     const options = clientCongfig('GET');
     const response = await fetch(
-      `${API_BASE_URL}/api/v1/orders/pet-owner?limit=${query.limit}&page=${query.page}&status=${query.status}&task_id=${query.task_id}`,
+      `${API_BASE_URL}/api/v1/orders/pet-owner?limit=${query.limit}&page=${query.page}&status=${query.status || ''}&task_id=${query.task_id || ''}`,
       options
     );
     const result = await response.json();
     if (response.ok) {
       return ordersPaginationResponseSchema.parse(result);
+    } else {
+      throw new Error(result.message);
     }
-
-    return ordersPaginationResponseSchema.parse({});
   } catch (error) {
     console.log('API/getPetOwnerOrders error: ', error);
     toast({
@@ -74,7 +72,6 @@ export const getPetOwnerOrders = async (query: OrdersRequest): Promise<OrderPagi
       description: error instanceof Error ? error.message : '發生錯誤',
       variant: 'destructive',
     });
-    return ordersPaginationResponseSchema.parse({});
   }
 };
 
