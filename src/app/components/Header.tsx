@@ -46,7 +46,7 @@ const UserDropdownMenu = ({ user, logout }: { user: User | null; logout: () => v
       <DropdownMenuTrigger asChild>
         <div className='flex cursor-pointer items-center gap-3'>
           <Avatar>
-            <AvatarImage src={user?.avatar || 'https://github.com/shadcn.png'} alt='user-avatar' />
+            <AvatarImage src={user?.avatar || '/images/default_avatar.png'} alt='user-avatar' />
             <AvatarFallback>{user?.id}</AvatarFallback>
           </Avatar>
           <span>{user?.real_name}</span>
@@ -139,7 +139,7 @@ const Header = () => {
               <Button variant='outline'>註冊</Button>
             </Link>
             <Link className='text-lg font-bold text-gray-900' href='/login'>
-              <Button>登入</Button>
+              <Button variant='outline'>登入</Button>
             </Link>
           </div>
         )}
