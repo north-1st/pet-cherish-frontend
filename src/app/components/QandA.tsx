@@ -10,7 +10,12 @@ const QandA = () => {
     <section className='bg-[#F5F5F5] pb-24 pt-12'>
       <div className='container'>
         <h2 className='text-center text-3xl font-medium'>常見 Q & A</h2>
-        <Accordion type='single' defaultValue='item-1' collapsible className='mx-auto w-[900px]'>
+        <Accordion
+          type='single'
+          defaultValue='item-1'
+          collapsible
+          className='mx-auto w-[320px] md:w-[900px]'
+        >
           <AccordionItem value='item-1'>
             <AccordionTrigger>使用毛爸媽平台預約服務需要支付額外的手續費嗎？</AccordionTrigger>
             <AccordionContent>

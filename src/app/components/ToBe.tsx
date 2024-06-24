@@ -4,10 +4,10 @@ const ToBe = () => {
   return (
     <section className='py-24'>
       <div className='container'>
-        <div className='relative'>
+        <div className='group relative'>
           <Image
             alt='Woman with a dog'
-            className='aspect-[1739/437] h-auto w-full rounded-lg object-cover'
+            className='aspect-[1739/437] h-auto w-full rounded-lg object-cover group-hover:scale-100'
             height='437'
             src='/images/tobe1.png'
             width='1739'

@@ -9,7 +9,7 @@ const Matchmaking = () => {
     <section className='bg-[#F5F5F5] pb-24 pt-12'>
       <div className='container'>
         <h2 className='text-center text-3xl font-medium'>輕鬆快速媒合寵物保母</h2>
-        <div className='mt-5 flex justify-center space-x-40'>
+        <div className='mt-5 flex flex-col items-center md:flex-row md:items-stretch md:justify-center md:space-x-20'>
           <Card className='border-none bg-transparent shadow-none'>
             <CardContent className='space-y-3 text-center'>
               <SolidClockIcon color='#000' width='32px' height='32px' className='mx-auto' />
