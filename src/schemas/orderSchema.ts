@@ -38,10 +38,10 @@ export const createOrderBodySchema = z.object({
 
 export const ordersRequestSchema = paginationSchema.extend({
   task_id: z.string().optional(),
-  status: z.string(),
+  status: z.string().optional(),
 });
 
-export const orderResponseSchema = z.object({
+export const ownerOrderResponseSchema = z.object({
   id: z.string(),
   pet_owner_user_id: z.string(),
   status: orderStatusSchema,
@@ -64,6 +64,26 @@ export const orderResponseSchema = z.object({
   created_at: z.string().transform((value) => new Date(value)),
   updated_at: z.string().transform((value) => new Date(value)),
   sitter_user: userResponseSchema,
+  task: taskResponseSchema,
+});
+
+const sitterOrdersResponseDataSchema = z.object({
+  id: z.string(),
+  sitter_user_id: z.string(),
+  status: orderStatusSchema,
+  note: z.string(),
+  payment_id: z.string().nullable().optional(),
+  payment_url: z.string().nullable().optional(),
+  payment_status: paymentStatusSchema.nullable().optional(),
+  payment_at: z.string().nullable().optional(),
+  payment_type: paymentMethodTypeSchema.nullable().optional(),
+  report_content: z.string(),
+  report_image_list: z.array(z.string()),
+  report_created_at: z.string().nullable(),
+  report_updated_at: z.string().nullable(),
+  created_at: z.string().datetime(),
+  updated_at: z.string().datetime(),
+  pet_owner_user: userResponseSchema,
   task: taskResponseSchema,
 });
 
@@ -138,7 +158,11 @@ export function createResponsePaginationDataSchema<T extends ZodRawShape>(
 }
 
 export const ordersPaginationResponseSchema =
-  createResponsePaginationDataSchema(orderResponseSchema);
+  createResponsePaginationDataSchema(ownerOrderResponseSchema);
+
+export const sitterOrdersPaginationResponseSchema = createResponsePaginationDataSchema(
+  sitterOrdersResponseDataSchema
+);
 
 export function createBaseResponseDataSchema<T extends ZodRawShape>(dataSchema: ZodObject<T>) {
   return z.object({
@@ -148,25 +172,27 @@ export function createBaseResponseDataSchema<T extends ZodRawShape>(dataSchema: 
 }
 
 export const orderDataResponseSchema = z.object({
-  data: orderResponseSchema,
+  data: ownerOrderResponseSchema,
   status: z.boolean(),
 });
 
 export const completeResponseSchema = createBaseResponseDataSchema(completeResponseBodySchema);
 
-export const orderResponseListSchema = z.array(orderResponseSchema);
+export const orderResponseListSchema = z.array(ownerOrderResponseSchema);
 
 export type OrderRole = z.infer<typeof orderRoleSchema>;
 
 export type OrderStatus = z.infer<typeof orderStatusSchema>;
 
-export type OrderResponse = z.infer<typeof orderResponseSchema>;
+export type OrderResponse = z.infer<typeof ownerOrderResponseSchema>;
 
 export type CreateOrderRequest = z.infer<typeof createOrderBodySchema>;
 
 export type OrdersRequest = z.infer<typeof ordersRequestSchema>;
 
 export type OrderPaginationResponse = z.infer<typeof ordersPaginationResponseSchema>;
+
+export type SitterOrderPaginationResponse = z.infer<typeof sitterOrdersPaginationResponseSchema>;
 
 export type PaymentStatus = z.infer<typeof paymentStatusSchema>;
 

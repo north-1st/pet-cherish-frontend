@@ -1,4 +1,4 @@
-import { PAYMENT_RESULT, PLATFORM_FEE, PaymentMethodVueType } from '@/const/order';
+import { PAYMENT_METHOD_VALUE, PAYMENT_RESULT, PLATFORM_FEE } from '@/const/order';
 import { SERVICE_TYPE } from '@/const/task';
 import PayResultIcon from '@/icons/dog.svg';
 import { OrderResponse, PaymentStatus, paymentStatusSchema } from '@/schemas/orderSchema';
@@ -32,7 +32,7 @@ export default function PaymentResult({ result, data }: PaymentResultPorps) {
             <ul>
               <li className='m-2 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>付款方式</h3>
-                <strong>{data?.payment_type && PaymentMethodVueType[data.payment_type]}</strong>
+                <strong>{data?.payment_type && PAYMENT_METHOD_VALUE[data.payment_type]}</strong>
               </li>
               <li className='m-2 ml-0 flex flex-wrap gap-3'>
                 <h3 className='text-gray02'>付款時間</h3>
