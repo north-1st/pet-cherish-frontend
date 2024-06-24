@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { API_BASE_URL } from '@/const/config';
+import { ORDER_STATUS } from '@/const/order';
 import { OrderResponse, orderStatusSchema, ordersRequestSchema } from '@/schemas/orderSchema';
 import { getPetOwnerOrders, updateOrderSteps } from '@/service';
 
@@ -25,11 +26,11 @@ const SitterApplication = (props: SitterApplicationProps) => {
   const getData = async (task_id: string) => {
     const defaultQuery = ordersRequestSchema.parse({
       task_id,
-      status: `${orderStatusSchema.enum.VALID},${orderStatusSchema.enum.PENDING},${orderStatusSchema.enum.INVALID}`,
     });
     const response = await getPetOwnerOrders(defaultQuery);
-
-    setApplyList(response.data);
+    if (response?.data) {
+      setApplyList(response.data);
+    }
   };
 
   const handleRefused = async (targetOrder: OrderResponse) => {
@@ -98,6 +99,13 @@ const SitterApplication = (props: SitterApplicationProps) => {
                   已接受保姆
                 </Button>
               )}
+              {item.status !== orderStatusSchema.Enum.PENDING &&
+                item.status !== orderStatusSchema.Enum.INVALID &&
+                item.status !== orderStatusSchema.Enum.VALID && (
+                  <Button disabled={true} variant='secondary' className='w-[200px]'>
+                    {ORDER_STATUS[item.status]}
+                  </Button>
+                )}
             </>
           }
         />
