@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 const Jumbotron = () => {
   return (
     <section className="bg-gray04 bg-[url('/images/bg.png')] bg-cover bg-center py-24">
-      <div className='group container flex items-center gap-10'>
+      <div className='group container flex flex-col items-center gap-10 md:flex-row'>
         <Image
           alt='Hero Image'
           className='bg-center object-cover group-hover:scale-100'
