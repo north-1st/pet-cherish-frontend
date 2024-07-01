@@ -87,7 +87,7 @@ export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
             </DialogTrigger>
             <DialogContent className=''>
               <div className='bg-white'>
-                <PaymentResult result='SUCCESS' data={order} />
+                <PaymentResult result='SUCCESS' data={order} className='min-w-[400px]' />
               </div>
             </DialogContent>
           </Dialog>

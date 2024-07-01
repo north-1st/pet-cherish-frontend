@@ -3,18 +3,24 @@ import { SERVICE_TYPE } from '@/const/task';
 import PayResultIcon from '@/icons/dog.svg';
 import { OrderResponse, PaymentStatus, paymentStatusSchema } from '@/schemas/orderSchema';
 
-import { dateTimeDuration, formatDateTime } from '@/lib/utils';
+import { cn, dateTimeDuration, formatDateTime } from '@/lib/utils';
 
 export interface PaymentResultPorps {
   result: PaymentStatus;
   data?: OrderResponse;
+  className?: string;
 }
-export default function PaymentResult({ result, data }: PaymentResultPorps) {
+export default function PaymentResult({ result, data, className }: PaymentResultPorps) {
   const isSuccess = result === paymentStatusSchema.Enum.SUCCESS;
 
   return (
     <section className='p-5'>
-      <div className='m-auto w-[30%] min-w-[500px] rounded-lg border-2 border-gray04 p-5'>
+      <div
+        className={cn(
+          'm-auto w-[30%] min-w-[500px] rounded-lg border-2 border-gray04 p-5',
+          className
+        )}
+      >
         {/* 付款結果 */}
         <div className='flex flex-col items-center justify-center'>
           <PayResultIcon className={`text-[4.5rem] ${isSuccess ? 'text-brand01' : 'text-error'}`} />
