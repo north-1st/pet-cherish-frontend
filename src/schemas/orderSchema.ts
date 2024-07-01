@@ -43,7 +43,6 @@ export const ordersRequestSchema = paginationSchema.extend({
 
 export const ownerOrderResponseSchema = z.object({
   id: z.string(),
-  pet_owner_user_id: z.string(),
   status: orderStatusSchema,
   note: z.string(),
   payment_id: z.string().nullable().optional(),
@@ -180,11 +179,15 @@ export const completeResponseSchema = createBaseResponseDataSchema(completeRespo
 
 export const orderResponseListSchema = z.array(ownerOrderResponseSchema);
 
+export const sitterOrderResponseListSchema = z.array(sitterOrdersResponseDataSchema);
+
 export type OrderRole = z.infer<typeof orderRoleSchema>;
 
 export type OrderStatus = z.infer<typeof orderStatusSchema>;
 
 export type OrderResponse = z.infer<typeof ownerOrderResponseSchema>;
+
+export type SitterOrderResponse = z.infer<typeof sitterOrdersResponseDataSchema>;
 
 export type CreateOrderRequest = z.infer<typeof createOrderBodySchema>;
 
