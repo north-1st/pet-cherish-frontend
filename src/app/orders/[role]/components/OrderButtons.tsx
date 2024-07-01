@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 import { useSearchParams } from 'next/navigation';
 
@@ -9,7 +9,7 @@ import CardIcon from '@/icons/card.svg';
 import StarOutlineIcon from '@/icons/star-outline.svg';
 import StylusIcon from '@/icons/stylus.svg';
 import VisibilityIcon from '@/icons/visibility.svg';
-import { OrderResponse, orderStatusSchema } from '@/schemas/orderSchema';
+import { OrderResponse, SitterOrderResponse, orderStatusSchema } from '@/schemas/orderSchema';
 
 import showToast from '@/lib/showToast';
 import { cn } from '@/lib/utils';
@@ -29,7 +29,6 @@ export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
     id: orderId,
   } = order;
   const { data: status } = orderStatusSchema.safeParse(useSearchParams().get('status'));
-  const [data, setData] = useState<OrderResponse>();
   const ref = useRef<HTMLButtonElement>(null);
 
   if (status == orderStatusSchema.enum.VALID) {
@@ -81,7 +80,7 @@ export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
             </DialogTrigger>
             <DialogContent className=''>
               <div className='bg-white'>
-                <PaymentResult result='SUCCESS' data={data} />
+                <PaymentResult result='SUCCESS' data={order} />
               </div>
             </DialogContent>
           </Dialog>
@@ -104,7 +103,7 @@ export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
   return null;
 };
 
-export const SitterOrderButtons = ({ order }: { order: OrderResponse }) => {
+export const SitterOrderButtons = ({ order }: { order: SitterOrderResponse }) => {
   const { task } = order;
   const { data: status } = orderStatusSchema.safeParse(useSearchParams().get('status'));
 
@@ -169,7 +168,13 @@ const CancelOrderButton = ({ orderId, taskId: task_id }: { orderId: string; task
   );
 };
 
-const ReviewButton = ({ order, isEdit = false }: { order: OrderResponse; isEdit?: boolean }) => {
+const ReviewButton = ({
+  order,
+  isEdit = false,
+}: {
+  order: OrderResponse | SitterOrderResponse;
+  isEdit?: boolean;
+}) => {
   const {
     id: orderId,
     task: { id: taskId },
