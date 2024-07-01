@@ -1,11 +1,10 @@
 import { OWNER_ORDER_STATUS_TAB, SITTER_ORDER_STATUS_TAB } from '@/const/order';
-import { OrderRole, orderRoleSchema } from '@/schemas/orderSchema';
+import { OrderRole, orderResponseListSchema, orderRoleSchema } from '@/schemas/orderSchema';
 
 import ServerApiManager from '@/lib/serverApiManager';
 
 import OrderCard from './components/OrderCard';
 import OrderTab from './components/OrderTab';
-import { fakeData } from './fakeData';
 
 interface OrdersSearchParams {
   status: string;
@@ -21,12 +20,22 @@ export default async function Page({
   const { role } = params;
   const isOwner = role == orderRoleSchema.enum['pet-owner'];
 
-  await ServerApiManager.get(
-    `/api/v1/orders/${role}?limit=10&page=1&status=${searchParams.status}`,
-    {
-      cache: 'no-store',
+  const getData = async () => {
+    const { success, message, data } = await ServerApiManager.get(
+      `/api/v1/orders/${role}?limit=10&page=1&status=${searchParams.status}`,
+      {
+        cache: 'no-store',
+      }
+    );
+
+    if (success == true) {
+      return orderResponseListSchema.parse(data);
+    } else {
+      throw new Error(message);
     }
-  );
+  };
+
+  const orders = await getData();
 
   return (
     <main className='container'>
@@ -43,7 +52,7 @@ export default async function Page({
           </li>
         ))}
       </ul>
-      {fakeData.map((order) => (
+      {orders.map((order) => (
         <OrderCard key={order.id} order={order} isOwner={isOwner} />
       ))}
     </main>
