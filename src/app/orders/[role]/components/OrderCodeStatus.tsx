@@ -1,10 +1,15 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
-import { ORDER_STATUS, OWNER_ORDER_STATUS_TAB } from '@/const/order';
+import { ORDER_STATUS } from '@/const/order';
 import { TASK_STATUS } from '@/const/task';
-import { OrderResponse, SitterOrderResponse, orderStatusSchema } from '@/schemas/orderSchema';
+import {
+  OrderResponse,
+  SitterOrderResponse,
+  orderRoleSchema,
+  orderStatusSchema,
+} from '@/schemas/orderSchema';
 
 import { cn } from '@/lib/utils';
 
@@ -15,9 +20,7 @@ const OrderCodeStatus = ({
   order: OrderResponse | SitterOrderResponse;
   className?: string;
 }) => {
-  const searchParams = useSearchParams();
-  const role = searchParams.get('role');
-  const tab = searchParams.get('status');
+  const { role } = useParams();
   const { task } = order;
 
   let color;
@@ -27,10 +30,13 @@ const OrderCodeStatus = ({
     case orderStatusSchema.enum.CANCELED:
     case orderStatusSchema.enum.INVALID:
       color = 'text-error';
+      if (role == orderRoleSchema.enum.sitter && order.status == orderStatusSchema.enum.INVALID) {
+        statusText = '被拒絕';
+      }
       break;
     default:
       color = order.status == orderStatusSchema.enum.COMPLETED ? 'text-lightGreen' : 'text-brand01';
-      if (role === 'pet-owner' && tab == typeof OWNER_ORDER_STATUS_TAB) {
+      if (role == orderRoleSchema.enum['pet-owner']) {
         statusText = TASK_STATUS[task.status];
       }
   }
