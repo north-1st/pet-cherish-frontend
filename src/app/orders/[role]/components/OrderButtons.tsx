@@ -29,7 +29,6 @@ export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
     id: orderId,
   } = order;
   const { data: status } = orderStatusSchema.safeParse(useSearchParams().get('status'));
-  const [data, setData] = useState<OrderResponse>();
   const ref = useRef<HTMLButtonElement>(null);
 
   if (status == orderStatusSchema.enum.VALID) {
@@ -81,7 +80,7 @@ export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
             </DialogTrigger>
             <DialogContent className=''>
               <div className='bg-white'>
-                <PaymentResult result='SUCCESS' data={data} />
+                <PaymentResult result='SUCCESS' data={order} />
               </div>
             </DialogContent>
           </Dialog>
