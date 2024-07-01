@@ -7,7 +7,7 @@ const GoodSitter = () => {
     <section className='bg-gray-200 pb-24 pt-12'>
       <div className='container'>
         <h2 className='text-center text-3xl font-medium'>優資保姆推薦</h2>
-        <div className='mt-5 flex justify-between'>
+        <div className='mt-5 flex flex-col items-center space-y-3 md:flex-row md:items-stretch md:justify-between md:space-y-0'>
           <Card className='w-[300px]'>
             <CardContent className='p-6'>
               <div className='flex gap-4'>

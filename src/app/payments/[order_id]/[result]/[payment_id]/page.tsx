@@ -4,9 +4,14 @@ import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { API_BASE_URL } from '@/const/config';
-import { OrderResponse, PaymentStatus, paymentStatusSchema } from '@/schemas/orderSchema';
-import { getOrderById, updateOrderSteps } from '@/service';
+import {
+  OrderResponse,
+  PaymentStatus,
+  UpdatePaymentStatusOrderRequest,
+  paymentStatusSchema,
+  stripePaymentStatusSchema,
+} from '@/schemas/orderSchema';
+import { getOrderById, paymentComplete, updatePaymentStatusOrder } from '@/service';
 
 import { Button } from '@/components/ui/button';
 
@@ -21,24 +26,34 @@ export default function Page({ params }: { params: PaymentResultParams }) {
   const router = useRouter();
   const [data, setData] = useState<OrderResponse>();
 
-  // (1) 取得指定 Order 資料
-  // (2) 先更新訂單狀態
-  const getPageData = async (order_id: string) => {
-    const response = await getOrderById(order_id);
-    if (params.result === paymentStatusSchema.Enum.SUCCESS && response?.data) {
-      await updateOrderSteps(
-        `${API_BASE_URL}/api/v1/orders/${order_id}/paid`,
-        response.data.task.id
-      );
+  // (1) Call Stripe Complete API
+  // (2) 更新訂單狀態
+  // (3) 取得指定 Order 資料
+  const getPageData = async (order_id: string, payment_id: string) => {
+    const stripeResponse = await paymentComplete(payment_id); // 看這支能不能給我 task_id
+    if (stripeResponse?.data) {
+      const { metadata, payment_status, payment_intent } = stripeResponse.data.retrieve;
+      const request: UpdatePaymentStatusOrderRequest = {
+        task_id: `${metadata.task_id}`,
+        payment_at: payment_intent.created,
+        payment_status:
+          payment_status === stripePaymentStatusSchema.Enum.paid
+            ? paymentStatusSchema.Enum.SUCCESS
+            : paymentStatusSchema.Enum.FAILURE,
+        payment_type: payment_intent.payment_method.type,
+      };
+      await updatePaymentStatusOrder(order_id, request);
     }
+
+    const response = await getOrderById(order_id);
     setData(response?.data);
   };
 
   useEffect(() => {
-    if (params.order_id) {
-      getPageData(params.order_id);
+    if ((params.order_id, params.payment_id)) {
+      getPageData(params.order_id, params.payment_id);
     }
-  }, [params.order_id]);
+  }, [params.order_id, params.payment_id]);
 
   return (
     <>

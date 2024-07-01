@@ -4,11 +4,17 @@ import { useSearchParams } from 'next/navigation';
 
 import { ORDER_STATUS, OWNER_ORDER_STATUS_TAB } from '@/const/order';
 import { TASK_STATUS } from '@/const/task';
-import { OrderResponse, orderStatusSchema } from '@/schemas/orderSchema';
+import { OrderResponse, SitterOrderResponse, orderStatusSchema } from '@/schemas/orderSchema';
 
 import { cn } from '@/lib/utils';
 
-const OrderCodeStatus = ({ order, className }: { order: OrderResponse; className?: string }) => {
+const OrderCodeStatus = ({
+  order,
+  className,
+}: {
+  order: OrderResponse | SitterOrderResponse;
+  className?: string;
+}) => {
   const searchParams = useSearchParams();
   const role = searchParams.get('role');
   const tab = searchParams.get('status');

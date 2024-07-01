@@ -1,5 +1,10 @@
 import { OWNER_ORDER_STATUS_TAB, SITTER_ORDER_STATUS_TAB } from '@/const/order';
-import { OrderRole, orderResponseListSchema, orderRoleSchema } from '@/schemas/orderSchema';
+import {
+  OrderRole,
+  orderResponseListSchema,
+  orderRoleSchema,
+  sitterOrderResponseListSchema,
+} from '@/schemas/orderSchema';
 
 import ServerApiManager from '@/lib/serverApiManager';
 
@@ -29,7 +34,11 @@ export default async function Page({
     );
 
     if (success == true) {
-      return orderResponseListSchema.parse(data);
+      if (role == orderRoleSchema.enum['pet-owner']) {
+        return orderResponseListSchema.parse(data);
+      } else {
+        return sitterOrderResponseListSchema.parse(data);
+      }
     } else {
       throw new Error(message);
     }
