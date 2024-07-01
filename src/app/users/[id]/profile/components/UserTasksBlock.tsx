@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import Link from 'next/link';
 
 import { SERVICE_TYPE } from '@/const/task';
 import { petListResponseSchema } from '@/schemas/petSchema';
@@ -87,7 +88,10 @@ const UserTasksBlock = async ({ id }: { id: string }) => {
                     }
                     defaultValues={taskRequestSchema.parse(task)}
                   />
-                  <div className={cn('grid gap-y-3 p-4 text-sm', isSelf && 'pt-0')}>
+                  <Link
+                    className={cn('grid gap-y-3 p-4 text-sm', isSelf && 'pt-0')}
+                    href={`/tasks/${task.id}`}
+                  >
                     <h3 className='line-clamp-1 text-lg font-bold'>{task.title}</h3>
                     <div className='mr-auto rounded-2xl border border-gray02 px-3 py-1'>
                       {SERVICE_TYPE[task.service_type]}
@@ -106,7 +110,7 @@ const UserTasksBlock = async ({ id }: { id: string }) => {
                       <p className='text-xl font-bold text-brand01'>{task.total}</p>
                       <p className='text-gray03'>{`(${task.unit_price}元/30分鐘)`}</p>
                     </div>
-                  </div>
+                  </Link>
                 </CardContent>
               </Card>
             );
