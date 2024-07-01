@@ -37,7 +37,8 @@ export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
         <CancelOrderButton orderId={order.id} taskId={task_id} />
         <Button
           className={buttonClassName}
-          onClick={async () => {
+          onClick={async (e) => {
+            e.preventDefault();
             const { success, message } = await paidForOrder(orderId, task_id);
             showToast({
               success,
@@ -58,7 +59,8 @@ export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
       <div className='w-full gap-x-4 md:flex'>
         <Button
           className={cn(buttonClassName, 'md:order-1')}
-          onClick={async () => {
+          onClick={async (e) => {
+            e.preventDefault();
             const { success, message } = await completeOrder(orderId, task_id);
             showToast({
               success,
@@ -70,7 +72,12 @@ export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
         >
           完成任務
         </Button>
-        <div className={ghostButtonsClassName}>
+        <div
+          className={ghostButtonsClassName}
+          onClick={(e) => {
+            e.preventDefault();
+          }}
+        >
           <Dialog>
             <DialogTrigger asChild ref={ref}>
               <Button className={buttonClassName} variant={'ghost'}>
@@ -134,14 +141,26 @@ const ServiceReportButton = ({
 }) => {
   if (isEdit) {
     return (
-      <Button className={buttonClassName} variant={'default'} onClick={() => {}}>
+      <Button
+        className={buttonClassName}
+        variant={'default'}
+        onClick={(e) => {
+          e.preventDefault();
+        }}
+      >
         撰寫報告
       </Button>
     );
   }
 
   return (
-    <Button className={buttonClassName} variant={'ghost'} onClick={() => {}}>
+    <Button
+      className={buttonClassName}
+      variant={'ghost'}
+      onClick={(e) => {
+        e.preventDefault();
+      }}
+    >
       <VisibilityIcon className={iconClassName} />
       服務報告
     </Button>
@@ -153,7 +172,8 @@ const CancelOrderButton = ({ orderId, taskId: task_id }: { orderId: string; task
     <Button
       className={buttonClassName}
       variant={'outline'}
-      onClick={async () => {
+      onClick={async (e) => {
+        e.preventDefault();
         const { success, message } = await cancelOrder(orderId, task_id);
         showToast({
           success,
@@ -182,7 +202,13 @@ const ReviewButton = ({
 
   if (isEdit) {
     return (
-      <Button className={buttonClassName} variant={'ghost'} onClick={() => {}}>
+      <Button
+        className={buttonClassName}
+        variant={'ghost'}
+        onClick={(e) => {
+          e.preventDefault();
+        }}
+      >
         <StylusIcon className={iconClassName} />
         撰寫評價
       </Button>
@@ -190,7 +216,13 @@ const ReviewButton = ({
   }
 
   return (
-    <Button className={buttonClassName} variant={'ghost'} onClick={() => {}}>
+    <Button
+      className={buttonClassName}
+      variant={'ghost'}
+      onClick={(e) => {
+        e.preventDefault();
+      }}
+    >
       <StarOutlineIcon className={iconClassName} />
       查看評價
     </Button>
