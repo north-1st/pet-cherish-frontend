@@ -26,7 +26,7 @@ export default async function Page({
   const isOwner = role == orderRoleSchema.enum['pet-owner'];
 
   const getData = async () => {
-    const { success, message, data } = await ServerApiManager.get(
+    const { success, data } = await ServerApiManager.get(
       `/api/v1/orders/${role}?limit=10&page=1&status=${searchParams.status}`,
       {
         cache: 'no-store',
@@ -40,7 +40,7 @@ export default async function Page({
         return sitterOrderResponseListSchema.parse(data);
       }
     } else {
-      throw new Error(message);
+      return [];
     }
   };
 
