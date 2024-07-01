@@ -1,6 +1,6 @@
 'use client';
 
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 import { SERVICE_TYPE } from '@/const/task';
 import { OrderResponse } from '@/schemas/orderSchema';
@@ -12,10 +12,11 @@ import { OwnerOrderButtons, SitterOrderButtons } from './OrderButtons';
 import OrderCodeStatus from './OrderCodeStatus';
 
 const OrderCard = ({ order, isOwner }: { order: OrderResponse; isOwner: boolean }) => {
+  const router = useRouter();
   const { task } = order;
 
   return (
-    <div className='cursor-pointer' onClick={() => redirect(`/tasks/${task.id}`)}>
+    <div className='cursor-pointer' onClick={() => router.push(`/tasks/${task.id}`)}>
       <div className='border-b-2 border-gray04 p-4 text-gray02 md:p-6'>
         <OrderCodeStatus className='xl:hidden' order={order} />
         <div className='flex gap-x-3 md:gap-x-6'>
