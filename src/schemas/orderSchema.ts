@@ -29,6 +29,7 @@ export const paymentMethodTypeSchema = z.enum([
   'apple_pay',
   'google_pay',
   'wechat',
+  'link',
 ]);
 
 export const createOrderBodySchema = z.object({
