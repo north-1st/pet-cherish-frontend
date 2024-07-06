@@ -45,4 +45,5 @@ export const PAYMENT_METHOD_VALUE = {
   [paymentMethodTypeSchema.Enum.apple_pay]: '蘋果支付',
   [paymentMethodTypeSchema.Enum.google_pay]: 'Google 支付',
   [paymentMethodTypeSchema.Enum.wechat]: '微信支付',
+  [paymentMethodTypeSchema.Enum.link]: 'Link 支付',
 };
