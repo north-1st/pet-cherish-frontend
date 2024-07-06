@@ -1,9 +1,9 @@
 'use server';
 
 import { revalidatePath, revalidateTag } from 'next/cache';
-import { redirect } from 'next/navigation';
 
-import { CreateOrderRequest } from '@/schemas/orderSchema';
+import { SERVICE_TYPE } from '@/const/task';
+import { CreateOrderRequest, OrderResponse } from '@/schemas/orderSchema';
 
 import ServerApiManager from '@/lib/serverApiManager';
 
@@ -15,11 +15,20 @@ export const applyForOrder = async (fields: CreateOrderRequest) => {
   return response;
 };
 
-export const paidForOrder = async (orderId: string, task_id: string) => {
-  const response = await ServerApiManager.patch(`/api/v1/orders/${orderId}/paid`, { task_id });
-  if (response.success) {
-    redirect('stripe');
-  }
+export const paidForOrder = async (order: OrderResponse) => {
+  const response = await ServerApiManager.patch(`/api/v1/orders/${order.id}/payment`, {
+    products: [
+      {
+        name: SERVICE_TYPE[order.task.service_type],
+        price: order.task.unit_price,
+        quantity: Math.round(order.task.total / order.task.unit_price),
+      },
+    ],
+    metadata: {
+      task_id: order.task.id,
+      order_id: order.id,
+    },
+  });
   return response;
 };
 
