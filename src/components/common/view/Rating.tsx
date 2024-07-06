@@ -1,8 +1,8 @@
 import StarFillIcon from '../Icon/StarFillIcon';
 import StarOutlineIcon from '../Icon/StarOutlineIcon';
 
-const Rating = ({ rating }: { rating: number }) => {
-  const ratingArray = new Array(Math.floor(rating)).fill(0);
+const Rating = ({ rating }: { rating: number | null }) => {
+  const ratingArray = new Array(Math.floor(rating ?? 0)).fill(0);
   const emptyRating = new Array(5 - ratingArray.length).fill(0);
 
   return (
