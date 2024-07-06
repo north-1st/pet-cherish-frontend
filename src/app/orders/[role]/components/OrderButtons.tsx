@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { cancelOrder, completeOrder, paidForOrder } from '@/actions/orderAction';
 import CardIcon from '@/icons/card.svg';
@@ -10,6 +10,7 @@ import StarOutlineIcon from '@/icons/star-outline.svg';
 import StylusIcon from '@/icons/stylus.svg';
 import VisibilityIcon from '@/icons/visibility.svg';
 import { OrderResponse, SitterOrderResponse, orderStatusSchema } from '@/schemas/orderSchema';
+import { addDays } from 'date-fns';
 
 import showToast from '@/lib/showToast';
 import { cn } from '@/lib/utils';
@@ -30,6 +31,7 @@ export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
   } = order;
   const { data: status } = orderStatusSchema.safeParse(useSearchParams().get('status'));
   const ref = useRef<HTMLButtonElement>(null);
+  const router = useRouter();
 
   if (status == orderStatusSchema.enum.VALID) {
     return (
@@ -39,13 +41,21 @@ export const OwnerOrderButtons = ({ order }: { order: OrderResponse }) => {
           className={buttonClassName}
           onClick={async (e) => {
             e.preventDefault();
-            const { success, message } = await paidForOrder(orderId, task_id);
-            showToast({
-              success,
-              successTitle: '訂單已付款',
-              errorTitle: '訂單付款失敗',
-              message,
-            });
+            if (new Date() <= addDays(order.updated_at, 1) && order.payment_url) {
+              router.push(order.payment_url);
+              return;
+            }
+
+            const { success, message, data } = await paidForOrder(order);
+            if (success) {
+              router.push(data.payment_url);
+            } else {
+              showToast({
+                success,
+                errorTitle: '連結金流頁面失敗',
+                message,
+              });
+            }
           }}
         >
           前往付款

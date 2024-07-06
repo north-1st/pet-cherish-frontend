@@ -35,3 +35,9 @@ export const dateTimeDuration = (start: Date, end: Date) => {
     return `${startDate} ${formatTime(start)} ~ ${endDate} ${formatTime(end)}`;
   }
 };
+
+export const addDays = (date: Date, days: number) => {
+  const result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+};
