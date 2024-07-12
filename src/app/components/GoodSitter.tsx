@@ -2,39 +2,40 @@ import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 
+import Rating from '@/components/common/view/Rating';
+
 const GoodSitter = () => {
   return (
-    <section className='bg-gray-200 pb-24 pt-12'>
+    <section className='bg-gray04 pb-24 pt-12'>
       <div className='container'>
         <h2 className='text-center text-3xl font-medium'>優資保姆推薦</h2>
-        <div className='mt-5 flex flex-col items-center space-y-3 md:flex-row md:items-stretch md:justify-between md:space-y-0'>
-          <Card className='w-[300px]'>
-            <CardContent className='p-6'>
+        <div className='no-scrollbar mt-5 flex gap-x-6 overflow-scroll'>
+          <Card>
+            <CardContent className='w-80 p-6 xl:w-auto'>
               <div className='flex gap-4'>
                 <Avatar className='h-[72px] w-[72px]'>
-                  <AvatarImage alt='頭像' src='/images/people1.jpg' />
+                  <AvatarImage alt='資優保姆推薦01' src='/images/資優保姆推薦01.png' />
                 </Avatar>
                 <div>
-                  <h3 className='text-xl font-semibold'>張小花</h3>
-                  <div className='mt-2 flex items-baseline justify-center gap-1'>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9734;</span>
-                    <span className='text-xs'>(10)</span>
+                  <h3 className='text-lg font-bold'>張小花</h3>
+                  <div className='mt-2 flex justify-center gap-1'>
+                    <Rating rating={5} />
+                    <span className='text-xs'>(62)</span>
                   </div>
                 </div>
               </div>
               <div className='my-3 flex gap-3'>
-                <Badge className='border-green-500 text-green-500' variant='outline'>
+                <Badge className='border-lightGreen font-normal text-lightGreen' variant='outline'>
                   保姆證
                 </Badge>
-                <Badge className='border-blue-500 text-blue-500' variant='outline'>
+                <Badge
+                  className='border-peacockBlue font-normal text-peacockBlue'
+                  variant='outline'
+                >
                   良民證
                 </Badge>
               </div>
-              <ul className='mx-6 list-disc text-left'>
+              <ul className='mx-6 list-disc text-gray02'>
                 <li>擁有超過三年的專業狗狗照顧經驗。</li>
                 <li>專業證照:寵物急救及護理認證。</li>
                 <li>擅長犬種:從小型狗到大型狗,無所不包。</li>
@@ -43,33 +44,32 @@ const GoodSitter = () => {
               </ul>
             </CardContent>
           </Card>
-          <Card className='w-[300px]'>
-            <CardContent className='p-6'>
+          <Card>
+            <CardContent className='w-80 p-6 xl:w-auto'>
               <div className='flex gap-4'>
                 <Avatar className='h-[72px] w-[72px]'>
-                  <AvatarImage alt='頭像' src='/images/people1.jpg' />
+                  <AvatarImage alt='資優保姆推薦02' src='/images/資優保姆推薦02.png' />
                 </Avatar>
                 <div>
-                  <h3 className='text-xl font-semibold'>張小花</h3>
-                  <div className='mt-2 flex items-baseline justify-center gap-1'>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9734;</span>
-                    <span className='text-xs'>(10)</span>
+                  <h3 className='text-lg font-bold'>李寶藍</h3>
+                  <div className='mt-2 flex justify-center gap-1'>
+                    <Rating rating={4} />
+                    <span className='text-xs'>(101)</span>
                   </div>
                 </div>
               </div>
               <div className='my-3 flex gap-3'>
-                <Badge className='border-green-500 text-green-500' variant='outline'>
+                <Badge className='border-lightGreen font-normal text-lightGreen' variant='outline'>
                   保姆證
                 </Badge>
-                <Badge className='border-blue-500 text-blue-500' variant='outline'>
+                <Badge
+                  className='border-peacockBlue font-normal text-peacockBlue'
+                  variant='outline'
+                >
                   良民證
                 </Badge>
               </div>
-              <ul className='mx-6 list-disc text-left'>
+              <ul className='mx-6 list-disc text-gray02'>
                 <li>專注於幼犬的早期教育和社交化。</li>
                 <li>經驗豐富:已成功訓練超過50隻幼犬適應家庭生活。</li>
                 <li>持有動物行為學課程證書。</li>
@@ -78,33 +78,32 @@ const GoodSitter = () => {
               </ul>
             </CardContent>
           </Card>
-          <Card className='w-[300px]'>
-            <CardContent className='p-6'>
+          <Card>
+            <CardContent className='w-80 p-6 xl:w-auto'>
               <div className='flex gap-4'>
                 <Avatar className='h-[72px] w-[72px]'>
-                  <AvatarImage alt='頭像' src='/images/people1.jpg' />
+                  <AvatarImage alt='資優保姆推薦03' src='/images/資優保姆推薦03.png' />
                 </Avatar>
                 <div>
-                  <h3 className='text-xl font-semibold'>張小花</h3>
-                  <div className='mt-2 flex items-baseline justify-center gap-1'>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9734;</span>
-                    <span className='text-xs'>(10)</span>
+                  <h3 className='text-lg font-bold'>王天樂</h3>
+                  <div className='mt-2 flex justify-center gap-1'>
+                    <Rating rating={4} />
+                    <span className='text-xs'>(83)</span>
                   </div>
                 </div>
               </div>
               <div className='my-3 flex gap-3'>
-                <Badge className='border-green-500 text-green-500' variant='outline'>
+                <Badge className='border-lightGreen font-normal text-lightGreen' variant='outline'>
                   保姆證
                 </Badge>
-                <Badge className='border-blue-500 text-blue-500' variant='outline'>
+                <Badge
+                  className='border-peacockBlue font-normal text-peacockBlue'
+                  variant='outline'
+                >
                   良民證
                 </Badge>
               </div>
-              <ul className='mx-6 list-disc text-left'>
+              <ul className='mx-6 list-disc text-gray02'>
                 <li>超過五年照顧特殊需求狗狗的經驗。</li>
                 <li>專業技能:熟練於處理焦慮、害怕和過度活躍的狗狗。</li>
                 <li>提供日常訓練和行為矯正服務。</li>
@@ -113,33 +112,32 @@ const GoodSitter = () => {
               </ul>
             </CardContent>
           </Card>
-          <Card className='w-[300px]'>
-            <CardContent className='p-6'>
+          <Card>
+            <CardContent className='w-80 p-6 xl:w-auto'>
               <div className='flex gap-4'>
                 <Avatar className='h-[72px] w-[72px]'>
-                  <AvatarImage alt='頭像' src='/images/people1.jpg' />
+                  <AvatarImage alt='資優保姆推薦04' src='/images/資優保姆推薦04.png' />
                 </Avatar>
                 <div>
-                  <h3 className='text-xl font-semibold'>張小花</h3>
-                  <div className='mt-2 flex items-baseline justify-center gap-1'>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9733;</span>
-                    <span className='h-5 w-5 text-yellow-400'>&#9734;</span>
-                    <span className='text-xs'>(10)</span>
+                  <h3 className='text-lg font-bold'>趙心樂</h3>
+                  <div className='mt-2 flex justify-center gap-1'>
+                    <Rating rating={5} />
+                    <span className='text-xs'>(77)</span>
                   </div>
                 </div>
               </div>
               <div className='my-3 flex gap-3'>
-                <Badge className='border-green-500 text-green-500' variant='outline'>
+                <Badge className='border-lightGreen font-normal text-lightGreen' variant='outline'>
                   保姆證
                 </Badge>
-                <Badge className='border-blue-500 text-blue-500' variant='outline'>
+                <Badge
+                  className='border-peacockBlue font-normal text-peacockBlue'
+                  variant='outline'
+                >
                   良民證
                 </Badge>
               </div>
-              <ul className='mx-6 list-disc text-left'>
+              <ul className='mx-6 list-disc text-gray02'>
                 <li>擁有豐富的跨犬種照顧經驗。</li>
                 <li>專注於寵物心理健康,提供情感支持。</li>
                 <li>定期參加專業進修課程,不斷提升照顧技巧。</li>

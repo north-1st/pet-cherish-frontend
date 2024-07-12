@@ -28,6 +28,7 @@ const config = {
         gray04: '#F5F5F5',
         grayIcon: '#1C1B1F',
         lightGreen: '#41C255',
+        peacockBlue: '#2C9BB4',
         error: '#F34343',
         alert: '#f27474',
 
