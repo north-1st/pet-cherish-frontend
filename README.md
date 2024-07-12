@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# pet-cherish-frontend
 
-## Getting Started
+此為寵樂的前端服務。使用 Next.js 和 TypeScript 構建。本專案集成了多種 React 套件和工具，以提供最佳的開發體驗和高效的程式碼管理。
 
-First, run the development server:
+### 前置準備
+
+- Node.js（版本 18.7 以上）
+- npm（版本 6.x 以上）
+
+### 安裝
+
+```bash
+npm install
+```
+
+### 開發
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 語法檢查和格式化
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+本專案使用 ESLint 進行語法檢查，使用 Prettier 進行程式碼格式化。確保程式碼符合專案的規則，執行以下指令：
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm run lint
+npm run format
+```
 
-## Learn More
+### Husky 和 Lint-Staged
 
-To learn more about Next.js, take a look at the following resources:
+Husky 用於管理 Git hooks，lint-staged 用於在暫存文件上運行 linters。要設置 Husky，執行：
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run prepare
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### 專案技術
 
-## Deploy on Vercel
+- [React](https://reactjs.org/)
+- [Next App Router](https://nextjs.org/)
+- [Nookies](https://github.com/maticzav/nookies)
+- [React Hook Form](https://react-hook-form.com/)
+- [Shadcn UI](https://ui.shadcn.com/)
+- [Sweetalert2](https://sweetalert2.github.io)
+- [Zod](https://zod.dev/)
+- [Zustand](https://github.com/pmndrs/zustand)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 開發技術
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [ESLint](https://eslint.org/)
+
+- [Husky](https://github.com/typicode/husky)
+- [lint-staged](https://github.com/okonet/lint-staged)
+- [Prettier](https://prettier.io/)
+- [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
+- [Tailwindcss](https://tailwindcss.com/)
+- [Typescript](https://www.typescriptlang.org/)
+
+### 專案結構
+
+```bash
+src/
+├── actions/           # Next.js server action
+├── app/               # Next.js 頁面
+├── components/        # React 元件
+├── const/             # 常數
+├── hooks/             # 客製化 hooks
+├── lib/               # 工具函式
+├── schemas/           # 資料型別定義
+├── styles/            # 全局樣式
+└── types/             # 資料型別定義
+```
