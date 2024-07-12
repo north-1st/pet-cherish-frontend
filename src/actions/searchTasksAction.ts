@@ -31,9 +31,6 @@ export const searchTasksAction = async (formData: FormData) => {
 
   const queryParams = new URLSearchParams({
     ...rawFormData,
-    service_district_list: service_district_list.join(','),
-    service_type_list: service_type_list.join(','),
-    pet_size_list: pet_size_list.join(','),
     page: '1',
     limit: '99999',
     offset: '0',
