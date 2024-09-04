@@ -76,9 +76,12 @@ const SitterForm = ({ setSitterList }: SitterFormProps) => {
 
     const formData = new FormData();
     formData.append('service_city', newData.service_city);
-    formData.append('service_district_list', newData.service_district_list.join(','));
-    // formData.append('certificate_list', newData.certificate_list.join(','));
-    formData.append('service_type_list', newData.service_type_list.join(','));
+    if (newData.service_district_list.length > 0) {
+      formData.append('service_district_list', newData.service_district_list.join(','));
+    }
+    if (newData.service_type_list.length > 0) {
+      formData.append('service_type_list', newData.service_type_list.join(','));
+    }
 
     try {
       const result: SearchSittersResponse = await searchSittersAction(formData);
